@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Instrument List</title>
+</head>
+<body>
+<div>
+    <ol th:each="tool : ${toolList}">
+        <li th:text="${tool.getName()}"></li>
+    </ol>
+</div>
+
+</body>
+</html>
