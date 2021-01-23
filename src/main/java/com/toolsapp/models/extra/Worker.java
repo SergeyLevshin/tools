@@ -1,6 +1,8 @@
 package com.toolsapp.models.extra;
 
-import com.toolsapp.models.instrument.Instrument;
+import com.toolsapp.models.instrument.Accessory;
+import com.toolsapp.models.instrument.CuttingTool;
+import com.toolsapp.models.instrument.MeasuringTool;
 
 import java.util.List;
 
@@ -8,13 +10,14 @@ public class Worker {
 
     private int id;
 
-    private List<Instrument> toolList;
-
     public int getId() {
         return id;
     }
 
-    public List<Instrument> getToolList() {
-        return toolList;
-    }
+    private List<Accessory> accessoryList;
+
+    private List<CuttingTool> cuttingTools;
+
+    private List<MeasuringTool> measuringTools;
+
 }
