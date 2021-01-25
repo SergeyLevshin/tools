@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Cutting Tool</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/addCuttingTool}"
+      th:object="${tool}">
+    <label for="name">Name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+
+    <a th:href="@{/show}">Back</a>
+
+</form>
+</body>
+</html>

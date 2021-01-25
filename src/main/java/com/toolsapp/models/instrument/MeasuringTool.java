@@ -1,26 +1,13 @@
 package com.toolsapp.models.instrument;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.time.LocalDate;
-
+import java.util.Date;
 
 @Entity
-public class MeasuringTool {
-
-    @Id
-    private int id;
-
-    private String name;
+public class MeasuringTool extends Instrument {
 
     //After this date the tool should be sent for checking.
-    private LocalDate checkDate;
+    private Date checkDate;
 
-    public MeasuringTool() {
-    }
 
-    public MeasuringTool(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 }

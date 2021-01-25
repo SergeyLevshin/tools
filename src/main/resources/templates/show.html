@@ -6,10 +6,10 @@
 </head>
 <body>
 <div>
-    <ol th:each="tool : ${toolList}">
-        <li th:text="${tool.getName()}"></li>
+    <ol th:each="instrument : ${instruments}">
+        <li th:text="${instrument}"></li>
     </ol>
 </div>
-
+<a href="/addCuttingTool">New Cutting Tool</a>
 </body>
 </html>
