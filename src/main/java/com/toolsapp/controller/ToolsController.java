@@ -1,9 +1,7 @@
 package com.toolsapp.controller;
 
-import com.toolsapp.models.instrument.Accessory;
 import com.toolsapp.models.instrument.CuttingTool;
-import com.toolsapp.models.instrument.Instrument;
-import com.toolsapp.repository.InstrumentRepository;
+import com.toolsapp.repository.CuttingToolsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,33 +17,31 @@ import java.util.List;
 @RequestMapping("/")
 public class ToolsController {
 
-    private InstrumentRepository repository;
+    private CuttingToolsRepository repository;
 
     @Autowired
-    public ToolsController(InstrumentRepository repository) {
+    public ToolsController(CuttingToolsRepository repository) {
         this.repository = repository;
     }
 
     @GetMapping()
     public String show(Model model) {
-        List<Instrument> instruments = new ArrayList<>();
+        List<CuttingTool> tools = new ArrayList<>();
         repository.findAll()
-                .forEach(i -> instruments.add(i));
-        model.addAttribute("instruments",
-                instruments);
-        for (Instrument instrument : instruments)
-            System.out.println(instrument);
+                .forEach(tools::add);
+        model.addAttribute("tools",
+                tools);
         return "/show";
     }
 
-    @GetMapping("/addCuttingTool")
+    @GetMapping("addCuttingTool")
     public String add() {
         return "/addCuttingTool";
     }
 
-    @PostMapping("/addCuttingTool")
-    public String addCuttingTool(@ModelAttribute("tool") CuttingTool tool) {
+    @PostMapping("addCuttingTool")
+    public String addCuttingTool(CuttingTool tool, Model model) {
         repository.save(tool);
-        return "redirect:/show";
+        return "redirect:/";
     }
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Product {
 
-    private String id;
+    private long id;
 
     private String name;
 
@@ -18,7 +18,7 @@ public class Product {
 
     private List<MeasuringTool> measuringTools;
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 

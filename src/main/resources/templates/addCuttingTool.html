@@ -5,13 +5,25 @@
     <title>New Cutting Tool</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/addCuttingTool}"
-      th:object="${tool}">
+<form th:method="POST" th:action="@{/addCuttingTool}">
     <label for="name">Name: </label>
-    <input type="text" th:field="*{name}" id="name"/>
-
-    <a th:href="@{/show}">Back</a>
-
+    <input name="name" type="text" id="name"/>
+    <br/>
+    <label>Producer: </label>
+    <select name="producer">
+        <option th:each="producerOpt : ${T(com.toolsapp.models.instrument.Producer).values()}"
+                th:value="${producerOpt}" th:text="${producerOpt.getName}">
+        </option>
+    </select>
+    <br/>
+    <label for="price">Price: </label>
+    <input name="price" type="number" step="any" id="price"/>
+    <br/>
+    <label for="quantity">Quantity: </label>
+    <input name="quantity" type="number" step="1." id="quantity"/>
+    <br/>
+    <input type="submit" value="Add Tool">
 </form>
+<a href="/show">Back</a>
 </body>
 </html>

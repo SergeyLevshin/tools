@@ -6,9 +6,11 @@
 </head>
 <body>
 <div>
-    <ol th:each="instrument : ${instruments}">
-        <li th:text="${instrument}"></li>
-    </ol>
+    <tr th:each="tool : ${tools}">
+        <td th:text="${tool.getName()}" ></td>
+        <td th:text="${tool.getProducer().getName()}"></td>
+        <br/>
+    </tr>
 </div>
 <a href="/addCuttingTool">New Cutting Tool</a>
 </body>

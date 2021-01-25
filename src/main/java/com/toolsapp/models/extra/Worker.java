@@ -8,9 +8,9 @@ import java.util.List;
 
 public class Worker {
 
-    private int id;
+    private long id;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

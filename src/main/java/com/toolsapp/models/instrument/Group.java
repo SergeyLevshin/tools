@@ -6,18 +6,18 @@ import java.util.List;
 
 public class Group implements Serializable {
 
-    private String id;
+    private long id;
 
     private List<Group> children;
 
     public Group() {
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 }
