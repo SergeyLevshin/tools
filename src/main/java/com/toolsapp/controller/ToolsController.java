@@ -1,14 +1,11 @@
 package com.toolsapp.controller;
 
 import com.toolsapp.models.instrument.CuttingTool;
-import com.toolsapp.repository.CuttingToolsRepository;
+import com.toolsapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,18 +14,16 @@ import java.util.List;
 @RequestMapping("/")
 public class ToolsController {
 
-    private CuttingToolsRepository repository;
+    private final UserService service;
 
     @Autowired
-    public ToolsController(CuttingToolsRepository repository) {
-        this.repository = repository;
+    public ToolsController(UserService service) {
+        this.service = service;
     }
 
-    @GetMapping()
+    @GetMapping("/show")
     public String show(Model model) {
-        List<CuttingTool> tools = new ArrayList<>();
-        repository.findAll()
-                .forEach(tools::add);
+        List<CuttingTool> tools = new ArrayList<>(service.findAll());
         model.addAttribute("tools",
                 tools);
         return "/show";
@@ -41,7 +36,17 @@ public class ToolsController {
 
     @PostMapping("addCuttingTool")
     public String addCuttingTool(CuttingTool tool, Model model) {
-        repository.save(tool);
+        service.save(tool);
+        return "redirect:/show";
+    }
+
+    @GetMapping("give")
+    public String give() {
+        return "/give";
+    }
+
+    @PatchMapping("/give")
+    public String giveTool() {
         return "redirect:/";
     }
 }

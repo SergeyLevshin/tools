@@ -1,4 +1,4 @@
-package com.toolsapp.models.instrument;
+package com.toolsapp.models.extra;
 
 public enum Producer {
     ISCAR("Iscar"),

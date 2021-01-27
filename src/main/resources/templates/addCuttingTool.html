@@ -9,9 +9,16 @@
     <label for="name">Name: </label>
     <input name="name" type="text" id="name"/>
     <br/>
+    <label>Group: </label>
+    <select name="group">
+        <option th:each="groupOpt : ${T(com.toolsapp.models.extra.Group).values()}"
+                th:value="${groupOpt}" th:text="${groupOpt.getName}">
+        </option>
+    </select>
+    <br/>
     <label>Producer: </label>
     <select name="producer">
-        <option th:each="producerOpt : ${T(com.toolsapp.models.instrument.Producer).values()}"
+        <option th:each="producerOpt : ${T(com.toolsapp.models.extra.Producer).values()}"
                 th:value="${producerOpt}" th:text="${producerOpt.getName}">
         </option>
     </select>

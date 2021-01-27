@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:method="PATCH" th:action="@{/give}">
+    <label for="name">Name: </label>
+    <input name="name" type="text" id="name"/>
+    <br/>
+    <label for="quantity">Quantity: </label>
+    <input name="quantity" type="number" step="1." id="quantity"/>
+    <br/>
+    <label for="worker">Worker: </label>
+    <input name="worker" type="text" id="worker"/>
+    <br/>
+    <input type="submit" value="Выдать">
+</form>
+</body>
+</html>
