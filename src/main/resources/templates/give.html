@@ -5,15 +5,23 @@
     <title>Title</title>
 </head>
 <body>
-<form th:method="PATCH" th:action="@{/give}">
-    <label for="name">Name: </label>
-    <input name="name" type="text" id="name"/>
+<form th:method="POST" th:action="@{/give}">
+    <label>Наименование: </label>
+    <select name="tool">
+        <option th:each="tool : ${tools}"
+                th:value="${tool}" th:text="${tool.getName()}">
+        </option>
+    </select>
     <br/>
-    <label for="quantity">Quantity: </label>
+    <label for="quantity">Количество: </label>
     <input name="quantity" type="number" step="1." id="quantity"/>
     <br/>
-    <label for="worker">Worker: </label>
-    <input name="worker" type="text" id="worker"/>
+    <label>Рабочий: </label>
+    <select name="worker">
+        <option th:each="worker : ${workers}"
+                th:value="${worker}" th:text="${worker.getName()}">
+        </option>
+    </select>
     <br/>
     <input type="submit" value="Выдать">
 </form>

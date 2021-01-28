@@ -6,14 +6,23 @@
 </head>
 <body>
 <div>
+    <tr>
+        <td>Наименование</td>
+        <td>Производитель</td>
+        <td>Количество на складе</td>
+        <br/>
+    </tr>
     <tr th:each="tool : ${tools}">
         <td th:text="${tool.getName()}" ></td>
         <td th:text="${tool.getProducer().getName()}"></td>
+        <td th:text="${tool.getQuantity()}"></td>
         <br/>
     </tr>
 </div>
-<a href="/addCuttingTool">New Cutting Tool</a>
+<a href="/addCuttingTool">Добавить новый инструмент</a>
 <br/>
-<a href="/give">Give</a>
+<a href="/give">Выдать</a>
+<br/>
+<a href="/delete">Удалить инструмент из базы</a>
 </body>
 </html>

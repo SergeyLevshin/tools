@@ -6,7 +6,8 @@ import com.toolsapp.models.instrument.MeasuringTool;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Entity
 @Table(name = "worker")
@@ -19,40 +20,44 @@ public class Worker {
     @Column(name = "name")
     private String name;
 
-    @OneToMany
-    private List<Accessory> accessoryList;
+    @ElementCollection
+    private Map<Accessory, Integer> accessories = new HashMap<>();
 
-    @OneToMany
-    private List<CuttingTool> cuttingTools;
+    @ElementCollection
+    private Map<CuttingTool, Integer> cuttingTools = new HashMap<>();
 
-    @OneToMany
-    private List<MeasuringTool> measuringTools;
+    @ElementCollection
+    private Map<MeasuringTool, Integer> measuringTools = new HashMap<>();
 
     public long getId() {
         return id;
     }
 
-    public List<Accessory> getAccessoryList() {
-        return accessoryList;
+    public String getName() {
+        return name;
     }
 
-    public void setAccessoryList(List<Accessory> accessoryList) {
-        this.accessoryList = accessoryList;
+    public Map<Accessory, Integer> getAccessories() {
+        return accessories;
     }
 
-    public List<CuttingTool> getCuttingTools() {
+    public void setAccessories(Map<Accessory, Integer> accessories) {
+        this.accessories = accessories;
+    }
+
+    public Map<CuttingTool, Integer> getCuttingTools() {
         return cuttingTools;
     }
 
-    public void setCuttingTools(List<CuttingTool> cuttingTools) {
+    public void setCuttingTools(Map<CuttingTool, Integer> cuttingTools) {
         this.cuttingTools = cuttingTools;
     }
 
-    public List<MeasuringTool> getMeasuringTools() {
+    public Map<MeasuringTool, Integer> getMeasuringTools() {
         return measuringTools;
     }
 
-    public void setMeasuringTools(List<MeasuringTool> measuringTools) {
+    public void setMeasuringTools(Map<MeasuringTool, Integer> measuringTools) {
         this.measuringTools = measuringTools;
     }
 }
