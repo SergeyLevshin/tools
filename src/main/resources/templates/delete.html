@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Удалить инструмент из базы</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/delete}">
+    <label>Наименование: </label>
+    <select name="id">
+        <option>Выберите инструмент</option>
+        <option th:each="tool : ${tools}"
+                th:value="${tool.getId()}"
+                th:text="${tool.getName()}">
+        </option>
+    </select>
+    <br/>
+    <input type="submit" value="Удалить">
+</form>
+<a href="/show">Назад</a>
+</body>
+</html>

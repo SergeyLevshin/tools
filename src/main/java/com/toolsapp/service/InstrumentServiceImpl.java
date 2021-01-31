@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InstrumentServiceImpl implements InstrumentService {
@@ -24,7 +26,7 @@ public class InstrumentServiceImpl implements InstrumentService {
 
     @Override
     public List<CuttingTool> findAll() {
-        return cuttingToolsRepo.findAll();
+        return (List<CuttingTool>) cuttingToolsRepo.findAll();
     }
 
     @Override
@@ -34,19 +36,23 @@ public class InstrumentServiceImpl implements InstrumentService {
 
     @Override
     @Transactional
-    public void giveToolToWorker(CuttingTool tool, int quantity, Worker worker) {
+    public void giveToolToWorker(long toolId, int quantity, long workerId) {
+        CuttingTool tool = cuttingToolsRepo.findById(toolId).orElse(new CuttingTool());
+        Worker worker = workerRepo.findById(workerId).orElse(new Worker());
+
         if (tool.getQuantity() < quantity)
             return;
         tool.setQuantity(tool.getQuantity() - quantity);
         int tempQuantity = worker.getCuttingTools().get(tool);
         worker.getCuttingTools().put(tool, tempQuantity + quantity);
+
         cuttingToolsRepo.save(tool);
         workerRepo.save(worker);
     }
 
     @Override
-    public void delete(CuttingTool tool) {
-        cuttingToolsRepo.delete(tool);
+    public void delete(long id) {
+        cuttingToolsRepo.deleteById(id);
     }
 
 }

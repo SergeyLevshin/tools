@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,9 +55,9 @@ public class ToolsController {
     }
 
     @PostMapping("/give")
-    public String giveTool(CuttingTool tool,
-                           int quantity, Worker worker) {
-//        instrumentService.giveToolToWorker(tool, quantity, worker);
+    public String giveTool(@Valid long toolId,
+                           int quantity, @Valid long workerId) {
+        instrumentService.giveToolToWorker(toolId, quantity, workerId);
         return "redirect:/show";
     }
 
@@ -68,8 +69,9 @@ public class ToolsController {
     }
 
     @PostMapping("delete")
-    public String deleteItem(CuttingTool tool) {
-        instrumentService.delete(tool);
+    public String deleteItem(@Valid long id) {
+        System.out.println(id);
+        instrumentService.delete(id);
         return "redirect:/show";
     }
 

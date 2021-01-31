@@ -7,9 +7,9 @@
 <body>
 <form th:method="POST" th:action="@{/give}">
     <label>Наименование: </label>
-    <select name="tool">
+    <select name="toolId">
         <option th:each="tool : ${tools}"
-                th:value="${tool}" th:text="${tool.getName()}">
+                th:value="${tool.getId()}" th:text="${tool.getName()}">
         </option>
     </select>
     <br/>
@@ -17,13 +17,14 @@
     <input name="quantity" type="number" step="1." id="quantity"/>
     <br/>
     <label>Рабочий: </label>
-    <select name="worker">
+    <select name="workerId">
         <option th:each="worker : ${workers}"
-                th:value="${worker}" th:text="${worker.getName()}">
+                th:value="${worker.getId()}" th:text="${worker.getName()}">
         </option>
     </select>
     <br/>
     <input type="submit" value="Выдать">
 </form>
+<a href="/show">Список инструмента</a>
 </body>
 </html>

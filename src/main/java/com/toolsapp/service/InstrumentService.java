@@ -9,9 +9,9 @@ public interface InstrumentService {
     
     void save(CuttingTool cuttingTool);
 
-    void giveToolToWorker(CuttingTool tool, int quantity, Worker worker);
+    void giveToolToWorker(long toolId, int quantity, long workerId);
 
-    void delete(CuttingTool tool);
+    void delete(long id);
 
     List<CuttingTool> findAll();
 }
