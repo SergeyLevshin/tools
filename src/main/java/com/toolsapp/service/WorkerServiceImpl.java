@@ -10,16 +10,16 @@ import java.util.List;
 @Service
 public class WorkerServiceImpl implements WorkerService {
 
-    private final WorkerRepository workerRepository;
+    private final WorkerRepository repository;
 
     @Autowired
-    public WorkerServiceImpl(WorkerRepository workerRepository) {
-        this.workerRepository = workerRepository;
+    public WorkerServiceImpl(WorkerRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public List<Worker> findAll() {
-        return (List<Worker>) workerRepository.findAll();
+        return (List<Worker>) repository.findAll();
     }
 
 }

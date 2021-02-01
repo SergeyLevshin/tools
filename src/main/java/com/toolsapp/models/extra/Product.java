@@ -5,6 +5,8 @@ import com.toolsapp.models.instrument.CuttingTool;
 import com.toolsapp.models.instrument.MeasuringTool;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -12,18 +14,21 @@ import java.util.List;
 public class Product {
 
     @Id
+    @GeneratedValue
     private long id;
 
+    @NotBlank
+    @Column(name = "name")
     private String name;
 
     @OneToMany
-    private List<Accessory> accessoryList;
+    private List<Accessory> accessoryList = new ArrayList<>();
 
     @OneToMany
-    private List<CuttingTool> cuttingTools;
+    private List<CuttingTool> cuttingTools = new ArrayList<>();
 
     @OneToMany
-    private List<MeasuringTool> measuringTools;
+    private List<MeasuringTool> measuringTools = new ArrayList<>();
 
     public long getId() {
         return id;

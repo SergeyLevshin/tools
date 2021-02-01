@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Новое изделие</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/product/addProduct}">
+    <label for="name">Название: </label>
+    <input name="name" type="text" id="name"/>
+    <br/>
+    <input type="submit" value="Добавить изделие">
+</form>
+</body>
+</html>

@@ -6,30 +6,30 @@
 </head>
 <body>
 <form th:method="POST" th:action="@{/addCuttingTool}">
-    <label for="name">Name: </label>
+    <label for="name">Название: </label>
     <input name="name" type="text" id="name"/>
     <br/>
-    <label>Group: </label>
+    <label>Группа: </label>
     <select name="group">
         <option th:each="groupOpt : ${T(com.toolsapp.models.extra.Group).values()}"
                 th:value="${groupOpt}" th:text="${groupOpt.getName}">
         </option>
     </select>
     <br/>
-    <label>Producer: </label>
+    <label>Производитель: </label>
     <select name="producer">
         <option th:each="producerOpt : ${T(com.toolsapp.models.extra.Producer).values()}"
                 th:value="${producerOpt}" th:text="${producerOpt.getName}">
         </option>
     </select>
     <br/>
-    <label for="price">Price: </label>
+    <label for="price">Цена: </label>
     <input name="price" type="number" step="any" id="price"/>
     <br/>
-    <label for="quantity">Quantity: </label>
+    <label for="quantity">Количество: </label>
     <input name="quantity" type="number" step="1." id="quantity"/>
     <br/>
-    <input type="submit" value="Add Tool">
+    <input type="submit" value="Добавить инструмент">
 </form>
 <a href="/show">Back</a>
 </body>

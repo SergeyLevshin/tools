@@ -1,6 +1,5 @@
 package com.toolsapp.service;
 
-import com.toolsapp.models.extra.Worker;
 import com.toolsapp.models.instrument.CuttingTool;
 
 import java.util.List;

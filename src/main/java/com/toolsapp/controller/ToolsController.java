@@ -57,7 +57,6 @@ public class ToolsController {
     @PostMapping("/give")
     public String giveTool(@Valid long toolId,
                            int quantity, @Valid long workerId) {
-        System.out.println(toolId + " " + quantity + " " + workerId);
         instrumentService.giveToolToWorker(toolId, quantity, workerId);
         return "redirect:/show";
     }

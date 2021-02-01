@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список изделий</title>
+</head>
+<div>
+    <tr>
+        <td>Название</td>
+    </tr>
+    <tr th:each="product : ${products}">
+        <td th:text="${product.getName()}" ></td>
+        <br/>
+    </tr>
+</div>
+<a href="/product/addProduct">Добавить новое изделие</a>
+<br/>
+</body>
+</html>

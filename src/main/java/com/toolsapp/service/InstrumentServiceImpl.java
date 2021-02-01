@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class InstrumentServiceImpl implements InstrumentService {
@@ -37,6 +35,7 @@ public class InstrumentServiceImpl implements InstrumentService {
     @Override
     @Transactional
     public void giveToolToWorker(long toolId, int quantity, long workerId) {
+        //TODO need to extract methods and handle NPE instead .orElse(...);
         CuttingTool tool = cuttingToolsRepo.findById(toolId).orElse(new CuttingTool());
         Worker worker = workerRepo.findById(workerId).orElse(new Worker());
 
@@ -44,12 +43,20 @@ public class InstrumentServiceImpl implements InstrumentService {
             return;
 
         tool.setQuantity(tool.getQuantity() - quantity);
+
         int tempQuantity = worker.getCuttingTools().getOrDefault(tool.getId(), 0);
         worker.getCuttingTools().put(tool.getId(), tempQuantity + quantity);
 
         cuttingToolsRepo.save(tool);
         workerRepo.save(worker);
     }
+
+//    private void checkToolQuantity(Long toolId, int quantity) {
+//        CuttingTool tool = cuttingToolsRepo.findById(toolId).orElse(new CuttingTool());
+//        if (tool.getQuantity() < quantity)
+//            return;
+//        tool.setQuantity(tool.getQuantity() - quantity);
+//    }
 
     @Override
     public void delete(long id) {

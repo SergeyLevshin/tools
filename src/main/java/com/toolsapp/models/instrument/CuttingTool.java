@@ -29,6 +29,7 @@ public class CuttingTool {
     @Enumerated(EnumType.STRING)
     private Producer producer;
 
+    @Min(value = 0)
     @Column(name = "price")
     private BigDecimal price;
 
