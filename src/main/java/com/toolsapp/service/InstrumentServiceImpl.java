@@ -42,9 +42,10 @@ public class InstrumentServiceImpl implements InstrumentService {
 
         if (tool.getQuantity() < quantity)
             return;
+
         tool.setQuantity(tool.getQuantity() - quantity);
-        int tempQuantity = worker.getCuttingTools().get(tool);
-        worker.getCuttingTools().put(tool, tempQuantity + quantity);
+        int tempQuantity = worker.getCuttingTools().getOrDefault(tool.getId(), 0);
+        worker.getCuttingTools().put(tool.getId(), tempQuantity + quantity);
 
         cuttingToolsRepo.save(tool);
         workerRepo.save(worker);
