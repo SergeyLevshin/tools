@@ -6,8 +6,9 @@ import com.toolsapp.models.instrument.MeasuringTool;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "product")
@@ -18,47 +19,72 @@ public class Product {
     private long id;
 
     @NotBlank
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     private String name;
 
-    @OneToMany
-    private List<Accessory> accessoryList = new ArrayList<>();
+    @ManyToMany
+    private Set<Accessory> accessoryList = new HashSet<>();
 
-    @OneToMany
-    private List<CuttingTool> cuttingTools = new ArrayList<>();
+    @ManyToMany
+    private Set<CuttingTool> cuttingTools = new HashSet<>();
 
-    @OneToMany
-    private List<MeasuringTool> measuringTools = new ArrayList<>();
+    @ManyToMany
+    private Set<MeasuringTool> measuringTools = new HashSet<>();
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public List<Accessory> getAccessoryList() {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<Accessory> getAccessoryList() {
         return accessoryList;
     }
 
-    public void setAccessoryList(List<Accessory> accessoryList) {
+    public void setAccessoryList(Set<Accessory> accessoryList) {
         this.accessoryList = accessoryList;
     }
 
-    public List<CuttingTool> getCuttingTools() {
+    public Set<CuttingTool> getCuttingTools() {
         return cuttingTools;
     }
 
-    public void setCuttingTools(List<CuttingTool> cuttingTools) {
+    public void setCuttingTools(Set<CuttingTool> cuttingTools) {
         this.cuttingTools = cuttingTools;
     }
 
-    public List<MeasuringTool> getMeasuringTools() {
+    public Set<MeasuringTool> getMeasuringTools() {
         return measuringTools;
     }
 
-    public void setMeasuringTools(List<MeasuringTool> measuringTools) {
+    public void setMeasuringTools(Set<MeasuringTool> measuringTools) {
         this.measuringTools = measuringTools;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return id == product.id &&
+                name.equals(product.name) &&
+                accessoryList.equals(product.accessoryList) &&
+                cuttingTools.equals(product.cuttingTools) &&
+                measuringTools.equals(product.measuringTools);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, accessoryList, cuttingTools, measuringTools);
     }
 }

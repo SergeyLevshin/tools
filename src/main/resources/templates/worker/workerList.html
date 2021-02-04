@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список рабочих</title>
+</head>
+<body>
+<div>
+    <tr>
+        <td>Таблельный номер</td>
+        <td>Фамилия</td>
+    <tr/>
+    <br/>
+    <tr th:each="worker : ${workers}">
+        <td th:text="${worker.getId()}"></td>
+        <td th:text="${worker.getName}"></td>
+        <td>
+            <a th:href="@{/worker/workers/{id}(id=${worker.getId()})}">Смотреть</a>
+        </td>
+        <br/>
+    </tr>
+</div>
+
+</body>
+</html>

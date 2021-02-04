@@ -7,13 +7,19 @@
 <div>
     <tr>
         <td>Название</td>
+        <td>Подробнее</td>
     </tr>
+    <br/>
     <tr th:each="product : ${products}">
         <td th:text="${product.getName()}" ></td>
+        <td>
+            <a th:href="@{/product/products/{id}(id=${product.getId()})}">Смотреть</a>
+        </td>
         <br/>
     </tr>
 </div>
 <a href="/product/addProduct">Добавить новое изделие</a>
 <br/>
+<a href="/">Главная</a>
 </body>
 </html>

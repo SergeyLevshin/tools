@@ -9,7 +9,15 @@
     <label for="name">Название: </label>
     <input name="name" type="text" id="name"/>
     <br/>
+    <label>Инструмент: </label>
+    <select name="toolId">
+        <option th:each="tool : ${tools}"
+                th:value="${tool.getId()}" th:text="${tool.getName()}">
+        </option>
+    </select>
+    <br/>
     <input type="submit" value="Добавить изделие">
 </form>
+<a href="/">Главная</a>
 </body>
 </html>

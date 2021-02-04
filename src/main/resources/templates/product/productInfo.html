@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${product.getName}">Наименование</title>
+</head>
+<body>
+<h1 th:text="${product.getName}">Наименование</h1>
+<br/>
+<p>Список инструмента и оснастки</p>
+<br/>
+    <tr th:each="tool : ${product.getCuttingTools()}">
+        <td th:text="${tool.getName()}"></td>
+        <br/>
+    </tr>
+<br/>
+<br/>
+<form th:method="POST" th:action="@{/product/products/{id}(id=${product.getId()})}">
+    <label>Инструмент</label>
+    <select name="toolId">
+        <option th:each="tool : ${tools}"
+                th:value="${tool.getId()}" th:text="${tool.getName()}">
+        </option>
+    </select>
+    <input type="submit" value="Добавить">
+</form>
+<form th:method="POST" th:action="@{/product/deleteProduct/{id}(id=${product.getId()})}">
+    <input type="submit" value="Удалить">
+</form>
+<a href="/">Главная</a>
+</body>
+</html>

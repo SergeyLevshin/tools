@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${worker.getName()}">Title</title>
+</head>
+<body>
+<h1 th:text="${worker.getName()}"></h1>
+<br/>
+<tr>
+    <td>Наименование</td>
+    <td>Количество</td>
+    <td>Списать количество</td>
+    <br/>
+</tr>
+<tr th:each="tool : ${tools.entrySet()}">
+    <form th:method="POST"
+          th:action="@{/worker/remove/{id}(id=${worker.getId()})}">
+        <td th:text="${tool.getKey().getName()}"></td>
+        <td th:text="${tool.getValue()}"></td>
+        <input name="quantity" type="number" step="1." id="quantity"/>
+        <input type="hidden" name="toolId" th:value="${tool.getKey().getId()}"/>
+        <input type="submit" value="Списать">
+        <br/>
+    </form>
+</tr>
+<br/>
+
+
+</tr>
+
+</body>
+</html>

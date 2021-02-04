@@ -13,4 +13,7 @@ public interface InstrumentService {
     void delete(long id);
 
     List<CuttingTool> findAll();
+
+    CuttingTool findById(long id);
+
 }

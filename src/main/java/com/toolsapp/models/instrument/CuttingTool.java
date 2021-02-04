@@ -2,12 +2,15 @@ package com.toolsapp.models.instrument;
 
 import com.toolsapp.models.extra.Group;
 import com.toolsapp.models.extra.Producer;
+import com.toolsapp.models.extra.Product;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class CuttingTool {
@@ -17,13 +20,12 @@ public class CuttingTool {
     private long id;
 
     @NotBlank
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     private String name;
 
     @Column(name = "groups")
     @Enumerated(EnumType.STRING)
     private Group group;
-
 
     @Column(name = "producer")
     @Enumerated(EnumType.STRING)
@@ -33,9 +35,12 @@ public class CuttingTool {
     @Column(name = "price")
     private BigDecimal price;
 
-    @Min(value = 1)
+    @Min(value = 0)
     @Column(name = "quantity")
     private int quantity;
+
+    @ManyToMany
+    private Set<Product> products = new HashSet<>();
 
     public long getId() {
         return id;
@@ -75,6 +80,14 @@ public class CuttingTool {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 
     @Override

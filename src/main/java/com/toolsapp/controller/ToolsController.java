@@ -20,7 +20,6 @@ public class ToolsController {
     private final InstrumentService instrumentService;
     private final WorkerService workerService;
 
-    @Autowired
     public ToolsController(InstrumentService instrumentService, WorkerService workerService) {
         this.instrumentService = instrumentService;
         this.workerService = workerService;
@@ -28,7 +27,7 @@ public class ToolsController {
 
     @GetMapping("/show")
     public String show(Model model) {
-        List<CuttingTool> tools = new ArrayList<>(instrumentService.findAll());
+        List<CuttingTool> tools = instrumentService.findAll();
         model.addAttribute("tools",
                 tools);
         return "/show";
@@ -70,7 +69,6 @@ public class ToolsController {
 
     @PostMapping("delete")
     public String deleteItem(@Valid long id) {
-        System.out.println(id);
         instrumentService.delete(id);
         return "redirect:/show";
     }
