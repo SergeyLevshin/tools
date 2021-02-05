@@ -39,6 +39,10 @@ public class CuttingTool {
     @Column(name = "quantity")
     private int quantity;
 
+    @Min(value = 0)
+    @Column(name = "quantity_in_use")
+    private int quantityInUse;
+
     @ManyToMany
     private Set<Product> products = new HashSet<>();
 
@@ -80,6 +84,14 @@ public class CuttingTool {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public int getQuantityInUse() {
+        return quantityInUse;
+    }
+
+    public void setQuantityInUse(int quantityInUse) {
+        this.quantityInUse = quantityInUse;
     }
 
     public Set<Product> getProducts() {

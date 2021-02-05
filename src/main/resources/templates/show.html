@@ -10,12 +10,14 @@
         <td>Наименование</td>
         <td>Производитель</td>
         <td>Количество на складе</td>
+        <td>Количество в работе</td>
         <br/>
     </tr>
     <tr th:each="tool : ${tools}">
         <td th:text="${tool.getName()}" ></td>
         <td th:text="${tool.getProducer().getName()}"></td>
         <td th:text="${tool.getQuantity()}"></td>
+        <td th:text="${tool.getQuantityInUse()}"></td>
         <br/>
     </tr>
 </div>

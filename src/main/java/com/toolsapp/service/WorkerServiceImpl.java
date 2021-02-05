@@ -35,9 +35,14 @@ public class WorkerServiceImpl implements WorkerService {
     @Transactional
     @Override
     public Map<CuttingTool, Integer> workerTools(long id) {
-        Map<CuttingTool, Integer> resultMap = new HashMap<>();
         Map<Long, Integer> toolIdMap =
-                workerRepository.findById(id).orElse(null).getCuttingTools();
+                workerRepository.findById(id).orElseThrow().getCuttingTools();
+        return createToolMap(toolIdMap);
+    }
+
+    @Transactional
+    private Map<CuttingTool, Integer> createToolMap(Map<Long, Integer> toolIdMap){
+        Map<CuttingTool, Integer> resultMap = new HashMap<>();
         for (Map.Entry<Long, Integer> tool : toolIdMap.entrySet()) {
             CuttingTool newTool = toolsRepository.findById(tool.getKey()).orElseThrow();
             resultMap.put(newTool, tool.getValue());
@@ -48,13 +53,28 @@ public class WorkerServiceImpl implements WorkerService {
     @Transactional
     @Override
     public void removeTool(long workerId, long toolId, int quantity) {
-        Worker worker = workerRepository.findById(workerId).orElseThrow();
-        int newQuantity = worker.getCuttingTools().get(toolId) - quantity;
-        if (newQuantity >= 0) {
-            worker.getCuttingTools().put(toolId, newQuantity);
-            workerRepository.save(worker);
-        }
+        removeToolFromWorker(workerId, toolId, quantity);
+        changeQuantityInUse(toolId, quantity);
     }
 
+    @Transactional
+    private void removeToolFromWorker(long workerId, long toolId, int quantity) {
+        Worker worker = workerRepository.findById(workerId).orElseThrow();
+        int newQuantity = worker.getCuttingTools().get(toolId) - quantity;
+        if (newQuantity > 0) {
+            worker.getCuttingTools().put(toolId, newQuantity);
+        }
+        if (newQuantity == 0) {
+            worker.getCuttingTools().remove(toolId);
+        }
+        workerRepository.save(worker);
 
+    }
+
+    @Transactional
+    private void changeQuantityInUse(long toolId, int quantity) {
+        CuttingTool tool = toolsRepository.findById(toolId).orElseThrow();
+        tool.setQuantityInUse(tool.getQuantityInUse() - quantity);
+        toolsRepository.save(tool);
+    }
 }

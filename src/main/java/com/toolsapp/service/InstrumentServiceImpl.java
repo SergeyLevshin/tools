@@ -38,37 +38,39 @@ public class InstrumentServiceImpl implements InstrumentService {
     @Override
     @Transactional
     public void giveToolToWorker(long toolId, int quantity, long workerId) {
-        //TODO need to extract methods and handle NPE instead .orElse(...);
-        CuttingTool tool = cuttingToolsRepo.findById(toolId).orElse(null);
-        Worker worker = workerRepo.findById(workerId).orElse(null);
+        if (checkToolQuantityFromTool(toolId, quantity))
+            setToolQuantityFromWorker(workerId, toolId, quantity);
 
-        if (tool.getQuantity() < quantity)
-            return;
-
-        tool.setQuantity(tool.getQuantity() - quantity);
-
-        int tempQuantity = worker.getCuttingTools().getOrDefault(tool.getId(), 0);
-        worker.getCuttingTools().put(tool.getId(), tempQuantity + quantity);
-
-        cuttingToolsRepo.save(tool);
-        workerRepo.save(worker);
     }
 
-//    private void checkToolQuantity(Long toolId, int quantity) {
-//        CuttingTool tool = cuttingToolsRepo.findById(toolId).orElse(new CuttingTool());
-//        if (tool.getQuantity() < quantity)
-//            return;
-//        tool.setQuantity(tool.getQuantity() - quantity);
-//    }
+    @Transactional
+    private boolean checkToolQuantityFromTool(long toolId, int quantity) {
+        CuttingTool tool = cuttingToolsRepo.findById(toolId).orElseThrow();
+        if (tool.getQuantity() >= quantity) {
+            tool.setQuantity(tool.getQuantity() - quantity);
+            tool.setQuantityInUse(tool.getQuantityInUse() + quantity);
+            cuttingToolsRepo.save(tool);
+            return true;
+        }
+        return false;
+    }
+
+    @Transactional
+    private void setToolQuantityFromWorker(long workerId, long toolId, int quantity){
+        Worker worker = workerRepo.findById(workerId).orElseThrow();
+        int tempQuantity = worker.getCuttingTools().getOrDefault(toolId, 0);
+        worker.getCuttingTools().put(toolId, tempQuantity + quantity);
+        workerRepo.save(worker);
+    }
 
     @Transactional
     @Override
     public void delete(long id) {
-        //TODO check quantity of selected tool(by id) from all workers
-        //TODO if quantity from each worker == 0, then delete, else do nothing
-        //TODO or throw some exception
-        workerRepo.findAll();
-        cuttingToolsRepo.deleteById(id);
+        int quantity = cuttingToolsRepo.findById(id).orElseThrow().getQuantity();
+        int quantityInUse = cuttingToolsRepo.findById(id).orElseThrow().getQuantityInUse();
+        if (quantity == 0 && quantityInUse == 0) {
+            cuttingToolsRepo.deleteById(id);
+        }
     }
 
 }
