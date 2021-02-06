@@ -1,21 +1,21 @@
 package com.toolsapp.service;
 
 import com.toolsapp.models.extra.Worker;
-import com.toolsapp.models.instrument.CuttingTool;
-import com.toolsapp.repository.CuttingToolsRepository;
-import com.toolsapp.repository.WorkerRepository;
+import com.toolsapp.models.tools.CuttingTool;
+import com.toolsapp.repository.tools.CuttingToolsRepository;
+import com.toolsapp.repository.tools.WorkerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-public class InstrumentServiceImpl implements InstrumentService {
+public class CuttingToolServiceImpl implements CuttingToolService {
 
     private final CuttingToolsRepository cuttingToolsRepo;
     private final WorkerRepository workerRepo;
 
-    public InstrumentServiceImpl(CuttingToolsRepository cuttingToolsRepo, WorkerRepository workerRepo) {
+    public CuttingToolServiceImpl(CuttingToolsRepository cuttingToolsRepo, WorkerRepository workerRepo) {
         this.cuttingToolsRepo = cuttingToolsRepo;
         this.workerRepo = workerRepo;
     }

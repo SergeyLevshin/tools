@@ -1,8 +1,8 @@
 package com.toolsapp.demo;
 
 import com.toolsapp.controller.ToolsController;
-import com.toolsapp.repository.CuttingToolsRepository;
-import com.toolsapp.repository.WorkerRepository;
+import com.toolsapp.repository.tools.CuttingToolsRepository;
+import com.toolsapp.repository.tools.WorkerRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package com.toolsapp.models.instrument;
+package com.toolsapp.models.tools;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

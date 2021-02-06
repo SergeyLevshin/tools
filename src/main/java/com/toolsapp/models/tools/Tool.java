@@ -1,19 +1,15 @@
-package com.toolsapp.models.instrument;
+package com.toolsapp.models.tools;
 
 import com.toolsapp.models.extra.Group;
 import com.toolsapp.models.extra.Producer;
-import com.toolsapp.models.extra.Product;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
 
-@Entity
-public class CuttingTool {
+@MappedSuperclass
+public abstract class Tool {
 
     @Id
     @GeneratedValue
@@ -43,9 +39,6 @@ public class CuttingTool {
     @Column(name = "quantity_in_use")
     private int quantityInUse;
 
-    @ManyToMany
-    private Set<Product> products = new HashSet<>();
-
     public long getId() {
         return id;
     }
@@ -60,6 +53,14 @@ public class CuttingTool {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public Producer getProducer() {
@@ -93,25 +94,5 @@ public class CuttingTool {
     public void setQuantityInUse(int quantityInUse) {
         this.quantityInUse = quantityInUse;
     }
-
-    public Set<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(Set<Product> products) {
-        this.products = products;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof CuttingTool)) return false;
-        CuttingTool that = (CuttingTool) o;
-        return id == that.id && quantity == that.quantity && name.equals(that.name) && group == that.group && producer == that.producer && price.equals(that.price);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, group, producer, price, quantity);
-    }
 }
+

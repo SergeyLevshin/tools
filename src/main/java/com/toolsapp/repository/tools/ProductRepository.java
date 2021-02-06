@@ -1,4 +1,4 @@
-package com.toolsapp.repository;
+package com.toolsapp.repository.tools;
 
 import com.toolsapp.models.extra.Product;
 import org.springframework.data.repository.CrudRepository;

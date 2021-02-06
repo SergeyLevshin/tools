@@ -1,10 +1,10 @@
 package com.toolsapp.service;
 
-import com.toolsapp.models.instrument.CuttingTool;
+import com.toolsapp.models.tools.CuttingTool;
 
 import java.util.List;
 
-public interface InstrumentService {
+public interface CuttingToolService {
     
     void save(CuttingTool cuttingTool);
 

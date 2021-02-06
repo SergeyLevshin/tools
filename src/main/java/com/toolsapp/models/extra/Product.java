@@ -1,8 +1,8 @@
 package com.toolsapp.models.extra;
 
-import com.toolsapp.models.instrument.Accessory;
-import com.toolsapp.models.instrument.CuttingTool;
-import com.toolsapp.models.instrument.MeasuringTool;
+import com.toolsapp.models.tools.Accessory;
+import com.toolsapp.models.tools.CuttingTool;
+import com.toolsapp.models.tools.MeasuringTool;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

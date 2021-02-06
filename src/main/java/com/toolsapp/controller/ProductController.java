@@ -1,9 +1,8 @@
 package com.toolsapp.controller;
 
 import com.toolsapp.models.extra.Product;
-import com.toolsapp.service.InstrumentServiceImpl;
+import com.toolsapp.service.CuttingToolServiceImpl;
 import com.toolsapp.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -20,9 +18,9 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
-    private final InstrumentServiceImpl instrumentService;
+    private final CuttingToolServiceImpl instrumentService;
 
-    public ProductController(ProductService productService, InstrumentServiceImpl instrumentService) {
+    public ProductController(ProductService productService, CuttingToolServiceImpl instrumentService) {
         this.productService = productService;
         this.instrumentService = instrumentService;
     }
