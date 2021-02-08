@@ -3,7 +3,7 @@ package com.toolsapp.service;
 import com.toolsapp.models.extra.Worker;
 import com.toolsapp.models.tools.CuttingTool;
 import com.toolsapp.repository.tools.CuttingToolsRepository;
-import com.toolsapp.repository.tools.WorkerRepository;
+import com.toolsapp.repository.extra.WorkerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

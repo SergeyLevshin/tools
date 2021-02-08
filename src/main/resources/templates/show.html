@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Instrument List</title>
+    <title>Список инструмента</title>
     <link rel="stylesheet" type="text/css"
           href="/css/web.css">
 </head>
@@ -14,7 +14,8 @@
             <tr>
                 <td>Наименование</td>
                 <td>Производитель</td>
-                 <td>Количество на складе</td>
+                <td>Группа</td>
+                <td>Количество на складе</td>
                 <td>Количество в работе</td>
                 <br/>
             </tr>
@@ -25,6 +26,7 @@
             <tr th:each="tool : ${tools}">
                 <td th:text="${tool.getName()}" ></td>
                 <td th:text="${tool.getProducer().getName()}"></td>
+                <td th:text="${tool.getGroup().getName()}"></td>
                 <td th:text="${tool.getQuantity()}"></td>
                 <td th:text="${tool.getQuantityInUse()}"></td>
             </tr>

@@ -1,6 +1,6 @@
 package com.toolsapp.controller;
 
-import com.toolsapp.service.WorkerService;
+import com.toolsapp.service.extra.WorkerService;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;

@@ -1,7 +1,7 @@
 package com.toolsapp.controller;
 
 import com.toolsapp.models.extra.Worker;
-import com.toolsapp.service.WorkerService;
+import com.toolsapp.service.extra.WorkerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

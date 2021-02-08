@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Управление дополнительными свойствами</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/property/addGroup}">
+    <label for="groupName">Название: </label>
+    <input name="name" type="text" id="groupName"/>
+    <br/>
+    <input type="submit" value="Добавить группу">
+</form>
+<br/>
+<form th:method="POST" th:action="@{/property/addProducer}">
+    <label for="producerName">Название: </label>
+    <input name="name" type="text" id="producerName"/>
+    <br/>
+    <input type="submit" value="Добавить производителя">
+</form>
+
+</body>
+</html>

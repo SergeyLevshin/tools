@@ -1,14 +1,15 @@
 package com.toolsapp.models.tools;
 
-import com.toolsapp.models.extra.Group;
-import com.toolsapp.models.extra.Producer;
+import com.toolsapp.models.extra.property.Group;
+import com.toolsapp.models.extra.property.Producer;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Tool {
 
     @Id
@@ -19,12 +20,12 @@ public abstract class Tool {
     @Column(name = "name", unique = true)
     private String name;
 
-    @Column(name = "groups")
-    @Enumerated(EnumType.STRING)
+    @OneToOne
+    @JoinColumn(name = "group_id")
     private Group group;
 
-    @Column(name = "producer")
-    @Enumerated(EnumType.STRING)
+    @OneToOne
+    @JoinColumn(name = "producer_id")
     private Producer producer;
 
     @Min(value = 0)

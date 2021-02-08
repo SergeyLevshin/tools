@@ -2,7 +2,7 @@ package com.toolsapp.controller;
 
 import com.toolsapp.models.extra.Product;
 import com.toolsapp.service.CuttingToolServiceImpl;
-import com.toolsapp.service.ProductService;
+import com.toolsapp.service.extra.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

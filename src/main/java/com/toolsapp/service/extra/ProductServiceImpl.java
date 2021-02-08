@@ -1,8 +1,8 @@
-package com.toolsapp.service;
+package com.toolsapp.service.extra;
 
 import com.toolsapp.models.extra.Product;
 import com.toolsapp.models.tools.CuttingTool;
-import com.toolsapp.repository.tools.ProductRepository;
+import com.toolsapp.repository.extra.ProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -1,9 +1,13 @@
 package com.toolsapp.controller;
 
 import com.toolsapp.models.extra.Worker;
+import com.toolsapp.models.extra.property.Group;
+import com.toolsapp.models.extra.property.Producer;
 import com.toolsapp.models.tools.CuttingTool;
 import com.toolsapp.service.CuttingToolService;
-import com.toolsapp.service.WorkerService;
+import com.toolsapp.service.extra.WorkerService;
+import com.toolsapp.service.extra.property.GroupService;
+import com.toolsapp.service.extra.property.ProducerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,22 +21,29 @@ public class ToolsController {
 
     private final CuttingToolService cuttingToolService;
     private final WorkerService workerService;
+    private final GroupService groupService;
+    private final ProducerService producerService;
 
-    public ToolsController(CuttingToolService cuttingToolService, WorkerService workerService) {
+    public ToolsController(CuttingToolService cuttingToolService, WorkerService workerService, GroupService groupService, ProducerService producerService) {
         this.cuttingToolService = cuttingToolService;
         this.workerService = workerService;
+        this.groupService = groupService;
+        this.producerService = producerService;
     }
 
     @GetMapping("/show")
     public String show(Model model) {
         List<CuttingTool> tools = cuttingToolService.findAll();
-        model.addAttribute("tools",
-                tools);
+        model.addAttribute("tools", tools);
         return "/show";
     }
 
     @GetMapping("addCuttingTool")
-    public String add() {
+    public String add(Model model) {
+        List<Producer> producers = producerService.findAll();
+        List<Group> groups = groupService.findAll();
+        model.addAttribute("producers", producers);
+        model.addAttribute("groups", groups);
         return "/addCuttingTool";
     }
 
