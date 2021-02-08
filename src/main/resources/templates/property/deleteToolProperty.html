@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Управление дополнительными свойствами</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/property/deleteGroup}">
+    <label>Группа: </label>
+    <select name="id">
+        <option th:each="group : ${groups}"
+                th:value="${group.getId()}" th:text="${group.getName()}">
+        </option>
+    </select>
+    <br/>
+    <input type="submit" value="Удалить группу">
+</form>
+<br/>
+<form th:method="POST" th:action="@{/property/deleteProducer}">
+    <label>Производитель: </label>
+    <select name="id">
+        <option th:each="producer : ${producers}"
+                th:value="${producer.getId()}" th:text="${producer.getName()}">
+        </option>
+    </select>
+    <br/>
+    <input type="submit" value="Удалить производителя">
+</form>
+
+</body>
+</html>

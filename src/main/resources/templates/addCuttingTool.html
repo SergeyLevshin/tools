@@ -19,7 +19,7 @@
     <label>Производитель: </label>
     <select name="producer">
         <option th:each="producer : ${producers}"
-                th:value="${producer.getName()}" th:text="${producer.getName()}">
+                th:value="${producer.getId()}" th:text="${producer.getName()}">
         </option>
     </select>
     <br/>
