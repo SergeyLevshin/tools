@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class CuttingTool extends Tool{
+public class CuttingTool extends AbstractTool {
 
     @ManyToMany
     private Set<Product> products = new HashSet<>();

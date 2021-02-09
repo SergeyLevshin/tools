@@ -1,9 +1,9 @@
 package com.toolsapp.repository.tools;
 
-import com.toolsapp.models.tools.Tool;
+import com.toolsapp.models.tools.AbstractTool;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
 @NoRepositoryBean
-public interface ToolRepository<E extends Tool> extends CrudRepository<E, Long> {
+public interface AbstractToolRepository<E extends AbstractTool> extends CrudRepository<E, Long> {
 }

@@ -5,7 +5,7 @@ import com.toolsapp.models.tools.CuttingTool;
 import com.toolsapp.models.tools.MeasuringTool;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -18,7 +18,7 @@ public class Product {
     @GeneratedValue
     private long id;
 
-    @NotBlank
+    @NotEmpty(message = "Введите наименование")
     @Column(name = "name", unique = true)
     private String name;
 

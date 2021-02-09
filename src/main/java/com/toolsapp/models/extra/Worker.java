@@ -1,7 +1,7 @@
 package com.toolsapp.models.extra;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +12,7 @@ public class Worker {
     @Id
     private long id;
 
-    @NotBlank
+    @NotEmpty(message = "Введите наименование")
     @Column(name = "name")
     private String name;
 

@@ -1,4 +1,4 @@
-package com.toolsapp.service;
+package com.toolsapp.service.tools;
 
 import com.toolsapp.models.tools.CuttingTool;
 

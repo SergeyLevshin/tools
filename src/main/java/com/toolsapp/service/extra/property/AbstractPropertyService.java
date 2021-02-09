@@ -1,13 +1,13 @@
 package com.toolsapp.service.extra.property;
 
 import com.toolsapp.models.extra.property.Property;
-import com.toolsapp.repository.extra.property.PropertyRepository;
+import com.toolsapp.repository.extra.property.AbstractPropertyRepository;
 
 import java.util.List;
 import java.util.Optional;
 
 public abstract class AbstractPropertyService<E extends Property,
-        R extends PropertyRepository<E>> implements PropertyService<E> {
+        R extends AbstractPropertyRepository<E>> implements PropertyService<E> {
 
     protected final R repository;
 

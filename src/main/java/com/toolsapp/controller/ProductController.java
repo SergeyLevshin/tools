@@ -1,14 +1,13 @@
 package com.toolsapp.controller;
 
 import com.toolsapp.models.extra.Product;
-import com.toolsapp.service.CuttingToolServiceImpl;
+import com.toolsapp.models.tools.CuttingTool;
+import com.toolsapp.service.tools.CuttingToolServiceImpl;
 import com.toolsapp.service.extra.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -33,13 +32,21 @@ public class ProductController {
     }
 
     @GetMapping("/addProduct")
-    public String addProduct(Model model) {
+    public String addProduct(@ModelAttribute("product") Product product,
+                             Model model) {
         model.addAttribute("tools", instrumentService.findAll());
         return "/product/addProduct";
     }
 
     @PostMapping("/addProduct")
-    public String addNewProduct(@Valid long toolId, Product product) {
+    public String addNewProduct(@ModelAttribute("product") @Valid Product product,
+                                BindingResult bindingResult, @Valid long toolId,
+                                Model model) {
+        if (bindingResult.hasErrors()) {
+            List<CuttingTool> tools = instrumentService.findAll();
+            model.addAttribute("tools", tools);
+            return "/product/addProduct";
+        }
         product.getCuttingTools().add(instrumentService.findById(toolId));
         productService.save(product);
         return "redirect:/product/products";

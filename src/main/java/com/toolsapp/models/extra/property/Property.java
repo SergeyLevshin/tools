@@ -2,12 +2,12 @@ package com.toolsapp.models.extra.property;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 @MappedSuperclass
 public abstract class Property {
 
-    @NotBlank
+    @NotEmpty(message = "Введите наименование")
     @Column(name = "name", unique = true)
     private  String name;
 

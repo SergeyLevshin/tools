@@ -5,19 +5,22 @@
     <title>Управление дополнительными свойствами</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/property/addGroup}">
+<form th:method="POST" th:action="@{/property/addGroup}" th:object="${group}">
     <label for="groupName">Название: </label>
-    <input name="name" type="text" id="groupName"/>
+    <input type="text" th:field="*{name}" id="groupName"/>
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
     <br/>
     <input type="submit" value="Добавить группу">
 </form>
 <br/>
-<form th:method="POST" th:action="@{/property/addProducer}">
+<form th:method="POST" th:action="@{/property/addProducer}" th:object="${producer}">
     <label for="producerName">Название: </label>
-    <input name="name" type="text" id="producerName"/>
+    <input type="text" th:field="*{name}" id="producerName"/>
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
     <br/>
     <input type="submit" value="Добавить производителя">
 </form>
-
+<br/>
+<a href="/property/showToolProperties">Назад</a>
 </body>
 </html>

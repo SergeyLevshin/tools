@@ -4,12 +4,13 @@ import com.toolsapp.models.extra.Worker;
 import com.toolsapp.models.extra.property.Group;
 import com.toolsapp.models.extra.property.Producer;
 import com.toolsapp.models.tools.CuttingTool;
-import com.toolsapp.service.CuttingToolService;
+import com.toolsapp.service.tools.CuttingToolService;
 import com.toolsapp.service.extra.WorkerService;
 import com.toolsapp.service.extra.property.GroupService;
 import com.toolsapp.service.extra.property.ProducerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -39,7 +40,7 @@ public class ToolsController {
     }
 
     @GetMapping("addCuttingTool")
-    public String add(Model model) {
+    public String add(Model model, @ModelAttribute("tool") CuttingTool tool) {
         List<Producer> producers = producerService.findAll();
         List<Group> groups = groupService.findAll();
         model.addAttribute("producers", producers);
@@ -48,7 +49,15 @@ public class ToolsController {
     }
 
     @PostMapping("addCuttingTool")
-    public String addCuttingTool(CuttingTool tool) {
+    public String addCuttingTool(@ModelAttribute("tool") @Valid CuttingTool tool,
+                                 BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            List<Producer> producers = producerService.findAll();
+            List<Group> groups = groupService.findAll();
+            model.addAttribute("producers", producers);
+            model.addAttribute("groups", groups);
+            return "/addCuttingTool";
+        }
         cuttingToolService.save(tool);
         return "redirect:/show";
     }

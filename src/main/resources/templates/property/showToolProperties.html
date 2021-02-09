@@ -14,7 +14,7 @@
                 <div class="scroll-table-body">
                     <table>
                         <tr th:each="group : ${groups}">
-                            <td th:text="${group.getName()}" ></td>
+                            <td th:text="${group.getName()}"></td>
                         </tr>
                     </table>
                 </div>
@@ -24,7 +24,7 @@
                 <div class="scroll-table-body">
                     <table>
                         <tr th:each="producer : ${producers}">
-                            <td th:text="${producer.getName()}" ></td>
+                            <td th:text="${producer.getName()}"></td>
                         </tr>
                     </table>
                 </div>
@@ -36,4 +36,6 @@
 <br/>
 <a href="/property/deleteToolProperty">Удалить</a>
 </body>
+<br/>
+<a href="/">Назад</a>
 </html>

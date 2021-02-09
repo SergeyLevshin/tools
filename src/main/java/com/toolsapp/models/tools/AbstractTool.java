@@ -5,18 +5,18 @@ import com.toolsapp.models.extra.property.Producer;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Tool {
+public abstract class AbstractTool {
 
     @Id
     @GeneratedValue
     private long id;
 
-    @NotBlank
+    @NotEmpty(message = "Введите наименование")
     @Column(name = "name", unique = true)
     private String name;
 
@@ -28,11 +28,11 @@ public abstract class Tool {
     @JoinColumn(name = "producer_id")
     private Producer producer;
 
-    @Min(value = 0)
+    @Min(value = 0, message = "Некореектная цена")
     @Column(name = "price")
     private BigDecimal price;
 
-    @Min(value = 0)
+    @Min(value = 0, message = "Некорректное количество")
     @Column(name = "quantity")
     private int quantity;
 
