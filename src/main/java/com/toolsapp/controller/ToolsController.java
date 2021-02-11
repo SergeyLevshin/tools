@@ -1,8 +1,5 @@
 package com.toolsapp.controller;
 
-import com.toolsapp.models.extra.Worker;
-import com.toolsapp.models.extra.property.Group;
-import com.toolsapp.models.extra.property.Producer;
 import com.toolsapp.models.tools.CuttingTool;
 import com.toolsapp.service.combined.CuttingToolAndWorkerService;
 import com.toolsapp.service.extra.property.PropertiesService;
@@ -15,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequestMapping("/")
