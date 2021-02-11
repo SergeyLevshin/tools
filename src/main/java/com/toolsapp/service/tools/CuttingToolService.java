@@ -1,19 +1,14 @@
 package com.toolsapp.service.tools;
 
 import com.toolsapp.models.tools.CuttingTool;
+import com.toolsapp.repository.tools.CuttingToolsRepository;
+import org.springframework.stereotype.Service;
 
-import java.util.List;
+@Service
+public class CuttingToolService extends AbstractToolService<CuttingTool, CuttingToolsRepository>  {
 
-public interface CuttingToolService {
-    
-    void save(CuttingTool cuttingTool);
-
-    void giveToolToWorker(long toolId, int quantity, long workerId);
-
-    void delete(long id);
-
-    List<CuttingTool> findAll();
-
-    CuttingTool findById(long id);
+    public CuttingToolService(CuttingToolsRepository repository) {
+        super(repository);
+    }
 
 }

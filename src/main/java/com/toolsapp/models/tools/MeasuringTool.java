@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import java.util.Date;
 
 @Entity
-public class MeasuringTool {
+public class MeasuringTool extends AbstractTool{
 
     @Id
     private long id;

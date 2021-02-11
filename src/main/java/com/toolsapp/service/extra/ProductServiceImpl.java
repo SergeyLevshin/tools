@@ -3,49 +3,52 @@ package com.toolsapp.service.extra;
 import com.toolsapp.models.extra.Product;
 import com.toolsapp.models.tools.CuttingTool;
 import com.toolsapp.repository.extra.ProductRepository;
+import com.toolsapp.repository.tools.CuttingToolsRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    private final ProductRepository repository;
+    private final ProductRepository productRepository;
+    private final CuttingToolsRepository cuttingToolsRepository;
 
-    public ProductServiceImpl(ProductRepository repository) {
-        this.repository = repository;
+    public ProductServiceImpl(ProductRepository productRepository,
+                              CuttingToolsRepository cuttingToolsRepository) {
+        this.productRepository = productRepository;
+        this.cuttingToolsRepository = cuttingToolsRepository;
     }
+
 
     @Override
     public List<Product> findAll() {
-        return (List<Product>) repository.findAll();
+        return (List<Product>) productRepository.findAll();
     }
 
     @Override
     public void save(Product product) {
-        repository.save(product);
+        productRepository.save(product);
     }
 
     @Override
-    public Product findById(long id) {
-        return repository.findById(id).orElse(null);
+    public Optional<Product> findById(long id) {
+        return Optional.ofNullable(productRepository.findById(id).orElseThrow());
     }
 
     @Override
     public void deleteById(long id) {
-        repository.deleteById(id);
+        productRepository.deleteById(id);
     }
 
+    @Override
     @Transactional
-    public void updateInstrumentList(Product product, CuttingTool tool) {
+    public void updateInstrumentList(long id, long toolId) {
+        Product product = productRepository.findById(id).orElseThrow();
+        CuttingTool tool = cuttingToolsRepository.findById(toolId).orElseThrow();
         product.getCuttingTools().add(tool);
-        repository.save(product);
-    }
-
-    public Map<CuttingTool, Integer> workersTools(long id) {
-
-        return null;
+        productRepository.save(product);
     }
 }

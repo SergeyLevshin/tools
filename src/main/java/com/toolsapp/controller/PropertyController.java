@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequestMapping("/property")
@@ -29,10 +28,8 @@ public class PropertyController {
 
     @GetMapping("/showToolProperties")
     public String allProperties(Model model) {
-        List<Group> groups = groupService.findAll();
-        List<Producer> producers = producerService.findAll();
-        model.addAttribute("groups", groups);
-        model.addAttribute("producers", producers);
+        model.addAttribute("groups", groupService.findAll());
+        model.addAttribute("producers", producerService.findAll());
         return "/property/showToolProperties";
     }
 
@@ -63,10 +60,8 @@ public class PropertyController {
 
     @GetMapping("/deleteToolProperty")
     public String deleteProperty(Model model) {
-        List<Group> groups = groupService.findAll();
-        List<Producer> producers = producerService.findAll();
-        model.addAttribute("groups", groups);
-        model.addAttribute("producers", producers);
+        model.addAttribute("groups", groupService.findAll());
+        model.addAttribute("producers", producerService.findAll());
         return "/property/deleteToolProperty";
     }
 
