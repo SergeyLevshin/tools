@@ -6,9 +6,9 @@
 </head>
 <body>
 <form th:method="POST" th:action="@{/delete}">
-    <label>Наименование: </label>
+    <label>Выберите инструмент </label>
     <select name="id">
-        <option>Выберите инструмент</option>
+        <option></option>
         <option th:each="tool : ${tools}"
                 th:value="${tool.getId()}"
                 th:text="${tool.getName()}">

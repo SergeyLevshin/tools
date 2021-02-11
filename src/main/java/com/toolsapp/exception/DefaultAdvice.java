@@ -11,9 +11,14 @@ import java.sql.SQLException;
 public class DefaultAdvice {
 
     @ExceptionHandler(SQLException.class)
-    public ResponseEntity<String> handleException(SQLException e) {
-        String text = "Невозможно удалить или изменить данный объект, объект ещё используется";
-        return new ResponseEntity<>(text,
-                HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<String> handleSQLException(SQLException e) {
+        String text = "Невозможно удалить или изменить данный объект, объект ещё используется.";
+        return new ResponseEntity<>(text, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleArgumentException(IllegalArgumentException e) {
+        String text = "Проверьте правильность ввода, некорректное или пустое поле.";
+        return new ResponseEntity<>(text, HttpStatus.BAD_REQUEST);
     }
 }
