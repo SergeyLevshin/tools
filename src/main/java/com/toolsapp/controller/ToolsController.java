@@ -36,7 +36,7 @@ public class ToolsController {
     public String add(Model model, @ModelAttribute("tool") CuttingTool tool) {
         model.addAttribute("producers",
                 propertiesService.getProducerService().findAll());
-        model.addAttribute("groups",
+        model.addAttribute("types",
                 propertiesService.getGroupService().findAll());
         return "/addCuttingTool";
     }
@@ -47,7 +47,7 @@ public class ToolsController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("producers",
                     propertiesService.getProducerService().findAll());
-            model.addAttribute("groups",
+            model.addAttribute("types",
                     propertiesService.getGroupService().findAll());
             return "/addCuttingTool";
         }

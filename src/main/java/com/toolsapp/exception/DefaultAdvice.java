@@ -13,7 +13,8 @@ public class DefaultAdvice {
 
     @ExceptionHandler(SQLException.class)
     public ResponseEntity<String> handleSQLException() {
-        String text = "Невозможно удалить или изменить данный объект, объект ещё используется.";
+        String text = "Невозможно удалить или изменить данный объект, объект ещё используется."
+                +"<br/> Или такой объект уже существует.";
         return new ResponseEntity<>(text, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

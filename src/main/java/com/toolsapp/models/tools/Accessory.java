@@ -10,6 +10,4 @@ public class Accessory extends AbstractTool {
     @Id
     private long id;
 
-    @NotBlank
-    private String name;
 }
