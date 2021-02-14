@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -25,7 +26,7 @@ public class WorkerServiceImpl implements WorkerService {
 
     @Override
     public Optional<Worker> findById(long id) {
-        return Optional.ofNullable(workerRepository.findById(id).orElseThrow());
+        return Optional.ofNullable(workerRepository.findById(id).orElseThrow(NoSuchElementException::new));
     }
 
     @Transactional
@@ -41,7 +42,8 @@ public class WorkerServiceImpl implements WorkerService {
 
     @Transactional
     public void setToolQuantityFromWorker(long workerId, long toolId, int quantity){
-        Worker worker = workerRepository.findById(workerId).orElseThrow();
+        Worker worker = workerRepository.findById(workerId)
+                .orElseThrow(NoSuchElementException::new);
         int tempQuantity = worker.getCuttingTools().getOrDefault(toolId, 0);
         worker.getCuttingTools().put(toolId, tempQuantity + quantity);
         workerRepository.save(worker);

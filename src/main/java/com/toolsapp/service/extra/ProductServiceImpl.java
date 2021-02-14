@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -35,7 +36,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Optional<Product> findById(long id) {
-        return Optional.ofNullable(productRepository.findById(id).orElseThrow());
+        return Optional
+                .ofNullable(productRepository
+                        .findById(id).orElseThrow(NoSuchElementException::new));
     }
 
     @Override
@@ -47,7 +50,8 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     public void updateInstrumentList(long id, long toolId) {
         Product product = productRepository.findById(id).orElseThrow();
-        CuttingTool tool = cuttingToolsRepository.findById(toolId).orElseThrow();
+        CuttingTool tool = cuttingToolsRepository.findById(toolId)
+                .orElseThrow(NoSuchElementException::new);
         product.getCuttingTools().add(tool);
         productRepository.save(product);
     }

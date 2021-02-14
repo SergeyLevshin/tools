@@ -5,16 +5,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class PropertiesService {
 
-    private final GroupService groupService;
+    private final ToolTypeService toolTypeService;
     private final ProducerService producerService;
 
-    public PropertiesService(GroupService groupService, ProducerService producerService) {
-        this.groupService = groupService;
+    public PropertiesService(ToolTypeService toolTypeService, ProducerService producerService) {
+        this.toolTypeService = toolTypeService;
         this.producerService = producerService;
     }
 
-    public GroupService getGroupService() {
-        return groupService;
+    public ToolTypeService getGroupService() {
+        return toolTypeService;
     }
 
     public ProducerService getProducerService() {

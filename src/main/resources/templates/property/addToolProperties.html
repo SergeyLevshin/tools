@@ -5,12 +5,12 @@
     <title>Управление дополнительными свойствами</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/property/addGroup}" th:object="${group}">
-    <label for="groupName">Название: </label>
-    <input type="text" th:field="*{name}" id="groupName"/>
+<form th:method="POST" th:action="@{/property/addToolType}" th:object="${toolType}">
+    <label for="toolTypeName">Название: </label>
+    <input type="text" th:field="*{name}" id="toolTypeName"/>
     <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
     <br/>
-    <input type="submit" value="Добавить группу">
+    <input type="submit" value="Добавить тип">
 </form>
 <br/>
 <form th:method="POST" th:action="@{/property/addProducer}" th:object="${producer}">

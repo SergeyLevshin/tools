@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tool_group")
-public class Group extends Property {
+public class ToolType extends Property {
 
     @Id
     @GeneratedValue

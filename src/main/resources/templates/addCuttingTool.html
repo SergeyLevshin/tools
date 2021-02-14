@@ -10,10 +10,10 @@
     <input type="text" th:field="*{name}" id="name"/>
     <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
     <br/>
-    <label>Группа: </label>
-    <select name="group">
-        <option th:each="group : ${groups}"
-                th:value="${group.getId()}" th:text="${group.getName()}">
+    <label>Тип: </label>
+    <select name="toolType">
+        <option th:each="toolType : ${types}"
+                th:value="${toolType.getId()}" th:text="${toolType.getName()}">
         </option>
     </select>
     <br/>

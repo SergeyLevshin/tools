@@ -2,19 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Список производителей и групп</title>
+    <title>Список производителей и типов инструментов</title>
     <link rel="stylesheet" type="text/css"
           href="/css/web.css">
 </head>
 <body>
 <table>
     <tr>
-        <td><p>Группы</p>
+        <td><p>Типы</p>
             <div class="scroll-table">
                 <div class="scroll-table-body">
                     <table>
-                        <tr th:each="group : ${groups}">
-                            <td th:text="${group.getName()}"></td>
+                        <tr th:each="toolType : ${types}">
+                            <td th:text="${toolType.getName()}"></td>
                         </tr>
                     </table>
                 </div>

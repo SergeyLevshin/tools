@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @Service
 public class CuttingToolAndWorkerService {
@@ -28,6 +29,7 @@ public class CuttingToolAndWorkerService {
         return workerService;
     }
 
+    @Transactional
     public void giveToolToWorker(long toolId, int quantity, long workerId) {
         if (cuttingToolService.checkToolQuantityFromTool(toolId, quantity))
             workerService.setToolQuantityFromWorker(workerId, toolId, quantity);
@@ -42,7 +44,9 @@ public class CuttingToolAndWorkerService {
     @Transactional
     public Map<CuttingTool, Integer> workerTools(long id) {
         Map<Long, Integer> toolIdMap =
-                workerService.findById(id).orElseThrow().getCuttingTools();
+                workerService.findById(id).
+                        orElseThrow(NoSuchElementException::new)
+                        .getCuttingTools();
         return cuttingToolService.createToolMap(toolIdMap);
     }
 }

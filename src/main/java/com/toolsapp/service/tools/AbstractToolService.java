@@ -1,14 +1,10 @@
 package com.toolsapp.service.tools;
 
 import com.toolsapp.models.tools.AbstractTool;
-import com.toolsapp.models.tools.CuttingTool;
 import com.toolsapp.repository.tools.AbstractToolRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public abstract class AbstractToolService<E extends AbstractTool,
         R extends AbstractToolRepository<E>> implements ToolService<E>{
@@ -32,14 +28,17 @@ public abstract class AbstractToolService<E extends AbstractTool,
     }
 
     public void deleteById(long id) {
-        if (repository.findById(id).orElseThrow().getQuantityInUse() == 0)
+        if (repository.findById(id)
+                .orElseThrow(NoSuchElementException::new)
+                .getQuantityInUse() == 0)
         repository.deleteById(id);
         //TODO else throw exception
     }
 
     @Transactional
     public boolean checkToolQuantityFromTool(long toolId, int quantity) {
-        E tool = repository.findById(toolId).orElseThrow();
+        E tool = repository.findById(toolId)
+                .orElseThrow(NoSuchElementException::new);
         if (tool.getQuantity() >= quantity) {
             tool.setQuantity(tool.getQuantity() - quantity);
             tool.setQuantityInUse(tool.getQuantityInUse() + quantity);
@@ -50,7 +49,8 @@ public abstract class AbstractToolService<E extends AbstractTool,
     }
     @Transactional
     public void changeQuantityInUse(long toolId, int quantity) {
-        E tool = repository.findById(toolId).orElseThrow();
+        E tool = repository.findById(toolId)
+                .orElseThrow(NoSuchElementException::new);
         tool.setQuantityInUse(tool.getQuantityInUse() - quantity);
         repository.save(tool);
     }
@@ -59,7 +59,8 @@ public abstract class AbstractToolService<E extends AbstractTool,
     public Map<E, Integer> createToolMap(Map<Long, Integer> toolIdMap){
         Map<E, Integer> resultMap = new HashMap<>();
         for (Map.Entry<Long, Integer> tool : toolIdMap.entrySet()) {
-            E newTool = repository.findById(tool.getKey()).orElseThrow();
+            E newTool = repository.findById(tool.getKey())
+                    .orElseThrow(NoSuchElementException::new);
             resultMap.put(newTool, tool.getValue());
         }
         return resultMap;

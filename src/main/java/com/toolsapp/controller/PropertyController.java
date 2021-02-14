@@ -1,8 +1,8 @@
 package com.toolsapp.controller;
 
-import com.toolsapp.models.extra.property.Group;
+import com.toolsapp.models.extra.property.ToolType;
 import com.toolsapp.models.extra.property.Producer;
-import com.toolsapp.service.extra.property.GroupService;
+import com.toolsapp.service.extra.property.ToolTypeService;
 import com.toolsapp.service.extra.property.ProducerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,40 +18,40 @@ import javax.validation.Valid;
 @RequestMapping("/property")
 public class PropertyController {
 
-    private final GroupService groupService;
+    private final ToolTypeService toolTypeService;
     private final ProducerService producerService;
 
-    public PropertyController(GroupService groupService, ProducerService producerService) {
-        this.groupService = groupService;
+    public PropertyController(ToolTypeService toolTypeService, ProducerService producerService) {
+        this.toolTypeService = toolTypeService;
         this.producerService = producerService;
     }
 
     @GetMapping("/showToolProperties")
     public String allProperties(Model model) {
-        model.addAttribute("groups", groupService.findAll());
+        model.addAttribute("types", toolTypeService.findAll());
         model.addAttribute("producers", producerService.findAll());
         return "/property/showToolProperties";
     }
 
     @GetMapping("/addToolProperties")
-    public String addToolProperties(@ModelAttribute("group")Group group,
+    public String addToolProperties(@ModelAttribute("toolType") ToolType toolType,
                                     @ModelAttribute("producer") Producer producer) {
         return "/property/addToolProperties";
     }
-    @PostMapping("/addGroup")
-    public String addGroup(@ModelAttribute("group") @Valid Group group,
+    @PostMapping("/addToolType")
+    public String addGroup(@ModelAttribute("toolType") @Valid ToolType toolType,
                            BindingResult bindingResult,
                            Producer producer) {
         if (bindingResult.hasErrors())
             return "/property/addToolProperties";
-        groupService.save(group);
+        toolTypeService.save(toolType);
         return "redirect:/property/showToolProperties";
     }
 
     @PostMapping("/addProducer")
     public String addGroup(@ModelAttribute("producer") @Valid Producer producer,
                            BindingResult bindingResult,
-                           Group group) {
+                           ToolType toolType) {
         if (bindingResult.hasErrors())
             return "/property/addToolProperties";
         producerService.save(producer);
@@ -60,14 +60,14 @@ public class PropertyController {
 
     @GetMapping("/deleteToolProperty")
     public String deleteProperty(Model model) {
-        model.addAttribute("groups", groupService.findAll());
+        model.addAttribute("types", toolTypeService.findAll());
         model.addAttribute("producers", producerService.findAll());
         return "/property/deleteToolProperty";
     }
 
-    @PostMapping("/deleteGroup")
+    @PostMapping("/deleteToolType")
     public String deleteGroup(@Valid long id) {
-        groupService.deleteById(id);
+        toolTypeService.deleteById(id);
         return "redirect:/property/showToolProperties";
     }
 

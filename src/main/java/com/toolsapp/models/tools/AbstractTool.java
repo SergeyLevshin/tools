@@ -1,6 +1,6 @@
 package com.toolsapp.models.tools;
 
-import com.toolsapp.models.extra.property.Group;
+import com.toolsapp.models.extra.property.ToolType;
 import com.toolsapp.models.extra.property.Producer;
 
 import javax.persistence.*;
@@ -21,8 +21,8 @@ public abstract class AbstractTool {
     private String name;
 
     @OneToOne
-    @JoinColumn(name = "group_id")
-    private Group group;
+    @JoinColumn(name = "type_id")
+    private ToolType toolType;
 
     @OneToOne
     @JoinColumn(name = "producer_id")
@@ -56,12 +56,12 @@ public abstract class AbstractTool {
         this.name = name;
     }
 
-    public Group getGroup() {
-        return group;
+    public ToolType getGroup() {
+        return toolType;
     }
 
-    public void setGroup(Group group) {
-        this.group = group;
+    public void setGroup(ToolType toolType) {
+        this.toolType = toolType;
     }
 
     public Producer getProducer() {
