@@ -1,6 +1,5 @@
 package com.toolsapp.demo;
 
-import com.toolsapp.controller.ToolsController;
 import com.toolsapp.repository.tools.CuttingToolsRepository;
 import com.toolsapp.repository.extra.WorkerRepository;
 import org.junit.jupiter.api.Test;
@@ -12,9 +11,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ToolsManagerApplicationTests {
 
     @Autowired
-    private ToolsController controller;
-
-    @Autowired
     private CuttingToolsRepository toolsRepo;
 
     @Autowired
@@ -22,7 +18,6 @@ class ToolsManagerApplicationTests {
 
     @Test
     void contextLoads() {
-        assertThat(controller).isNotNull();
         assertThat(toolsRepo).isNotNull();
         assertThat(workerRepo).isNotNull();
     }

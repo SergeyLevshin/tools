@@ -1,12 +1,13 @@
 package com.toolsapp.models.tools;
 
-import com.toolsapp.models.extra.property.ToolType;
-import com.toolsapp.models.extra.property.Producer;
+import com.toolsapp.models.property.ToolType;
+import com.toolsapp.models.property.Producer;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -28,17 +29,13 @@ public abstract class AbstractTool {
     @JoinColumn(name = "producer_id")
     private Producer producer;
 
-    @Min(value = 0, message = "Некореектная цена")
+    @Min(value = 0, message = "Некорректная цена")
     @Column(name = "price")
     private BigDecimal price;
 
     @Min(value = 0, message = "Некорректное количество")
     @Column(name = "quantity")
     private int quantity;
-
-    @Min(value = 0)
-    @Column(name = "quantity_in_use")
-    private int quantityInUse;
 
     public long getId() {
         return id;
@@ -56,11 +53,11 @@ public abstract class AbstractTool {
         this.name = name;
     }
 
-    public ToolType getGroup() {
+    public ToolType getToolType() {
         return toolType;
     }
 
-    public void setGroup(ToolType toolType) {
+    public void setToolType(ToolType toolType) {
         this.toolType = toolType;
     }
 
@@ -88,12 +85,17 @@ public abstract class AbstractTool {
         this.quantity = quantity;
     }
 
-    public int getQuantityInUse() {
-        return quantityInUse;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AbstractTool)) return false;
+        AbstractTool that = (AbstractTool) o;
+        return id == that.id;
     }
 
-    public void setQuantityInUse(int quantityInUse) {
-        this.quantityInUse = quantityInUse;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
 

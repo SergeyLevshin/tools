@@ -1,8 +1,8 @@
 package com.toolsapp.controller;
 
 import com.toolsapp.models.extra.Product;
-import com.toolsapp.service.extra.ProductService;
-import com.toolsapp.service.tools.CuttingToolService;
+import com.toolsapp.models.tools.AbstractTool;
+import com.toolsapp.service.extra.extended.AbstractProductAndToolService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,26 +12,24 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/product")
-public class ProductController {
+public class ProductController<E extends AbstractTool> {
 
-    private final ProductService productService;
-    private final CuttingToolService cuttingToolService;
+    private final AbstractProductAndToolService<E> service;
 
-    public ProductController(ProductService productService, CuttingToolService instrumentService) {
-        this.productService = productService;
-        this.cuttingToolService = instrumentService;
+    public ProductController(AbstractProductAndToolService<E> service) {
+        this.service = service;
     }
 
     @GetMapping("/products")
     public String showListOfProduct(Model model) {
-        model.addAttribute("products", productService.findAll());
+        model.addAttribute("products", service.findAllProducts());
         return "/product/products";
     }
 
     @GetMapping("/addProduct")
     public String addProduct(@ModelAttribute("product") Product product,
                              Model model) {
-        model.addAttribute("tools", cuttingToolService.findAll());
+        model.addAttribute("tools", service.findAllTools());
         return "/product/addProduct";
     }
 
@@ -39,12 +37,10 @@ public class ProductController {
     public String addNewProduct(@ModelAttribute("product") @Valid Product product,
                                 BindingResult bindingResult, @Valid long toolId,
                                 Model model) {
-        model.addAttribute("tools", cuttingToolService.findAll());
+        model.addAttribute("tools", service.findAllTools());
         if (bindingResult.hasErrors())
             return "/product/addProduct";
-        //TODO something wrong, idk what
-//        productService.updateInstrumentList(product.getId(), toolId);
-        productService.save(product);
+        service.saveProduct(product);
 
         return "redirect:/product/products";
     }
@@ -52,21 +48,21 @@ public class ProductController {
     @GetMapping("/products/{id}")
     public String singeProductView(@PathVariable("id") long id,
                                    Model model) {
-        model.addAttribute("product", productService.findById(id).orElseThrow());
-        model.addAttribute("tools", cuttingToolService.findAll());
+        model.addAttribute("product", service.findProductById(id));
+        model.addAttribute("tools", service.findAllTools());
         return "/product/productInfo";
     }
 
     @PostMapping("/products/{id}")
     public String addInstrument(@PathVariable("id") long id,
                                 @Valid long toolId) {
-        productService.updateInstrumentList(id,toolId);
+        service.addTool(id,toolId);
         return "/product/products";
     }
 
     @PostMapping("/deleteProduct/{id}")
     public String deleteProduct(@PathVariable("id") long id) {
-        productService.deleteById(id);
+        service.deleteProductById(id);
         return "redirect:/product/products";
     }
 }

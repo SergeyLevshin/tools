@@ -13,7 +13,4 @@ public interface ProductService {
     Optional<Product> findById(long id);
 
     void deleteById(long id);
-
-    void updateInstrumentList(long id, long toolId);
-
 }

@@ -1,6 +1,6 @@
-package com.toolsapp.service.extra.property;
+package com.toolsapp.service.property;
 
-import com.toolsapp.models.extra.property.ToolType;
+import com.toolsapp.models.property.ToolType;
 import com.toolsapp.repository.extra.property.ToolTypeRepository;
 import org.springframework.stereotype.Service;
 

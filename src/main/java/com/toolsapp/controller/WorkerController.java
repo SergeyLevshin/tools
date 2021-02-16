@@ -1,6 +1,6 @@
 package com.toolsapp.controller;
 
-import com.toolsapp.service.combined.CuttingToolAndWorkerService;
+import com.toolsapp.service.extra.WorkerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,33 +14,34 @@ import javax.validation.Valid;
 @RequestMapping("/worker")
 public class WorkerController {
 
-    private final CuttingToolAndWorkerService cuttingToolAndWorkerService;
+    private final WorkerService service;
 
-    public WorkerController(CuttingToolAndWorkerService cuttingToolAndWorkerService) {
-        this.cuttingToolAndWorkerService = cuttingToolAndWorkerService;
+    public WorkerController(WorkerService service) {
+        this.service = service;
     }
 
     @GetMapping("/workerList")
     public String showWorkers(Model model){
         model.addAttribute("workers",
-                cuttingToolAndWorkerService.getWorkerService().findAll());
+                service.findAll());
         return ("/worker/workerList");
     }
 
     @GetMapping("/workers/{id}")
     public String singleWorkerToolsList(@PathVariable("id") long id, Model model) {
         model.addAttribute("worker",
-                cuttingToolAndWorkerService.getWorkerService().findById(id).orElseThrow());
+                service.findById(id));
         model.addAttribute("tools",
-                cuttingToolAndWorkerService.workerTools(id));
+                service.workerTools(id));
         return "worker/workerInfo";
     }
 
+    //TODO move to ToolService
     @PostMapping("/remove/{id}")
-    public String removeTool(@PathVariable("id") long workerId,
+    public String removeToolFromWorker(@PathVariable("id") long workerId,
                              @Valid long toolId,
                              @Valid int quantity){
-        cuttingToolAndWorkerService.removeTool(workerId, toolId, quantity);
+        service.removeToolFromWorker(workerId, toolId, quantity);
         return "redirect:/worker/workerList";
     }
 }

@@ -1,6 +1,6 @@
-package com.toolsapp.service.extra.property;
+package com.toolsapp.service.property;
 
-import com.toolsapp.models.extra.property.Property;
+import com.toolsapp.models.property.Property;
 import com.toolsapp.repository.extra.property.AbstractPropertyRepository;
 
 import java.util.List;

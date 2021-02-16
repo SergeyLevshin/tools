@@ -1,5 +1,9 @@
 package com.toolsapp.models.extra;
 
+import com.toolsapp.models.tools.Accessory;
+import com.toolsapp.models.tools.CuttingTool;
+import com.toolsapp.models.tools.MeasuringTool;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.HashMap;
@@ -17,13 +21,13 @@ public class Worker {
     private String name;
 
     @ElementCollection
-    private Map<Long, Integer> accessories = new HashMap<>();
+    private Map<Accessory, Integer> accessories = new HashMap<>();
 
     @ElementCollection
-    private Map<Long, Integer> cuttingTools = new HashMap<>();
+    private Map<CuttingTool, Integer> cuttingTools = new HashMap<>();
 
     @ElementCollection
-    private Map<Long, Integer> measuringTools = new HashMap<>();
+    private Map<MeasuringTool, Integer> measuringTools = new HashMap<>();
 
     public long getId() {
         return id;
@@ -33,27 +37,27 @@ public class Worker {
         return name;
     }
 
-    public Map<Long, Integer> getAccessories() {
+    public Map<Accessory, Integer> getAccessories() {
         return accessories;
     }
 
-    public void setAccessories(Map<Long, Integer> accessories) {
+    public void setAccessories(Map<Accessory, Integer> accessories) {
         this.accessories = accessories;
     }
 
-    public Map<Long, Integer> getCuttingTools() {
+    public Map<CuttingTool, Integer> getCuttingTools() {
         return cuttingTools;
     }
 
-    public void setCuttingTools(Map<Long, Integer> cuttingTools) {
+    public void setCuttingTools(Map<CuttingTool, Integer> cuttingTools) {
         this.cuttingTools = cuttingTools;
     }
 
-    public Map<Long, Integer> getMeasuringTools() {
+    public Map<MeasuringTool, Integer> getMeasuringTools() {
         return measuringTools;
     }
 
-    public void setMeasuringTools(Map<Long, Integer> measuringTools) {
+    public void setMeasuringTools(Map<MeasuringTool, Integer> measuringTools) {
         this.measuringTools = measuringTools;
     }
 }

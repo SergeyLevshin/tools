@@ -2,6 +2,7 @@ package com.toolsapp.service.tools;
 
 import com.toolsapp.models.tools.MeasuringTool;
 import com.toolsapp.repository.tools.MeasuringToolRepository;
+import com.toolsapp.service.extra.WorkerService;
 import org.springframework.stereotype.Service;
 
 @Service
