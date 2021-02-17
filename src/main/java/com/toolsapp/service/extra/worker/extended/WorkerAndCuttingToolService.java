@@ -17,7 +17,7 @@ public class WorkerAndCuttingToolService
     }
 
     @Override
-    public Map<CuttingTool, Integer> workerTools(long workerId) {
+    public Map<CuttingTool, Integer> getWorkerTools(long workerId) {
         return findWorkerById(workerId).getCuttingTools();
     }
 

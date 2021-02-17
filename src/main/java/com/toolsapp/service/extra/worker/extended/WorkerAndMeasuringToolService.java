@@ -15,7 +15,7 @@ public class WorkerAndMeasuringToolService
     }
 
     @Override
-    public Map<MeasuringTool, Integer> workerTools(long workerId) {
+    public Map<MeasuringTool, Integer> getWorkerTools(long workerId) {
         return findWorkerById(workerId).getMeasuringTools();
     }
 

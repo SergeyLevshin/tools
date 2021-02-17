@@ -1,8 +1,8 @@
-package com.toolsapp.controller;
+package com.toolsapp.controller.extra;
 
 import com.toolsapp.models.extra.Product;
 import com.toolsapp.models.tools.AbstractTool;
-import com.toolsapp.service.extra.extended.AbstractProductAndToolService;
+import com.toolsapp.service.extra.product.extended.AbstractProductAndToolService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

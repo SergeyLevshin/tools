@@ -15,7 +15,7 @@ public class WorkerAndAccessoryService
     }
 
     @Override
-    public Map<Accessory, Integer> workerTools(long workerId) {
+    public Map<Accessory, Integer> getWorkerTools(long workerId) {
         return findWorkerById(workerId).getAccessories();
     }
 

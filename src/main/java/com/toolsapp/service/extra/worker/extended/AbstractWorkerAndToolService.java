@@ -29,10 +29,10 @@ public abstract class AbstractWorkerAndToolService<E extends AbstractTool> {
     }
 
     @Transactional
-    public void removeToolFromWorker(long workerId, long toolId, int quantity) {
+    public void removeToolFromWorker(long workerId, long toolId) {
         E tool = findToolById(toolId);
         Worker worker = findWorkerById(workerId);
-        Map<E, Integer> workerToolsMap = workerTools(workerId);
+        Map<E, Integer> workerToolsMap = getWorkerTools(workerId);
         if (workerToolsMap.containsKey(tool)
                 && workerToolsMap.get(tool) == 0) {
             removeToolFromWorkerToolMap(worker, tool);
@@ -41,9 +41,9 @@ public abstract class AbstractWorkerAndToolService<E extends AbstractTool> {
         //TODO else throw something
     }
 
-    abstract public Map<E, Integer> workerTools(long workerId);
+    public abstract Map<E, Integer> getWorkerTools(long workerId);
 
-    abstract protected void removeToolFromWorkerToolMap(Worker worker, E tool);
+    protected abstract void removeToolFromWorkerToolMap(Worker worker, E tool);
 
     private E findToolById(long toolId) {
         return toolService.findById(toolId).orElseThrow(NoSuchElementException::new);

@@ -1,6 +1,7 @@
-package com.toolsapp.controller;
+package com.toolsapp.controller.extra;
 
-import com.toolsapp.service.extra.WorkerService;
+import com.toolsapp.models.tools.AbstractTool;
+import com.toolsapp.service.extra.worker.extended.AbstractWorkerAndToolService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,36 +13,34 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/worker")
-public class WorkerController {
+public class WorkerController<E extends AbstractTool> {
 
-    private final WorkerService service;
+    private final AbstractWorkerAndToolService<E> service;
 
-    public WorkerController(WorkerService service) {
+    public WorkerController(AbstractWorkerAndToolService<E> service) {
         this.service = service;
     }
 
     @GetMapping("/workerList")
     public String showWorkers(Model model){
         model.addAttribute("workers",
-                service.findAll());
+                service.findAllWorkers());
         return ("/worker/workerList");
     }
 
     @GetMapping("/workers/{id}")
     public String singleWorkerToolsList(@PathVariable("id") long id, Model model) {
         model.addAttribute("worker",
-                service.findById(id));
+                service.findWorkerById(id));
         model.addAttribute("tools",
-                service.workerTools(id));
+                service.getWorkerTools(id));
         return "worker/workerInfo";
     }
 
-    //TODO move to ToolService
     @PostMapping("/remove/{id}")
     public String removeToolFromWorker(@PathVariable("id") long workerId,
-                             @Valid long toolId,
-                             @Valid int quantity){
-        service.removeToolFromWorker(workerId, toolId, quantity);
+                             @Valid long toolId){
+        service.removeToolFromWorker(workerId, toolId);
         return "redirect:/worker/workerList";
     }
 }

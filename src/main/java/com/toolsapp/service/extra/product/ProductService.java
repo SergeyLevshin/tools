@@ -1,4 +1,4 @@
-package com.toolsapp.service.extra;
+package com.toolsapp.service.extra.product;
 
 import com.toolsapp.models.extra.Product;
 

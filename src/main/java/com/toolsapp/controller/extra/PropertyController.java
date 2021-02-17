@@ -1,4 +1,4 @@
-package com.toolsapp.controller;
+package com.toolsapp.controller.extra;
 
 import com.toolsapp.models.property.Producer;
 import com.toolsapp.models.property.ToolType;

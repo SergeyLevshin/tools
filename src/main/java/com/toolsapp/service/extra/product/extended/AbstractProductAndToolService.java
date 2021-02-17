@@ -1,16 +1,14 @@
-package com.toolsapp.service.extra.extended;
+package com.toolsapp.service.extra.product.extended;
 
 import com.toolsapp.models.extra.Product;
 import com.toolsapp.models.tools.AbstractTool;
-import com.toolsapp.service.extra.ProductService;
+import com.toolsapp.service.extra.product.ProductService;
 import com.toolsapp.service.tools.ToolService;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
-@Service
 public abstract class AbstractProductAndToolService<E extends AbstractTool> {
 
     private final ProductService productService;
