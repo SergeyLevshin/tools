@@ -18,7 +18,7 @@
 //
 //    private final AbstractWorkerAndToolService<E> service;
 //
-//    public WorkerController(@Qualifier("wt") AbstractWorkerAndToolService<E> service) {
+//    public WorkerController(AbstractWorkerAndToolService<E> service) {
 //        this.service = service;
 //    }
 //

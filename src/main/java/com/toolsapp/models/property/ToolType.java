@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tool_group")
+@Table(name = "tool_type")
 public class ToolType extends Property {
 
     @Id

@@ -12,21 +12,27 @@ import java.util.NoSuchElementException;
 public class DefaultAdvice {
 
     @ExceptionHandler(SQLException.class)
-    public ResponseEntity<String> handleSQLException() {
+    public ResponseEntity<String> handleSQLException(SQLException e) {
         String text = "Невозможно удалить или изменить данный объект, объект ещё используется."
-                +"<br/> Или такой объект уже существует.";
+                +"<br/> Или такой объект уже существует.<br/>"
+                + "<br/>" + e.getClass().getCanonicalName()
+                + "<br/>" + e.getMessage();;
         return new ResponseEntity<>(text, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<String> handleArgumentException() {
-        String text = "Проверьте правильность ввода, некорректное или пустое поле.";
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<String> handleArgumentException(IllegalStateException e) {
+        String text = "Проверьте правильность ввода, некорректное или пустое поле. <br/>"
+                + "<br/>" + e.getClass().getCanonicalName()
+                + "<br/>" + e.getMessage();
         return new ResponseEntity<>(text, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<String> handleNoSuchElementException() {
-        String text = "Нет такого элемента";
+    public ResponseEntity<String> handleNoSuchElementException(NoSuchElementException e) {
+        String text = "Нет такого элемента<br/>"
+                + "<br/>" + e.getClass().getCanonicalName()
+                + "<br/>" + e.getMessage();;
         return new ResponseEntity<>(text, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

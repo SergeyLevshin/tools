@@ -4,7 +4,6 @@ import com.toolsapp.models.extra.Worker;
 import com.toolsapp.models.tools.AbstractTool;
 import com.toolsapp.service.extra.worker.WorkerService;
 import com.toolsapp.service.tools.ToolService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

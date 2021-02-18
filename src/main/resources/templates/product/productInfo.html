@@ -9,21 +9,42 @@
 <br/>
 <p>Список инструмента и оснастки</p>
 <br/>
-    <tr th:each="tool : ${product.getCuttingTools()}">
+    <tr th:each="tool : ${product.getCuttingToolsSet()}">
         <td th:text="${tool.getName()}"></td>
         <br/>
     </tr>
 <br/>
 <br/>
 <form th:method="POST" th:action="@{/product/products/{id}(id=${product.getId()})}">
-    <label>Инструмент</label>
+    <label>Вспомогательный инструмент</label>
     <select name="toolId">
-        <option th:each="tool : ${tools}"
+        <option th:each="tool : ${accessories}"
                 th:value="${tool.getId()}" th:text="${tool.getName()}">
         </option>
     </select>
     <input type="submit" value="Добавить">
 </form>
+<br/>
+<form th:method="POST" th:action="@{/product/products/{id}(id=${product.getId()})}">
+    <label>Режущий Инструмент</label>
+    <select name="toolId">
+        <option th:each="tool : ${cuttingTools}"
+                th:value="${tool.getId()}" th:text="${tool.getName()}">
+        </option>
+    </select>
+    <input type="submit" value="Добавить">
+</form>
+<br/>
+<form th:method="POST" th:action="@{/product/products/{id}(id=${product.getId()})}">
+    <label>Мерительный Инструмент</label>
+    <select name="toolId">
+        <option th:each="tool : ${MeasuringTools}"
+                th:value="${tool.getId()}" th:text="${tool.getName()}">
+        </option>
+    </select>
+    <input type="submit" value="Добавить">
+</form>
+<br/>
 <form th:method="POST" th:action="@{/product/deleteProduct/{id}(id=${product.getId()})}">
     <input type="submit" value="Удалить">
 </form>

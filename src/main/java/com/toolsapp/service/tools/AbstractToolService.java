@@ -6,12 +6,12 @@ import com.toolsapp.repository.tools.AbstractToolRepository;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class BaseAbstractToolService<E extends AbstractTool,
+public abstract class AbstractToolService<E extends AbstractTool,
         R extends AbstractToolRepository<E>> implements ToolService<E>{
 
     private final R repository;
 
-    public BaseAbstractToolService(R repository) {
+    public AbstractToolService(R repository) {
         this.repository = repository;
     }
 

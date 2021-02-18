@@ -8,9 +8,11 @@ import com.toolsapp.service.property.PropertiesService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CuttingToolService extends ExtendedToolService<CuttingTool> {
+public class ExtendedCuttingToolService extends ExtendedToolService<CuttingTool> {
 
-    protected CuttingToolService(AbstractToolRepository<CuttingTool> repository, PropertiesService propertiesService, WorkerService workerService) {
+    protected ExtendedCuttingToolService(AbstractToolRepository<CuttingTool> repository,
+                                         PropertiesService propertiesService,
+                                         WorkerService workerService) {
         super(repository, propertiesService, workerService);
     }
 

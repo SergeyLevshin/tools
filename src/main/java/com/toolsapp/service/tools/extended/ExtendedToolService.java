@@ -7,15 +7,14 @@ import com.toolsapp.models.tools.AbstractTool;
 import com.toolsapp.repository.tools.AbstractToolRepository;
 import com.toolsapp.service.extra.worker.WorkerService;
 import com.toolsapp.service.property.PropertiesService;
-import com.toolsapp.service.tools.BaseAbstractToolService;
-import com.toolsapp.service.tools.ToolService;
+import com.toolsapp.service.tools.AbstractToolService;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
 public abstract class ExtendedToolService<E extends AbstractTool>
-        extends BaseAbstractToolService<E, AbstractToolRepository<E>> {
+        extends AbstractToolService<E, AbstractToolRepository<E>> {
 
     private final PropertiesService propertiesService;
     private final WorkerService workerService;
@@ -27,7 +26,6 @@ public abstract class ExtendedToolService<E extends AbstractTool>
         this.propertiesService = propertiesService;
         this.workerService = workerService;
     }
-
 
     public List<E> findAllTools() {
         return findAll();

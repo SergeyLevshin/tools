@@ -1,8 +1,7 @@
-package com.toolsapp.controller.extra;
+package com.toolsapp.controller.product;
 
 import com.toolsapp.models.extra.Product;
-import com.toolsapp.models.tools.AbstractTool;
-import com.toolsapp.service.extra.product.extended.AbstractProductAndToolService;
+import com.toolsapp.service.extra.product.extended.GeneralProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,13 +9,13 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-
+@Controller
 @RequestMapping("/product")
-public class ProductController<E extends AbstractTool> {
+public class ProductController {
 
-    private final AbstractProductAndToolService<E> service;
+    private final GeneralProductService service;
 
-    public ProductController(AbstractProductAndToolService<E> service) {
+    public ProductController(GeneralProductService service) {
         this.service = service;
     }
 
@@ -37,11 +36,12 @@ public class ProductController<E extends AbstractTool> {
     public String addNewProduct(@ModelAttribute("product") @Valid Product product,
                                 BindingResult bindingResult, @Valid long toolId,
                                 Model model) {
-        model.addAttribute("tools", service.findAllTools());
+        model.addAttribute("accessories", service.findAllAccessories());
+        model.addAttribute("cuttingTools", service.findAllCuttingTools());
+        model.addAttribute("measuringTools", service.findAllMeasuringTools());
         if (bindingResult.hasErrors())
             return "/product/addProduct";
         service.saveProduct(product);
-
         return "redirect:/product/products";
     }
 
@@ -49,14 +49,30 @@ public class ProductController<E extends AbstractTool> {
     public String singeProductView(@PathVariable("id") long id,
                                    Model model) {
         model.addAttribute("product", service.findProductById(id));
-        model.addAttribute("tools", service.findAllTools());
+        model.addAttribute("accessories", service.findAllAccessories());
+        model.addAttribute("cuttingTools", service.findAllCuttingTools());
+        model.addAttribute("measuringTools", service.findAllMeasuringTools());
         return "/product/productInfo";
     }
 
-    @PostMapping("/products/{id}")
-    public String addInstrument(@PathVariable("id") long id,
+    @PostMapping("/products/accessory/{id}")
+    public String addAccessory(@PathVariable("id") long id,
                                 @Valid long toolId) {
-        service.addTool(id,toolId);
+        service.addAccessory(id,toolId);
+        return "/product/products";
+    }
+
+    @PostMapping("/products/cutting/{id}")
+    public String addCuttingTool(@PathVariable("id") long id,
+                          @Valid long toolId) {
+        service.addCuttingTool(id,toolId);
+        return "/product/products";
+    }
+
+    @PostMapping("/products/measuring/{id}")
+    public String addTool(@PathVariable("id") long id,
+                          @Valid long toolId) {
+        service.addMeasuringTool(id,toolId);
         return "/product/products";
     }
 

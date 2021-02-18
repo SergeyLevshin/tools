@@ -1,4 +1,4 @@
-package com.toolsapp.controller.toolcontrollers;
+package com.toolsapp.controller.tool;
 
 import com.toolsapp.models.tools.AbstractTool;
 

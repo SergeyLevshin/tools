@@ -10,9 +10,23 @@
     <input type="text" th:field="*{name}" id="name"/>
     <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
     <br/>
-    <label>Инструмент: </label>
+    <label>Вспомогательный инструмент: </label>
     <select name="toolId">
-        <option th:each="tool : ${tools}"
+        <option th:each="tool : ${accessories}"
+                th:value="${tool.getId()}" th:text="${tool.getName()}">
+        </option>
+    </select>
+    <br/>
+    <label>Режущий инструмент: </label>
+    <select name="toolId">
+        <option th:each="tool : ${cuttingTools}"
+                th:value="${tool.getId()}" th:text="${tool.getName()}">
+        </option>
+    </select>
+    <br/>
+    <label>Мерительный инструмент: </label>
+    <select name="toolId">
+        <option th:each="tool : ${MeasuringTools}"
                 th:value="${tool.getId()}" th:text="${tool.getName()}">
         </option>
     </select>

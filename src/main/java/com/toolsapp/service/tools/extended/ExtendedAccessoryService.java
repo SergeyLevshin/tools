@@ -8,10 +8,11 @@ import com.toolsapp.service.property.PropertiesService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AccessoryService extends ExtendedToolService<Accessory> {
+public class ExtendedAccessoryService extends ExtendedToolService<Accessory> {
 
-
-    protected AccessoryService(AbstractToolRepository<Accessory> repository, PropertiesService propertiesService, WorkerService workerService) {
+    protected ExtendedAccessoryService(AbstractToolRepository<Accessory> repository,
+                                       PropertiesService propertiesService,
+                                       WorkerService workerService) {
         super(repository, propertiesService, workerService);
     }
 
