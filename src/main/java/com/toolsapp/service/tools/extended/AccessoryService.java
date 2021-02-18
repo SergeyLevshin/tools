@@ -2,16 +2,17 @@ package com.toolsapp.service.tools.extended;
 
 import com.toolsapp.models.extra.Worker;
 import com.toolsapp.models.tools.Accessory;
+import com.toolsapp.repository.tools.AbstractToolRepository;
 import com.toolsapp.service.extra.worker.WorkerService;
 import com.toolsapp.service.property.PropertiesService;
-import com.toolsapp.service.tools.ToolService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AccessoryServiceBase extends ExtendedToolService<Accessory> {
+public class AccessoryService extends ExtendedToolService<Accessory> {
 
-    private AccessoryServiceBase(ToolService<Accessory> toolService, PropertiesService propertiesService, WorkerService workerService) {
-        super(toolService, propertiesService, workerService);
+
+    protected AccessoryService(AbstractToolRepository<Accessory> repository, PropertiesService propertiesService, WorkerService workerService) {
+        super(repository, propertiesService, workerService);
     }
 
     @Override

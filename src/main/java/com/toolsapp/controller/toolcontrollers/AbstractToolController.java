@@ -1,8 +1,6 @@
 package com.toolsapp.controller.toolcontrollers;
 
 import com.toolsapp.models.tools.AbstractTool;
-import com.toolsapp.service.property.PropertiesService;
-import com.toolsapp.service.tools.ToolService;
 import com.toolsapp.service.tools.extended.ExtendedToolService;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

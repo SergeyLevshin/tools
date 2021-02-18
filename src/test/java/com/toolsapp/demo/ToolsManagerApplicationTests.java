@@ -10,15 +10,4 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 class ToolsManagerApplicationTests {
 
-    @Autowired
-    private CuttingToolsRepository toolsRepo;
-
-    @Autowired
-    private WorkerRepository workerRepo;
-
-    @Test
-    void contextLoads() {
-        assertThat(toolsRepo).isNotNull();
-        assertThat(workerRepo).isNotNull();
-    }
 }

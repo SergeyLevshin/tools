@@ -4,28 +4,33 @@ import com.toolsapp.models.extra.Worker;
 import com.toolsapp.models.property.Producer;
 import com.toolsapp.models.property.ToolType;
 import com.toolsapp.models.tools.AbstractTool;
+import com.toolsapp.repository.tools.AbstractToolRepository;
 import com.toolsapp.service.extra.worker.WorkerService;
 import com.toolsapp.service.property.PropertiesService;
+import com.toolsapp.service.tools.BaseAbstractToolService;
 import com.toolsapp.service.tools.ToolService;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public abstract class ExtendedToolService<E extends AbstractTool> {
+public abstract class ExtendedToolService<E extends AbstractTool>
+        extends BaseAbstractToolService<E, AbstractToolRepository<E>> {
 
-    private final ToolService<E> toolService;
     private final PropertiesService propertiesService;
     private final WorkerService workerService;
 
-    protected ExtendedToolService(ToolService<E> toolService, PropertiesService propertiesService, WorkerService workerService) {
-        this.toolService = toolService;
+    protected ExtendedToolService(AbstractToolRepository<E> repository,
+                                  PropertiesService propertiesService,
+                                  WorkerService workerService) {
+        super(repository);
         this.propertiesService = propertiesService;
         this.workerService = workerService;
     }
 
+
     public List<E> findAllTools() {
-        return toolService.findAll();
+        return findAll();
     }
 
     public List<Producer> findAllProducers() {
@@ -41,18 +46,18 @@ public abstract class ExtendedToolService<E extends AbstractTool> {
     }
 
     public void saveTool(E tool) {
-        toolService.save(tool);
+        save(tool);
     }
 
     public void deleteToolById(long id) {
-        toolService.deleteById(id);
+        deleteById(id);
     }
 
     @Transactional
     public void giveToolToWorker(long toolId, int quantity, long workerId) {
         Worker worker = workerService.findById(workerId)
                 .orElseThrow(NoSuchElementException::new);
-        E tool = toolService.findById(toolId)
+        E tool = findById(toolId)
                 .orElseThrow(NoSuchElementException::new);
         changeToolQuantity(worker, tool, quantity);
         workerService.save(worker);

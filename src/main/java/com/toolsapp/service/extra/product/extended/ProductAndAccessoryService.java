@@ -6,7 +6,7 @@ import com.toolsapp.service.extra.product.ProductService;
 import com.toolsapp.service.tools.ToolService;
 import org.springframework.stereotype.Service;
 
-@Service
+
 public class ProductAndAccessoryService
         extends AbstractProductAndToolService<Accessory>{
 

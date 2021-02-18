@@ -12,7 +12,8 @@ import java.util.Map;
 public class WorkerAndCuttingToolService
         extends AbstractWorkerAndToolService<CuttingTool> {
 
-    public WorkerAndCuttingToolService(WorkerService workerService, ToolService<CuttingTool> toolService) {
+    public WorkerAndCuttingToolService(WorkerService workerService,
+                                       ToolService<CuttingTool> toolService) {
         super(workerService, toolService);
     }
 
