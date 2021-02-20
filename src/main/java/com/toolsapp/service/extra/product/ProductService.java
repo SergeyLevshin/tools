@@ -1,6 +1,10 @@
 package com.toolsapp.service.extra.product;
 
 import com.toolsapp.models.extra.Product;
+import com.toolsapp.models.tools.AbstractTool;
+import com.toolsapp.models.tools.CuttingTool;
+import com.toolsapp.models.tools.MeasuringTool;
+import com.toolsapp.models.tools.SupportTool;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +14,17 @@ public interface ProductService {
 
     void save(Product product);
 
-    Optional<Product> findById(long id);
+    Product findById(long productId);
 
-    void deleteById(long id);
+    void deleteById(long productId);
+
+    void addTool(long productId, long toolId);
+
+    Object getAllTools();
+
+    Object getAllSupportTools();
+
+    Object getAllCuttingTools();
+
+    Object getAllMeasuringTools();
 }

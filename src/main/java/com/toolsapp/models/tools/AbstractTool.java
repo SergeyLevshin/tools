@@ -1,6 +1,6 @@
 package com.toolsapp.models.tools;
 
-import com.toolsapp.models.property.ToolType;
+import com.toolsapp.models.property.ToolFunction;
 import com.toolsapp.models.property.Producer;
 
 import javax.persistence.*;
@@ -22,8 +22,8 @@ public abstract class AbstractTool {
     private String name;
 
     @OneToOne
-    @JoinColumn(name = "type_id")
-    private ToolType toolType;
+    @JoinColumn(name = "function_id")
+    private ToolFunction toolFunction;
 
     @OneToOne
     @JoinColumn(name = "producer_id")
@@ -53,12 +53,12 @@ public abstract class AbstractTool {
         this.name = name;
     }
 
-    public ToolType getToolType() {
-        return toolType;
+    public ToolFunction getToolFunction() {
+        return toolFunction;
     }
 
-    public void setToolType(ToolType toolType) {
-        this.toolType = toolType;
+    public void setToolFunction(ToolFunction toolFunction) {
+        this.toolFunction = toolFunction;
     }
 
     public Producer getProducer() {

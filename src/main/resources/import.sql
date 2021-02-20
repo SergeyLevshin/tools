@@ -4,7 +4,7 @@
 --    (1111, 'Алексеев'),
 --    (2222, 'Семенов'),
 --    (3333, 'Волков');
---INSERT INTO tool_type
+--INSERT INTO tool_function
 --    (id,name)
 --VALUES
 --    (1000,'Фрезерный'),

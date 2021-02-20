@@ -1,4 +1,4 @@
-package com.toolsapp.service.tools;
+package com.toolsapp.service.tools.common;
 
 import com.toolsapp.models.tools.MeasuringTool;
 import com.toolsapp.repository.tools.MeasuringToolRepository;

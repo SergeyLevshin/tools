@@ -1,6 +1,7 @@
 package com.toolsapp.models.extra;
 
-import com.toolsapp.models.tools.Accessory;
+import com.toolsapp.models.tools.AbstractTool;
+import com.toolsapp.models.tools.SupportTool;
 import com.toolsapp.models.tools.CuttingTool;
 import com.toolsapp.models.tools.MeasuringTool;
 
@@ -8,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Entity
 @Table(name = "worker")
@@ -21,13 +23,7 @@ public class Worker {
     private String name;
 
     @ElementCollection
-    private Map<Accessory, Integer> accessories = new HashMap<>();
-
-    @ElementCollection
-    private Map<CuttingTool, Integer> cuttingTools = new HashMap<>();
-
-    @ElementCollection
-    private Map<MeasuringTool, Integer> measuringTools = new HashMap<>();
+    private Map<AbstractTool, Integer> tools = new HashMap<>();
 
     public long getId() {
         return id;
@@ -37,27 +33,24 @@ public class Worker {
         return name;
     }
 
-    public Map<Accessory, Integer> getAccessories() {
-        return accessories;
+    public Map<AbstractTool, Integer> getTools() {
+        return tools;
     }
 
-    public void setAccessories(Map<Accessory, Integer> accessories) {
-        this.accessories = accessories;
+    public void setTools(Map<AbstractTool, Integer> tools) {
+        this.tools = tools;
     }
 
-    public Map<CuttingTool, Integer> getCuttingTools() {
-        return cuttingTools;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Worker)) return false;
+        Worker worker = (Worker) o;
+        return id == worker.id;
     }
 
-    public void setCuttingTools(Map<CuttingTool, Integer> cuttingTools) {
-        this.cuttingTools = cuttingTools;
-    }
-
-    public Map<MeasuringTool, Integer> getMeasuringTools() {
-        return measuringTools;
-    }
-
-    public void setMeasuringTools(Map<MeasuringTool, Integer> measuringTools) {
-        this.measuringTools = measuringTools;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

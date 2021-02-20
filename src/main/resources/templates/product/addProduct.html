@@ -12,7 +12,7 @@
     <br/>
     <label>Вспомогательный инструмент: </label>
     <select name="toolId">
-        <option th:each="tool : ${accessories}"
+        <option th:each="tool : ${supportTools}"
                 th:value="${tool.getId()}" th:text="${tool.getName()}">
         </option>
     </select>

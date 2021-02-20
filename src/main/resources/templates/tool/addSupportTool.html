@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Новый режущий инструмент</title>
+    <title>Новый вспомогательный инструмент</title>
 </head>
 <body>
 <form th:method="POST" th:action="@{/addCuttingTool}" th:object="${tool}">
@@ -11,9 +11,9 @@
     <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
     <br/>
     <label>Тип: </label>
-    <select name="toolType">
-        <option th:each="toolType : ${types}"
-                th:value="${toolType.getId()}" th:text="${toolType.getName()}">
+    <select name="toolFunction">
+        <option th:each="toolFunction : ${types}"
+                th:value="${toolFunction.getId()}" th:text="${toolFunction.getName()}">
         </option>
     </select>
     <br/>

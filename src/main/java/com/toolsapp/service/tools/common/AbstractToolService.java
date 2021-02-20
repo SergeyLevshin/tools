@@ -1,13 +1,13 @@
-package com.toolsapp.service.tools;
+package com.toolsapp.service.tools.common;
 
 import com.toolsapp.models.tools.AbstractTool;
-import com.toolsapp.repository.tools.AbstractToolRepository;
+import com.toolsapp.repository.tools.ToolRepository;
 
 import java.util.List;
 import java.util.Optional;
 
 public abstract class AbstractToolService<E extends AbstractTool,
-        R extends AbstractToolRepository<E>> implements ToolService<E>{
+        R extends ToolRepository<E>> implements ToolService<E>{
 
     private final R repository;
 
@@ -18,6 +18,7 @@ public abstract class AbstractToolService<E extends AbstractTool,
     public void save(E entity) {
         repository.save(entity);
     }
+
     public List<E> findAll() {
         return (List<E>) repository.findAll();
     }

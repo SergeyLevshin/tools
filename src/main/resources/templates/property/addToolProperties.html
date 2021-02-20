@@ -5,9 +5,9 @@
     <title>Управление дополнительными свойствами</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/property/addToolType}" th:object="${toolType}">
-    <label for="toolTypeName">Название: </label>
-    <input type="text" th:field="*{name}" id="toolTypeName"/>
+<form th:method="POST" th:action="@{/property/addToolFunction}" th:object="${toolFunction}">
+    <label for="toolFunctionName">Название: </label>
+    <input type="text" th:field="*{name}" id="toolFunctionName"/>
     <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
     <br/>
     <input type="submit" value="Добавить тип">

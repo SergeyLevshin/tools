@@ -1,8 +1,7 @@
 package com.toolsapp.models.extra;
 
-import com.toolsapp.models.tools.Accessory;
-import com.toolsapp.models.tools.CuttingTool;
-import com.toolsapp.models.tools.MeasuringTool;
+import com.toolsapp.models.tools.AbstractTool;
+import com.toolsapp.models.tools.SupportTool;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -23,13 +22,7 @@ public class Product {
     private String name;
 
     @ManyToMany
-    private Set<Accessory> accessorySet = new HashSet<>();
-
-    @ManyToMany
-    private Set<CuttingTool> cuttingToolsSet = new HashSet<>();
-
-    @ManyToMany
-    private Set<MeasuringTool> measuringToolsSet = new HashSet<>();
+    private Set<AbstractTool> toolSet = new HashSet<>();
 
     public long getId() {
         return id;
@@ -47,28 +40,12 @@ public class Product {
         this.name = name;
     }
 
-    public Set<Accessory> getAccessorySet() {
-        return accessorySet;
+    public Set< AbstractTool> getToolSet() {
+        return toolSet;
     }
 
-    public void setAccessorySet(Set<Accessory> accessorySet) {
-        this.accessorySet = accessorySet;
-    }
-
-    public Set<CuttingTool> getCuttingToolsSet() {
-        return cuttingToolsSet;
-    }
-
-    public void setCuttingToolsSet(Set<CuttingTool> cuttingToolsSet) {
-        this.cuttingToolsSet = cuttingToolsSet;
-    }
-
-    public Set<MeasuringTool> getMeasuringToolsSet() {
-        return measuringToolsSet;
-    }
-
-    public void setMeasuringToolsSet(Set<MeasuringTool> measuringToolsSet) {
-        this.measuringToolsSet = measuringToolsSet;
+    public void setToolSet(Set<AbstractTool> toolSet) {
+        this.toolSet = toolSet;
     }
 
     @Override
@@ -76,15 +53,11 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return id == product.id &&
-                name.equals(product.name) &&
-                accessorySet.equals(product.accessorySet) &&
-                cuttingToolsSet.equals(product.cuttingToolsSet) &&
-                measuringToolsSet.equals(product.measuringToolsSet);
+        return id == product.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, accessorySet, cuttingToolsSet, measuringToolsSet);
+        return Objects.hash(id);
     }
 }

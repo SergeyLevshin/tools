@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Accessory extends AbstractTool {
+public class SupportTool extends AbstractTool {
 
     @Id
     private long id;

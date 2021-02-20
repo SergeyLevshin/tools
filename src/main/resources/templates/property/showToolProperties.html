@@ -13,8 +13,8 @@
             <div class="scroll-table">
                 <div class="scroll-table-body">
                     <table>
-                        <tr th:each="toolType : ${types}">
-                            <td th:text="${toolType.getName()}"></td>
+                        <tr th:each="toolFunction : ${toolFunctions}">
+                            <td th:text="${toolFunction.getName()}"></td>
                         </tr>
                     </table>
                 </div>

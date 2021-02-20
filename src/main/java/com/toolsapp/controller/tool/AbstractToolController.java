@@ -32,7 +32,7 @@ public abstract class AbstractToolController<E extends AbstractTool,
         model.addAttribute("producers",
                service.findAllProducers());
         model.addAttribute("types",
-                service.findAllToolTypes());
+                service.findAllToolFunctions());
         return "/addAccessory";
     }
 
@@ -43,7 +43,7 @@ public abstract class AbstractToolController<E extends AbstractTool,
             model.addAttribute("producers",
                     service.findAllProducers());
             model.addAttribute("types",
-                    service.findAllToolTypes());
+                    service.findAllToolFunctions());
             return "/addAccessory";
         }
         service.saveTool(tool);

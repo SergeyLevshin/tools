@@ -7,8 +7,8 @@ import javax.persistence.Table;
 import java.util.Objects;
 
 @Entity
-@Table(name = "tool_producer")
-public class Producer extends ToolProperty {
+@Table(name = "tool_function")
+public class ToolFunction extends ToolProperty {
 
     @Id
     @GeneratedValue
@@ -25,9 +25,9 @@ public class Producer extends ToolProperty {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Producer)) return false;
-        Producer producer = (Producer) o;
-        return id == producer.id;
+        if (!(o instanceof ToolFunction)) return false;
+        ToolFunction that = (ToolFunction) o;
+        return id == that.id;
     }
 
     @Override

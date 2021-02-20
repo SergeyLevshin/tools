@@ -5,11 +5,11 @@
     <title>Управление дополнительными свойствами</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/property/deleteToolType}">
+<form th:method="POST" th:action="@{/property/deleteToolFunction}">
     <label>Группа: </label>
     <select name="id">
-        <option th:each="toolType : ${types}"
-                th:value="${toolType.getId()}" th:text="${toolType.getName()}">
+        <option th:each="toolFunction : ${toolFunctions}"
+                th:value="${toolFunction.getId()}" th:text="${toolFunction.getName()}">
         </option>
     </select>
     <br/>
