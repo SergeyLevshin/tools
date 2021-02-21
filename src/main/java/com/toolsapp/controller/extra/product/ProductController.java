@@ -1,6 +1,6 @@
 package com.toolsapp.controller.extra.product;
 
-import com.toolsapp.models.extra.Product;
+import com.toolsapp.domain.extra.Product;
 import com.toolsapp.service.extra.product.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

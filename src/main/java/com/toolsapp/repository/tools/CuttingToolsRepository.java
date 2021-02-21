@@ -1,6 +1,6 @@
 package com.toolsapp.repository.tools;
 
-import com.toolsapp.models.tools.CuttingTool;
+import com.toolsapp.domain.tools.CuttingTool;
 import org.springframework.stereotype.Repository;
 
 @Repository

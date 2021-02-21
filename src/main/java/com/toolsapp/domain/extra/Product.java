@@ -1,7 +1,6 @@
-package com.toolsapp.models.extra;
+package com.toolsapp.domain.extra;
 
-import com.toolsapp.models.tools.AbstractTool;
-import com.toolsapp.models.tools.SupportTool;
+import com.toolsapp.domain.tools.AbstractTool;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;

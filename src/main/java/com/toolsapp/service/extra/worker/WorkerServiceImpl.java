@@ -1,7 +1,7 @@
 package com.toolsapp.service.extra.worker;
 
-import com.toolsapp.models.extra.Worker;
-import com.toolsapp.models.tools.AbstractTool;
+import com.toolsapp.domain.extra.Worker;
+import com.toolsapp.domain.tools.AbstractTool;
 import com.toolsapp.repository.extra.WorkerRepository;
 import org.springframework.stereotype.Service;
 
@@ -46,14 +46,15 @@ public class WorkerServiceImpl implements WorkerService {
     }
 
     @Override
-    public void removeToolFromWorker(long workerId, long toolId) {
+    public void removeToolFromWorker(long workerId, long toolId, int quantity) {
         Worker worker = repository.findById(workerId).orElseThrow(NoSuchFieldError::new);
         Optional<AbstractTool> tool = worker.getTools()
                 .keySet()
                 .stream()
                 .filter(t -> t.getId() == toolId)
                 .findFirst();
-        tool.ifPresent(t -> worker.getTools().remove(t));
+        tool.ifPresent(t -> worker.decreaseToolQuantity(t, quantity));
+        repository.save(worker);
     }
 
 }

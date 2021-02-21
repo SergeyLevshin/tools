@@ -1,9 +1,6 @@
-package com.toolsapp.models.extra;
+package com.toolsapp.domain.extra;
 
-import com.toolsapp.models.tools.AbstractTool;
-import com.toolsapp.models.tools.SupportTool;
-import com.toolsapp.models.tools.CuttingTool;
-import com.toolsapp.models.tools.MeasuringTool;
+import com.toolsapp.domain.tools.AbstractTool;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -24,6 +21,27 @@ public class Worker {
 
     @ElementCollection
     private Map<AbstractTool, Integer> tools = new HashMap<>();
+
+
+    public void decreaseToolQuantity(AbstractTool tool, int quantity) {
+        int tempQuantity = getTempToolQuantity(tool);
+        if (quantity < tempQuantity) {
+            getTools().put(tool, tempQuantity - quantity);
+        }
+        else if (quantity == tempQuantity) {
+            getTools().remove(tool);
+        }
+    }
+
+    public void increaseToolQuantity(AbstractTool tool, int quantity) {
+        int tempQuantity = getTempToolQuantity(tool);
+        getTools().put(tool, tempQuantity + quantity);
+    }
+
+    private int getTempToolQuantity(AbstractTool tool) {
+        return getTools().get(tool);
+    }
+
 
     public long getId() {
         return id;

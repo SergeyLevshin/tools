@@ -38,8 +38,8 @@ public class WorkerController {
 
     @PostMapping("/remove/{id}")
     public String removeToolFromWorker(@PathVariable("id") long workerId,
-                             @Valid long toolId){
-        service.removeToolFromWorker(workerId, toolId);
+                             @Valid long toolId, @Valid int quantity){
+        service.removeToolFromWorker(workerId, toolId, quantity);
         return "redirect:/worker/workerList";
     }
 }

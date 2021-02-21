@@ -1,7 +1,7 @@
-package com.toolsapp.models.tools;
+package com.toolsapp.domain.tools;
 
-import com.toolsapp.models.property.ToolFunction;
-import com.toolsapp.models.property.Producer;
+import com.toolsapp.domain.property.ToolFunction;
+import com.toolsapp.domain.property.Producer;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -14,7 +14,8 @@ import java.util.Objects;
 public abstract class AbstractTool {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "tool_id")
     private long id;
 
     @NotEmpty(message = "Введите наименование")
@@ -97,5 +98,6 @@ public abstract class AbstractTool {
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }
 

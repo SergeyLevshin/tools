@@ -1,6 +1,6 @@
 package com.toolsapp.service.property;
 
-import com.toolsapp.models.property.Producer;
+import com.toolsapp.domain.property.Producer;
 import com.toolsapp.repository.extra.property.ProducerRepository;
 import org.springframework.stereotype.Service;
 

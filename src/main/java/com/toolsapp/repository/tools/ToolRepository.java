@@ -1,6 +1,6 @@
 package com.toolsapp.repository.tools;
 
-import com.toolsapp.models.tools.AbstractTool;
+import com.toolsapp.domain.tools.AbstractTool;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 

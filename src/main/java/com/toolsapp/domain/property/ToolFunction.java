@@ -1,4 +1,4 @@
-package com.toolsapp.models.property;
+package com.toolsapp.domain.property;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

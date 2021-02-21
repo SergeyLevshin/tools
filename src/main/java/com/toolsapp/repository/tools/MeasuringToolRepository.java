@@ -1,6 +1,6 @@
 package com.toolsapp.repository.tools;
 
-import com.toolsapp.models.tools.MeasuringTool;
+import com.toolsapp.domain.tools.MeasuringTool;
 import org.springframework.stereotype.Repository;
 
 @Repository

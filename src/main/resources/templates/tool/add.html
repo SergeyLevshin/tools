@@ -5,14 +5,14 @@
     <title>Новый вспомогательный инструмент</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/addCuttingTool}" th:object="${tool}">
+<form th:method="POST" th:action="@{/tool/add}" th:object="${tool}">
     <label for="name">Название: </label>
     <input type="text" th:field="*{name}" id="name"/>
     <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
     <br/>
     <label>Тип: </label>
     <select name="toolFunction">
-        <option th:each="toolFunction : ${types}"
+        <option th:each="toolFunction : ${toolFunctions}"
                 th:value="${toolFunction.getId()}" th:text="${toolFunction.getName()}">
         </option>
     </select>
@@ -34,6 +34,6 @@
     <br/>
     <input type="submit" value="Добавить инструмент">
 </form>
-<a href="/show">Назад</a>
+<a href="/tool/show">Назад</a>
 </body>
 </html>

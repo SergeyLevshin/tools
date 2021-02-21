@@ -1,7 +1,7 @@
 package com.toolsapp.controller.property;
 
-import com.toolsapp.models.property.Producer;
-import com.toolsapp.models.property.ToolFunction;
+import com.toolsapp.domain.property.Producer;
+import com.toolsapp.domain.property.ToolFunction;
 import com.toolsapp.service.property.extended.ExtendedPropertyService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,8 +39,9 @@ public class PropertyController {
     public String addGroup(@ModelAttribute("toolFunction") @Valid ToolFunction toolFunction,
                            BindingResult bindingResult,
                            Producer producer) {
-        if (bindingResult.hasErrors())
+        if (bindingResult.hasErrors()) {
             return "/property/addToolProperties";
+        }
         service.saveToolFunction(toolFunction);
         return "redirect:/property/showToolProperties";
     }

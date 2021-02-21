@@ -1,10 +1,10 @@
 package com.toolsapp.service.extra.product;
 
-import com.toolsapp.models.extra.Product;
-import com.toolsapp.models.tools.AbstractTool;
-import com.toolsapp.models.tools.CuttingTool;
-import com.toolsapp.models.tools.MeasuringTool;
-import com.toolsapp.models.tools.SupportTool;
+import com.toolsapp.domain.extra.Product;
+import com.toolsapp.domain.tools.AbstractTool;
+import com.toolsapp.domain.tools.CuttingTool;
+import com.toolsapp.domain.tools.MeasuringTool;
+import com.toolsapp.domain.tools.SupportTool;
 import com.toolsapp.repository.extra.ProductRepository;
 import com.toolsapp.service.tools.common.GeneralToolService;
 import org.springframework.stereotype.Service;

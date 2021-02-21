@@ -13,6 +13,7 @@
         <thead>
             <tr>
                 <td>Наименование</td>
+                <td>Id</td>
 <!--                <td>Производитель</td>-->
 <!--                <td>Группа</td>-->
                 <td>Количество на складе</td>
@@ -25,24 +26,43 @@
         <table>
             <tr th:each="tool : ${tools}">
                 <td th:text="${tool.getName()}" ></td>
-<!--                <td th:text="${tool.getProducer().getName()}"></td>-->
-<!--                <td th:text="${tool.getToolType().getName()}"></td>-->
+                <td th:text="${tool.getProducer().getName()}"></td>
+                <td th:text="${tool.getToolFunction().getName()}"></td>
                 <td th:text="${tool.getQuantity()}"></td>
-                <td th:text="${tool.getQuantityInUse()}"></td>
+<!--                <td th:text="${tool.getQuantityInUse()}"></td>-->
             </tr>
         </table>
     </div>
 </div>
-<a href="/addCuttingTool">Добавить новый режущий инструмент</a>
-<br/>
-<a href="/addAccessory">Добавить новый вспомогательный инструмент</a>
-<br/>
-<a href="/give">Выдать</a>
-<br/>
+<table>
+<tr>
+    <td>
+        <div>
+        <a href="/tool/supportTool/add">Создать новый вспомогательный инструмент</a>
+        <br/>
+        <a href="/tool/cuttingTool/add">Создать новый режущий инструмент</a>
+        <br/>
+        <a href="/tool/measuringTool/add">Создать новый мерительный инструмент</a>
+        <br/>
+        </div>
+    </td>
+    <td>
+        <div>
+        <a href="/tool/supportTool/give">Выдать вспомогательный инструмент</a>
+        <br/>
+        <a href="/tool/cuttingTool/give">Выдать режущий иснструмент</a>
+        <br/>
+        <a href="/tool/measuringTool/give">Выдать мерительный инструмент</a>
+        <br/>
+        </div>
+    </td>
+<tr/>
+</table>
 <a href="/worker/workerList">Смотреть по рабочим</a>
 <br/>
-<a href="/delete">Удалить инструмент из базы</a>
+<a href="/tool/delete">Удалить инструмент из базы</a>
 <br/>
+
 <a href="/">Главная</a>
 </body>
 </html>

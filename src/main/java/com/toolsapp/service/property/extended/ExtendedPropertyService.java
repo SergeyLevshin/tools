@@ -1,7 +1,7 @@
 package com.toolsapp.service.property.extended;
 
-import com.toolsapp.models.property.Producer;
-import com.toolsapp.models.property.ToolFunction;
+import com.toolsapp.domain.property.Producer;
+import com.toolsapp.domain.property.ToolFunction;
 import com.toolsapp.service.property.ProducerService;
 import com.toolsapp.service.property.ToolFunctionService;
 import org.springframework.stereotype.Service;

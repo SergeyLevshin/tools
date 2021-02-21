@@ -1,6 +1,6 @@
 package com.toolsapp.repository.extra.property;
 
-import com.toolsapp.models.property.Producer;
+import com.toolsapp.domain.property.Producer;
 import org.springframework.stereotype.Repository;
 
 @Repository

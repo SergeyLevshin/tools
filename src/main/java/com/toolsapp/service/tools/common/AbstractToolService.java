@@ -1,13 +1,14 @@
 package com.toolsapp.service.tools.common;
 
-import com.toolsapp.models.tools.AbstractTool;
+import com.toolsapp.domain.tools.AbstractTool;
 import com.toolsapp.repository.tools.ToolRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-public abstract class AbstractToolService<E extends AbstractTool,
-        R extends ToolRepository<E>> implements ToolService<E>{
+public abstract class AbstractToolService <E extends AbstractTool,
+        R extends ToolRepository<E>>
+        implements ToolService<E>{
 
     private final R repository;
 

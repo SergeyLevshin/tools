@@ -1,9 +1,9 @@
 package com.toolsapp.service.tools.common;
 
-import com.toolsapp.models.tools.AbstractTool;
-import com.toolsapp.models.tools.CuttingTool;
-import com.toolsapp.models.tools.MeasuringTool;
-import com.toolsapp.models.tools.SupportTool;
+import com.toolsapp.domain.tools.AbstractTool;
+import com.toolsapp.domain.tools.CuttingTool;
+import com.toolsapp.domain.tools.MeasuringTool;
+import com.toolsapp.domain.tools.SupportTool;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -23,18 +23,6 @@ public class GeneralToolService {
         this.supportToolService = supportToolService;
         this.cuttingToolService = cuttingToolService;
         this.measuringToolService = measuringToolService;
-    }
-
-    public SupportToolService getSupportToolService() {
-        return supportToolService;
-    }
-
-    public CuttingToolService getCuttingToolService() {
-        return cuttingToolService;
-    }
-
-    public MeasuringToolService getMeasuringToolService() {
-        return measuringToolService;
     }
 
     public List<SupportTool> findAllSupportTools() {

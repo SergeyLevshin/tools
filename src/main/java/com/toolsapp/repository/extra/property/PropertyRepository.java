@@ -1,6 +1,6 @@
 package com.toolsapp.repository.extra.property;
 
-import com.toolsapp.models.property.ToolProperty;
+import com.toolsapp.domain.property.ToolProperty;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 

@@ -1,6 +1,6 @@
 package com.toolsapp.service.tools.common;
 
-import com.toolsapp.models.tools.AbstractTool;
+import com.toolsapp.domain.tools.AbstractTool;
 
 import java.util.List;
 import java.util.Optional;
