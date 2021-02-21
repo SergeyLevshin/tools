@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/tool/cuttingTool/give}">
+    <label>Наименование: </label>
+    <select name="toolId">
+        <option th:each="tool : ${tools}"
+                th:value="${tool.getId()}" th:text="${tool.getName()}">
+        </option>
+    </select>
+    <br/>
+    <label for="quantity">Количество: </label>
+    <input name="quantity" type="number" step="1." id="quantity"/>
+    <br/>
+    <label>Рабочий: </label>
+    <select name="workerId">
+        <option th:each="worker : ${workers}"
+                th:value="${worker.getId()}" th:text="${worker.getName()}">
+        </option>
+    </select>
+    <br/>
+    <input type="submit" value="Выдать">
+</form>
+<a href="/tool/show">Список инструмента</a>
+</body>
+</html>

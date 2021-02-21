@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Новый мерительный инструмент</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/tool/measuringTool/add}" th:object="${tool}">
+    <label for="name">Название: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
+    <br/>
+    <label>Тип: </label>
+    <select name="toolFunction">
+        <option th:each="toolFunction : ${toolFunctions}"
+                th:value="${toolFunction.getId()}" th:text="${toolFunction.getName()}">
+        </option>
+    </select>
+    <br/>
+    <label>Производитель: </label>
+    <select name="producer">
+        <option th:each="producer : ${producers}"
+                th:value="${producer.getId()}" th:text="${producer.getName()}">
+        </option>
+    </select>
+    <br/>
+    <label for="price">Цена: </label>
+    <input type="number" step="any" th:field="*{price}" id="price"/>
+    <div style="color:red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price error</div>
+    <br/>
+    <label for="quantity">Количество: </label>
+    <input type="number" step="1." th:field="*{quantity}" id="quantity"/>
+    <div style="color:red" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}">Quantity error</div>
+    <br/>
+    <input type="submit" value="Добавить инструмент">
+</form>
+<a href="/tool/show">Назад</a>
+</body>
+</html>
