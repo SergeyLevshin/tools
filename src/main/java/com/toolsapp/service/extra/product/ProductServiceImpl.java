@@ -30,13 +30,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void save(Product product) {
-        repository.save(product);
+    public Product save(Product product) {
+        return repository.save(product);
     }
 
     @Override
-    public Product findById(long id) {
-        return repository.findById(id).get();
+    public Optional<Product> findById(long id) {
+        return repository.findById(id);
     }
 
     @Override
@@ -69,17 +69,16 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public void addTool(long productId, long toolId) {
-        Optional<AbstractTool> tool = getAllTools()
-                .stream()
-                .filter(t -> t.getId() == productId)
-                .findFirst();
+        Optional<AbstractTool> tool = toolService.findById(toolId);
         tool.ifPresent(t -> saveTool(productId, t));
     }
 
     @Transactional
     private void saveTool(long productId, AbstractTool tool) {
-        Product product = findById(productId);
-        product.addTool(tool);
-        save(product);
+        if (findById(productId).isPresent()) {
+            Product product = findById(productId).get();
+            product.addTool(tool);
+            save(product);
+        }
     }
 }

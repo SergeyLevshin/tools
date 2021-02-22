@@ -28,7 +28,9 @@ public class ProductController {
     @GetMapping("/addProduct")
     public String addProduct(@ModelAttribute("product") Product product,
                              Model model) {
-        model.addAttribute("tools", service.getAllTools());
+        model.addAttribute("supportTools", service.getAllSupportTools());
+        model.addAttribute("cuttingTools", service.getAllCuttingTools());
+        model.addAttribute("measuringTools", service.getAllMeasuringTools());
         return "/product/addProduct";
     }
 
@@ -36,7 +38,7 @@ public class ProductController {
     public String addNewProduct(@ModelAttribute("product") @Valid Product product,
                                 BindingResult bindingResult, @Valid long toolId,
                                 Model model) {
-        model.addAttribute("accessories", service.getAllSupportTools());
+        model.addAttribute("supportTools", service.getAllSupportTools());
         model.addAttribute("cuttingTools", service.getAllCuttingTools());
         model.addAttribute("measuringTools", service.getAllMeasuringTools());
         if (bindingResult.hasErrors())
@@ -48,7 +50,7 @@ public class ProductController {
     @GetMapping("/products/{id}")
     public String singeProductView(@PathVariable("id") long id,
                                    Model model) {
-        model.addAttribute("product", service.findById(id));
+        model.addAttribute("product", service.findById(id).get());
         model.addAttribute("supportTools", service.getAllSupportTools());
         model.addAttribute("cuttingTools", service.getAllCuttingTools());
         model.addAttribute("measuringTools", service.getAllMeasuringTools());

@@ -15,7 +15,6 @@
                     <table>
                         <tr th:each="toolFunction : ${toolFunctions}">
                             <td th:text="${toolFunction.getName()}"></td>
-                            <td th:text="${toolFunction.getId()}"></td>
                         </tr>
                     </table>
                 </div>
@@ -26,7 +25,6 @@
                     <table>
                         <tr th:each="producer : ${producers}">
                             <td th:text="${producer.getName()}"></td>
-                            <td th:text="${producer.getId()}"></td>
                         </tr>
                     </table>
                 </div>

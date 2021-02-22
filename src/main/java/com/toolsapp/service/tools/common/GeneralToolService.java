@@ -26,16 +26,25 @@ public class GeneralToolService
     }
 
     public List<CuttingTool> findAllCuttingTools() {
-        return null;
+        return findAll().stream()
+                .filter(t -> t.getClass().equals(CuttingTool.class))
+                .map(t -> (CuttingTool) t)
+                .collect(Collectors.toList());
     }
 
 
     public List<SupportTool> findAllSupportTools() {
-        return null;
+        return findAll().stream()
+                .filter(t -> t.getClass().equals(SupportTool.class))
+                .map(t -> (SupportTool) t)
+                .collect(Collectors.toList());
     }
 
     public List<MeasuringTool> findAllMeasuringTools() {
-        return null;
+        return findAll().stream()
+                .filter(t -> t.getClass().equals(MeasuringTool.class))
+                .map(t -> (MeasuringTool) t)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -55,8 +64,7 @@ public class GeneralToolService
         repository.deleteById(id);
     }
 
+    //this method never uses, you should save only specific Tool
     @Override
-    public void save(AbstractTool tool) {
-
-    }
+    public void save(AbstractTool tool) {}
 }

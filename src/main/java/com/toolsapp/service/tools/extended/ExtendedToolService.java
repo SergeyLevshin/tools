@@ -41,12 +41,14 @@ public abstract class ExtendedToolService<E extends AbstractTool>
 
     @Transactional
     public void giveToolToWorker(long toolId, int quantity, long workerId) {
-        Worker worker = workerService.findById(workerId);
-        E tool = findById(toolId)
-                .orElseThrow(NoSuchElementException::new);
-        changeToolQuantity(worker, tool, quantity);
-        saveTool(tool);
-        workerService.save(worker);
+        if (workerService.findById(workerId).isPresent()) {
+            Worker worker = workerService.findById(workerId).get();
+            E tool = findById(toolId)
+                    .orElseThrow(NoSuchElementException::new);
+            changeToolQuantity(worker, tool, quantity);
+            saveTool(tool);
+            workerService.save(worker);
+        }
     }
 
     @Transactional

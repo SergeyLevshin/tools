@@ -5,10 +5,7 @@ import com.toolsapp.domain.tools.AbstractTool;
 import com.toolsapp.repository.extra.WorkerRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class WorkerServiceImpl implements WorkerService {
@@ -25,36 +22,43 @@ public class WorkerServiceImpl implements WorkerService {
     }
 
     @Override
-    public Worker findById(long id) {
-        return repository.findById(id).get();
+    public Optional<Worker> findById(long id) {
+        return repository.findById(id);
     }
 
     @Override
-    public void save(Worker worker) {
-        repository.save(worker);
+    public Worker save(Worker worker) {
+        return repository.save(worker);
     }
 
     @Override
     public Map<AbstractTool, Integer> getWorkerTools(long workerId) {
         Optional<Worker> worker = repository.findById(workerId);
         if (worker.isPresent()) {
-            return worker.get().getTools();
+            return extractTools(worker.get());
         }
         else {
             return new HashMap<>();
         }
+
+    }
+
+    private Map<AbstractTool, Integer> extractTools(Worker worker) {
+        return worker.getTools();
     }
 
     @Override
     public void removeToolFromWorker(long workerId, long toolId, int quantity) {
-        Worker worker = repository.findById(workerId).orElseThrow(NoSuchFieldError::new);
-        Optional<AbstractTool> tool = worker.getTools()
-                .keySet()
-                .stream()
-                .filter(t -> t.getId() == toolId)
-                .findFirst();
-        tool.ifPresent(t -> worker.decreaseToolQuantity(t, quantity));
-        repository.save(worker);
+        Optional<Worker> worker = repository.findById(workerId);
+        if (worker.isPresent()) {
+            Worker returnedWorker = worker.get();
+            Optional<AbstractTool> tool = returnedWorker.getTools()
+                    .keySet()
+                    .stream()
+                    .filter(t -> t.getId() == toolId)
+                    .findFirst();
+            tool.ifPresent(t -> returnedWorker.decreaseToolQuantity(t, quantity));
+            repository.save(returnedWorker);
+        }
     }
-
 }

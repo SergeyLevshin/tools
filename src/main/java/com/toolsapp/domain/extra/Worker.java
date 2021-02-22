@@ -39,12 +39,16 @@ public class Worker {
     }
 
     private int getTempToolQuantity(AbstractTool tool) {
-        return getTools().get(tool);
+        return getTools().getOrDefault(tool, 0);
     }
 
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {

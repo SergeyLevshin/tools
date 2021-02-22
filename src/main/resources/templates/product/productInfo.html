@@ -38,7 +38,7 @@
 <form th:method="POST" th:action="@{/product/products/measuring/{id}(id=${product.getId()})}">
     <label>Мерительный Инструмент</label>
     <select name="toolId">
-        <option th:each="tool : ${MeasuringTools}"
+        <option th:each="tool : ${measuringTools}"
                 th:value="${tool.getId()}" th:text="${tool.getName()}">
         </option>
     </select>

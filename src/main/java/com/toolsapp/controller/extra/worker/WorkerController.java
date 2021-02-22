@@ -30,7 +30,7 @@ public class WorkerController {
     @GetMapping("/workers/{id}")
     public String singleWorkerToolsList(@PathVariable("id") long id, Model model) {
         model.addAttribute("worker",
-                service.findById(id));
+                service.findById(id).get());
         model.addAttribute("tools",
                 service.getWorkerTools(id));
         return "worker/workerInfo";

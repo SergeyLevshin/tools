@@ -5,11 +5,12 @@ import com.toolsapp.domain.tools.AbstractTool;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public interface WorkerService {
     List<Worker> findAll();
-    Worker findById(long id);
-    void save(Worker worker);
+    Optional<Worker> findById(long id);
+    Worker save(Worker worker);
 
     Map<AbstractTool, Integer> getWorkerTools(long workerId);
 
