@@ -45,15 +45,16 @@ public abstract class ExtendedToolService<E extends AbstractTool>
             Worker worker = workerService.findById(workerId).get();
             E tool = findById(toolId)
                     .orElseThrow(NoSuchElementException::new);
-            changeToolQuantity(worker, tool, quantity);
+            changeToolQuantity(tool, quantity, worker);
             saveTool(tool);
             workerService.save(worker);
         }
     }
 
     @Transactional
-    private void changeToolQuantity(Worker worker, E tool, int quantity) {
-        if (tool.getQuantity() >= quantity) {
+    private void changeToolQuantity(E tool, int quantity, Worker worker) {
+        if (quantity > 0
+                && tool.getQuantity() >= quantity) {
             tool.setQuantity(tool.getQuantity() - quantity);
             worker.increaseToolQuantity(tool, quantity);
         }

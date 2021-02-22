@@ -16,8 +16,8 @@ public abstract class AbstractToolService <E extends AbstractTool,
         this.repository = repository;
     }
 
-    public void save(E entity) {
-        repository.save(entity);
+    public E save(E entity) {
+        return repository.save(entity);
     }
 
     public List<E> findAll() {

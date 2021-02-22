@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class WorkerTest {
 
@@ -31,8 +32,7 @@ class WorkerTest {
     void decreaseToolQuantityWithNoToolAfterDecreaseTest() {
         worker.getTools().put(tool, 10);
         worker.decreaseToolQuantity(tool, 10);
-        assertEquals(worker.getTools().get(tool), null,
-                "Should be no Tool exist");
+        assertNull(worker.getTools().get(tool), "Should be no Tool exist");
     }
 
     @Test

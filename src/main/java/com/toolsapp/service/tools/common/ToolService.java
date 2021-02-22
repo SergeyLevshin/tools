@@ -10,5 +10,5 @@ public interface ToolService<E extends AbstractTool> {
     List<E> findAll();
     Optional<E> findById(long id);
     void deleteById(long id);
-    void save(E tool);
+    E save(E tool);
 }

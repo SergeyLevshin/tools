@@ -3,8 +3,6 @@ package com.toolsapp.domain.tools;
 import com.toolsapp.domain.extra.Product;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import java.util.HashSet;
 import java.util.Set;

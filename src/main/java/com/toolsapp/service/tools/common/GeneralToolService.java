@@ -7,11 +7,9 @@ import com.toolsapp.domain.tools.SupportTool;
 import com.toolsapp.repository.tools.GeneralToolRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 //TODO make it simpler
 
@@ -66,7 +64,7 @@ public class GeneralToolService
 
     //this method never uses, you should save only specific Tool
     @Override
-    public void save(AbstractTool tool) {
-        repository.save(tool);
+    public AbstractTool save(AbstractTool tool) {
+        return repository.save(tool);
     }
 }

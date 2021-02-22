@@ -16,7 +16,7 @@ public class DefaultAdvice {
         String text = "Невозможно удалить или изменить данный объект, объект ещё используется."
                 +"<br/> Или такой объект уже существует.<br/>"
                 + "<br/>" + e.getClass().getCanonicalName()
-                + "<br/>" + e.getMessage();;
+                + "<br/>" + e.getMessage();
         return new ResponseEntity<>(text, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -32,7 +32,7 @@ public class DefaultAdvice {
     public ResponseEntity<String> handleNoSuchElementException(NoSuchElementException e) {
         String text = "Нет такого элемента<br/>"
                 + "<br/>" + e.getClass().getCanonicalName()
-                + "<br/>" + e.getMessage();;
+                + "<br/>" + e.getMessage();
         return new ResponseEntity<>(text, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
