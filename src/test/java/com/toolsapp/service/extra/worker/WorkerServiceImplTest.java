@@ -41,7 +41,7 @@ class WorkerServiceImplTest {
 
     @Test
     @DisplayName("findAll test with empty List")
-    void findAllWithEmptyTest() {
+    void findAllEmptyTest() {
         doReturn(Collections.emptyList()).when(repository).findAll();
         List<Worker> workers = service.findAll();
 
