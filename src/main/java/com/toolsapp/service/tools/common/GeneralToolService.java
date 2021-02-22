@@ -66,5 +66,7 @@ public class GeneralToolService
 
     //this method never uses, you should save only specific Tool
     @Override
-    public void save(AbstractTool tool) {}
+    public void save(AbstractTool tool) {
+        repository.save(tool);
+    }
 }

@@ -120,7 +120,7 @@ class ProductServiceImplTest {
     @DisplayName("getAllTools test with empty List")
     void getAllToolsEmptyTest() {
         doReturn(Collections.emptyList()).when(toolRepository).findAll();
-        List<AbstractTool> tools = (List<AbstractTool>) toolRepository.findAll();
+        List<AbstractTool> tools = toolService.findAll();
 
         Assertions.assertEquals(0, tools.size(),
                 "should find nothing");
