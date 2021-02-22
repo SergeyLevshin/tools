@@ -5,7 +5,7 @@
     <title>Удалить инструмент из базы</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/delete}">
+<form th:method="POST" th:action="@{/tool/delete}">
     <label>Выберите инструмент </label>
     <select name="id">
         <option></option>
@@ -17,6 +17,6 @@
     <br/>
     <input type="submit" value="Удалить">
 </form>
-<a href="/show">Назад</a>
+<a href="/tool/show">Назад</a>
 </body>
 </html>

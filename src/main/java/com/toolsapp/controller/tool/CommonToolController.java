@@ -12,7 +12,4 @@ public interface CommonToolController<E extends AbstractTool> {
     String giveTool(@Valid long toolId,
                            int quantity, @Valid long workerId);
 
-    String delete(Model model);
-
-    String deleteTool(@Valid long id);
 }

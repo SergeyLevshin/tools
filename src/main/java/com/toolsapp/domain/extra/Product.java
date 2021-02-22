@@ -47,6 +47,10 @@ public class Product {
         this.toolSet = toolSet;
     }
 
+    public void addTool(AbstractTool tool) {
+        getToolSet().add(tool);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

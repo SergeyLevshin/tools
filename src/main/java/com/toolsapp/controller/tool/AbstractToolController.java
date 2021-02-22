@@ -41,21 +41,6 @@ public abstract class AbstractToolController<E extends AbstractTool,
         return "redirect:/tool/show";
     }
 
-    @Override
-    @GetMapping("/delete")
-    public String delete(Model model) {
-        model.addAttribute("tools",
-                service.findAllTools());
-        return "/tool/delete";
-    }
-
-    @Override
-    @PostMapping("/delete")
-    public String deleteTool(@Valid long id) {
-        service.deleteToolById(id);
-        return "redirect:/tool/show";
-    }
-
     @GetMapping("/add")
     public String addTool(@ModelAttribute("tool") E tool,
                           Model model) {

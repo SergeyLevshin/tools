@@ -48,7 +48,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<AbstractTool> getAllTools() {
-        return toolService.findAllTools();
+        return toolService.findAll();
     }
 
     @Override
@@ -79,7 +79,7 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     private void saveTool(long productId, AbstractTool tool) {
         Product product = findById(productId);
-        product.getToolSet().add(tool);
+        product.addTool(tool);
         save(product);
     }
 }
