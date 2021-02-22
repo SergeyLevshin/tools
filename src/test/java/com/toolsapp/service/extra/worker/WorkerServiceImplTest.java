@@ -102,12 +102,26 @@ class WorkerServiceImplTest {
         doReturn(Optional.of(worker)).when(repository).findById(1L);
 
         Map<AbstractTool, Integer> returnedMap = service.getWorkerTools(1L);
-
         Assertions.assertEquals(toolMap, returnedMap, "Both maps should be equals");
     }
 
     @Test
-    void removeToolFromWorker() {
+    @DisplayName("getWorkerTool test with empty")
+    void getWorkerToolsEmptyTest() {
+        Worker worker = new Worker();
+        worker.setId(1L);
+        Map<AbstractTool, Integer> toolMap = new HashMap<>();
+
+        doReturn(worker).when(repository).save(any());
+        doReturn(Optional.of(worker)).when(repository).findById(1L);
+
+        Map<AbstractTool, Integer> returnedMap = service.getWorkerTools(1L);
+        Assertions.assertEquals(toolMap, returnedMap, "Both maps should be equals");
+    }
+
+    @Test
+    @DisplayName("removeToolFromWorker test")
+    void removeToolFromWorkerTest() {
         Worker worker = new Worker();
         worker.setId(1L);
         Map<AbstractTool, Integer> toolMap = new HashMap<>();
