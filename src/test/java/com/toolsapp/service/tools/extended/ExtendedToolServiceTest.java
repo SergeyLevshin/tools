@@ -20,13 +20,12 @@ import static org.mockito.Mockito.doReturn;
 class ExtendedToolServiceTest {
 
     @MockBean
-    CuttingToolsRepository toolRepository;
-    @MockBean
     WorkerRepository workerRepository;
+    @MockBean
+    CuttingToolsRepository toolRepository;
 
     @Autowired
     WorkerService workerService;
-
     @Autowired
     ExtendedCuttingToolService service;
 
