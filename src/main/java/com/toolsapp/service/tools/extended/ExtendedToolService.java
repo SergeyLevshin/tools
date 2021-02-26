@@ -4,22 +4,23 @@ import com.toolsapp.domain.extra.Worker;
 import com.toolsapp.domain.property.Producer;
 import com.toolsapp.domain.property.ToolFunction;
 import com.toolsapp.domain.tools.AbstractTool;
-import com.toolsapp.repository.tools.ToolRepository;
+import com.toolsapp.repository.CommonRepository;
+import com.toolsapp.service.AbstractCommonService;
+import com.toolsapp.service.CommonService;
 import com.toolsapp.service.extra.worker.WorkerService;
 import com.toolsapp.service.property.extended.ExtendedPropertyService;
-import com.toolsapp.service.tools.common.AbstractToolService;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
 public abstract class ExtendedToolService<E extends AbstractTool>
-        extends AbstractToolService<E, ToolRepository<E>> {
+        extends AbstractCommonService<E, CommonRepository<E>> {
 
     private final WorkerService workerService;
     private final ExtendedPropertyService propertyService;
 
-    protected ExtendedToolService(ToolRepository<E> repository,
+    protected ExtendedToolService(CommonRepository<E> repository,
                                   WorkerService workerService,
                                   ExtendedPropertyService propertyService) {
         super(repository);

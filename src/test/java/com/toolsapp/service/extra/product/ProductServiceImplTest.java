@@ -5,8 +5,9 @@ import com.toolsapp.domain.tools.AbstractTool;
 import com.toolsapp.domain.tools.CuttingTool;
 import com.toolsapp.domain.tools.MeasuringTool;
 import com.toolsapp.domain.tools.SupportTool;
+import com.toolsapp.repository.CommonRepository;
 import com.toolsapp.repository.extra.ProductRepository;
-import com.toolsapp.repository.tools.GeneralToolRepository;
+import com.toolsapp.repository.tools.AbstractToolRepository;
 import com.toolsapp.service.tools.common.GeneralToolService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -34,7 +35,7 @@ class ProductServiceImplTest {
     @MockBean
     ProductRepository repository;
     @MockBean
-    GeneralToolRepository toolRepository;
+    AbstractToolRepository toolRepository;
 
     //Product methods
 

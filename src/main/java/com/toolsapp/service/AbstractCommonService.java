@@ -1,25 +1,29 @@
-package com.toolsapp.service.property;
+package com.toolsapp.service;
 
-import com.toolsapp.domain.property.ToolProperty;
 import com.toolsapp.repository.CommonRepository;
-import com.toolsapp.service.CommonService;
 
 import java.util.List;
 import java.util.Optional;
 
-public abstract class AbstractPropertyService<E extends ToolProperty,
-        R extends CommonRepository<E>> implements CommonService<E> {
+public abstract class AbstractCommonService
+        <E, R extends CommonRepository<E>> implements CommonService<E> {
 
     protected final R repository;
 
-    protected AbstractPropertyService(R repository) {
+    protected AbstractCommonService(R repository) {
         this.repository = repository;
     }
 
-    public E save(E entity) {
-         repository.save(entity);
-         return entity;
+    @Override
+    public List<E> showAllSortByName() {
+        return repository.findAllByOrderByNameAsc();
     }
+
+    public E save(E entity) {
+        repository.save(entity);
+        return entity;
+    }
+
     public List<E> findAll() {
         return (List<E>) repository.findAll();
     }

@@ -2,7 +2,7 @@ package com.toolsapp.service.extra.worker;
 
 import com.toolsapp.domain.extra.Worker;
 import com.toolsapp.domain.tools.AbstractTool;
-import com.toolsapp.repository.extra.WorkerRepository;
+import com.toolsapp.repository.CommonRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -10,9 +10,9 @@ import java.util.*;
 @Service
 public class WorkerServiceImpl implements WorkerService {
 
-    private final WorkerRepository repository;
+    private final CommonRepository<Worker> repository;
 
-    public WorkerServiceImpl(WorkerRepository repository) {
+    public WorkerServiceImpl(CommonRepository<Worker> repository) {
         this.repository = repository;
     }
 

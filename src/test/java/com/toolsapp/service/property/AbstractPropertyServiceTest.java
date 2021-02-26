@@ -1,7 +1,7 @@
 package com.toolsapp.service.property;
 
 import com.toolsapp.domain.property.Producer;
-import com.toolsapp.repository.extra.property.ProducerRepository;
+import com.toolsapp.repository.CommonRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.*;
 class AbstractPropertyServiceTest {
 
     @Mock
-    ProducerRepository repository;
+    CommonRepository<Producer> repository;
 
     @InjectMocks
     ProducerService service;

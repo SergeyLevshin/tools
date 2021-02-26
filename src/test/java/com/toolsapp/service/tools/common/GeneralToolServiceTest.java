@@ -4,7 +4,7 @@ import com.toolsapp.domain.tools.AbstractTool;
 import com.toolsapp.domain.tools.CuttingTool;
 import com.toolsapp.domain.tools.MeasuringTool;
 import com.toolsapp.domain.tools.SupportTool;
-import com.toolsapp.repository.tools.GeneralToolRepository;
+import com.toolsapp.repository.CommonRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,7 +24,7 @@ class GeneralToolServiceTest {
 
 
     @Mock
-    GeneralToolRepository repository;
+    CommonRepository<AbstractTool> repository;
 
     @InjectMocks
     GeneralToolService service;

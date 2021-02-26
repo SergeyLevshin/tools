@@ -1,9 +1,9 @@
 package com.toolsapp.repository.extra;
 
 import com.toolsapp.domain.extra.Worker;
-import org.springframework.data.repository.CrudRepository;
+import com.toolsapp.repository.CommonRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface WorkerRepository extends CrudRepository<Worker, Long> {
+public interface WorkerRepository extends CommonRepository<Worker> {
 }

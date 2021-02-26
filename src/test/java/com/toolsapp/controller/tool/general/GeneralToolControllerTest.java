@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -36,6 +37,7 @@ class GeneralToolControllerTest {
     @DisplayName("showListOfTools test")
     void showListOfToolsTest() throws Exception {
         this.mockMvc.perform(get("/tool/show/"))
+                .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("/tool/show"))
                 .andReturn();
@@ -45,6 +47,7 @@ class GeneralToolControllerTest {
     @DisplayName("delete GET test")
     void deleteTest() throws Exception {
         this.mockMvc.perform(get("/tool/delete"))
+                .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("/tool/delete"))
                 .andReturn();
@@ -55,8 +58,19 @@ class GeneralToolControllerTest {
     void deleteToolTest() throws Exception {
         this.mockMvc
                 .perform(post("/tool/delete").param("id", "1"))
+                .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/tool/show"))
+                .andReturn();
+    }
+
+    @Test
+    @DisplayName("delete POST failed test")
+    void deleteToolWithNoIdTest() throws Exception {
+        this.mockMvc
+                .perform(post("/tool/delete"))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().is4xxClientError())
                 .andReturn();
     }
 }

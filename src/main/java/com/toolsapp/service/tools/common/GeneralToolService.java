@@ -4,7 +4,9 @@ import com.toolsapp.domain.tools.AbstractTool;
 import com.toolsapp.domain.tools.CuttingTool;
 import com.toolsapp.domain.tools.MeasuringTool;
 import com.toolsapp.domain.tools.SupportTool;
-import com.toolsapp.repository.tools.GeneralToolRepository;
+import com.toolsapp.repository.CommonRepository;
+import com.toolsapp.service.AbstractCommonService;
+import com.toolsapp.service.CommonService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,13 +16,10 @@ import java.util.stream.Collectors;
 //TODO make it simpler
 
 @Service
-public class GeneralToolService
-        implements ToolService<AbstractTool> {
+public class GeneralToolService extends AbstractCommonService<AbstractTool, CommonRepository<AbstractTool>> {
 
-    private final GeneralToolRepository repository;
-
-    public GeneralToolService(GeneralToolRepository repository) {
-        this.repository = repository;
+    public GeneralToolService(CommonRepository<AbstractTool> repository) {
+        super(repository);
     }
 
     public List<CuttingTool> findAllCuttingTools() {
@@ -47,7 +46,7 @@ public class GeneralToolService
 
     @Override
     public List<AbstractTool> findAll() {
-        return (List<AbstractTool>) repository.findAll();
+        return repository.findAllByOrderByNameAsc();
     }
 
     @Override
@@ -60,11 +59,5 @@ public class GeneralToolService
         if (findById(id).isPresent()
                 && findById(id).get().getQuantity() == 0)
         repository.deleteById(id);
-    }
-
-    //this method never uses, you should save only specific Tool
-    @Override
-    public AbstractTool save(AbstractTool tool) {
-        return repository.save(tool);
     }
 }
