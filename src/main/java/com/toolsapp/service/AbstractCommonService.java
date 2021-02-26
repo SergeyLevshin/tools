@@ -15,7 +15,7 @@ public abstract class AbstractCommonService
     }
 
     @Override
-    public List<E> showAllSortByName() {
+    public List<E> findAllSortByName() {
         return repository.findAllByOrderByNameAsc();
     }
 

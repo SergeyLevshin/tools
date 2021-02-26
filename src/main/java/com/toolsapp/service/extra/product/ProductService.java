@@ -1,26 +1,62 @@
 package com.toolsapp.service.extra.product;
 
 import com.toolsapp.domain.extra.Product;
+import com.toolsapp.domain.tools.AbstractTool;
+import com.toolsapp.domain.tools.CuttingTool;
+import com.toolsapp.domain.tools.MeasuringTool;
+import com.toolsapp.domain.tools.SupportTool;
+import com.toolsapp.repository.CommonRepository;
+import com.toolsapp.service.AbstractCommonService;
+import com.toolsapp.service.tools.common.GeneralToolService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface ProductService {
-    List<Product> findAll();
+@Service
+public class ProductService extends AbstractCommonService<Product, CommonRepository<Product>> {
 
-    Product save(Product product);
+    private final GeneralToolService toolService;
 
-    Optional<Product> findById(long productId);
+    protected ProductService(CommonRepository<Product> repository, GeneralToolService toolService) {
+        super(repository);
+        this.toolService = toolService;
+    }
 
-    void deleteById(long productId);
+    //There are only Tool methods below.
 
-    void addTool(long productId, long toolId);
+    public List<AbstractTool> getAllTools() {
+        return toolService.findAll();
+    }
 
-    Object getAllTools();
 
-    Object getAllSupportTools();
+    public List<SupportTool> getAllSupportTools() {
+        return toolService.findAllSupportTools();
+    }
 
-    Object getAllCuttingTools();
 
-    Object getAllMeasuringTools();
+    public List<CuttingTool> getAllCuttingTools() {
+        return toolService.findAllCuttingTools();
+    }
+
+
+    public List<MeasuringTool> getAllMeasuringTools() {
+        return toolService.findAllMeasuringTools();
+    }
+
+    @Transactional
+    public void addTool(long productId, long toolId) {
+        Optional<AbstractTool> tool = toolService.findById(toolId);
+        tool.ifPresent(t -> saveTool(productId, t));
+    }
+
+    @Transactional
+    private void saveTool(long productId, AbstractTool tool) {
+        if (findById(productId).isPresent()) {
+            Product product = findById(productId).get();
+            product.addTool(tool);
+            save(product);
+        }
+    }
 }

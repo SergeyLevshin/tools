@@ -5,7 +5,6 @@ import com.toolsapp.domain.tools.AbstractTool;
 import com.toolsapp.domain.tools.CuttingTool;
 import com.toolsapp.domain.tools.MeasuringTool;
 import com.toolsapp.domain.tools.SupportTool;
-import com.toolsapp.repository.CommonRepository;
 import com.toolsapp.repository.extra.ProductRepository;
 import com.toolsapp.repository.tools.AbstractToolRepository;
 import com.toolsapp.service.tools.common.GeneralToolService;
@@ -25,7 +24,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 
 @SpringBootTest
-class ProductServiceImplTest {
+class ProductServiceTest {
 
     @Autowired
     ProductService service;

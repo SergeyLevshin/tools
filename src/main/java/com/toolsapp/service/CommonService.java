@@ -8,5 +8,5 @@ public interface CommonService<E> {
     Optional<E> findById(long id);
     void deleteById(long id);
     E save(E tool);
-    List<E> showAllSortByName();
+    List<E> findAllSortByName();
 }

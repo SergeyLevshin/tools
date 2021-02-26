@@ -29,11 +29,11 @@ public class ExtendedPropertyService {
 
 
     public List<ToolFunction> findAllToolFunctions() {
-        return toolFunctionService.findAll();
+        return toolFunctionService.findAllSortByName();
     }
 
     public List<Producer> findAllProducers() {
-        return producerService.findAll();
+        return producerService.findAllSortByName();
     }
 
 

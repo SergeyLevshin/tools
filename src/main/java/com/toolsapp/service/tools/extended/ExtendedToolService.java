@@ -6,7 +6,6 @@ import com.toolsapp.domain.property.ToolFunction;
 import com.toolsapp.domain.tools.AbstractTool;
 import com.toolsapp.repository.CommonRepository;
 import com.toolsapp.service.AbstractCommonService;
-import com.toolsapp.service.CommonService;
 import com.toolsapp.service.extra.worker.WorkerService;
 import com.toolsapp.service.property.extended.ExtendedPropertyService;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,11 +32,7 @@ public abstract class ExtendedToolService<E extends AbstractTool>
     }
 
     public List<E> findAllTools() {
-        return findAll();
-    }
-
-    public void deleteToolById(long id) {
-        deleteById(id);
+        return findAllSortByName();
     }
 
     @Transactional

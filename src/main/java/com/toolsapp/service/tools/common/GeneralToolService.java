@@ -6,11 +6,9 @@ import com.toolsapp.domain.tools.MeasuringTool;
 import com.toolsapp.domain.tools.SupportTool;
 import com.toolsapp.repository.CommonRepository;
 import com.toolsapp.service.AbstractCommonService;
-import com.toolsapp.service.CommonService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 //TODO make it simpler
@@ -42,22 +40,5 @@ public class GeneralToolService extends AbstractCommonService<AbstractTool, Comm
                 .filter(t -> t.getClass().equals(MeasuringTool.class))
                 .map(t -> (MeasuringTool) t)
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<AbstractTool> findAll() {
-        return repository.findAllByOrderByNameAsc();
-    }
-
-    @Override
-    public Optional<AbstractTool> findById(long id) {
-        return repository.findById(id);
-    }
-
-    @Override
-    public void deleteById(long id) {
-        if (findById(id).isPresent()
-                && findById(id).get().getQuantity() == 0)
-        repository.deleteById(id);
     }
 }
