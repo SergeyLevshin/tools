@@ -60,9 +60,7 @@ public class RestProductController {
 
     @DeleteMapping("/products/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable("id") long id) {
-        final Optional<Product> product = service.findById(id);
-        service.deleteById(id);
-        return product.isPresent()
+        return service.deleteById(id)
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }

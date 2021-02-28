@@ -105,8 +105,6 @@ class ProductControllerTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("/product/addProduct"))
-                //TODO regexp
-//                .andExpect(content().string("Введите наименование"))
                 .andReturn();
     }
 }

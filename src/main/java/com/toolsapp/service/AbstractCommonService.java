@@ -41,7 +41,13 @@ public abstract class AbstractCommonService
         return entity.get();
     }
 
-    public void deleteById(long id) {
-        repository.deleteById(id);
+    public boolean deleteById(long id) {
+        if (findById(id).isPresent()) {
+            repository.deleteById(id);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }

@@ -6,7 +6,7 @@ import java.util.Optional;
 public interface CommonService<E> {
     List<E> findAll();
     Optional<E> findById(long id);
-    void deleteById(long id);
+    boolean deleteById(long id);
     E save(E tool);
     List<E> findAllSortByName();
 }

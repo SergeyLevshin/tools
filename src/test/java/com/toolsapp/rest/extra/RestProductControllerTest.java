@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,9 +51,9 @@ public class RestProductControllerTest  {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].id").value(1))
+                .andExpect(jsonPath("$[0].id").value(1L))
                 .andExpect(jsonPath("$[0].name").value("name1"))
-                .andExpect(jsonPath("$[1].id").value(2))
+                .andExpect(jsonPath("$[1].id").value(2L))
                 .andExpect(jsonPath("$[1].name").value("name2"));
         verify(service, times(1)).findAllSortByName();
         verifyNoMoreInteractions(service);
@@ -78,7 +79,7 @@ public class RestProductControllerTest  {
         product.setId(1L);
         product.setName("name");
 
-        when(service.findById(1)).thenReturn(Optional.of(product));
+        when(service.findById(1L)).thenReturn(Optional.of(product));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/rest/product/products/1")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -86,7 +87,7 @@ public class RestProductControllerTest  {
                 .andExpect(jsonPath("id").value(1))
                 .andExpect(jsonPath("name").value("name"))
                 .andExpect(jsonPath("toolSet").value(new ArrayList<>()));
-        verify(service, times(1)).findById(1);
+        verify(service, times(1)).findById(1L);
         verifyNoMoreInteractions(service);
     }
 
@@ -94,12 +95,12 @@ public class RestProductControllerTest  {
     @DisplayName("getSingleProduct not found test")
     void getSingleProductNotFoundTest() throws Exception {
 
-        when(service.findById(1)).thenReturn(Optional.empty());
+        when(service.findById(1L)).thenReturn(Optional.empty());
 
         mockMvc.perform(MockMvcRequestBuilders.get("/rest/product/products/1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is4xxClientError());
-        verify(service, times(1)).findById(1);
+        verify(service, times(1)).findById(1L);
         verifyNoMoreInteractions(service);
     }
 
@@ -117,6 +118,28 @@ public class RestProductControllerTest  {
     }
 
     @Test
-    void deleteProduct() {
+    @DisplayName("deleteProduct success test")
+    void deleteProductTest() throws Exception {
+        when(service.deleteById(1L)).thenReturn(true);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/rest/product/products/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        verify(service, times(1)).deleteById(1L);
+        verifyNoMoreInteractions(service);
+    }
+
+    @Test
+    @DisplayName("deleteProduct not found test")
+    void deleteProductNotFoundTest() throws Exception {
+        when(service.deleteById(1L)).thenReturn(false);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/rest/product/products/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().is3xxRedirection());
+        verify(service, times(1)).deleteById(1L);
+        verifyNoMoreInteractions(service);
     }
 }
