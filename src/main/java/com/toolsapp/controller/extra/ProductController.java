@@ -1,4 +1,4 @@
-package com.toolsapp.controller.extra.product;
+package com.toolsapp.controller.extra;
 
 import com.toolsapp.domain.extra.Product;
 import com.toolsapp.service.extra.product.ProductService;

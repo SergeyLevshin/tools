@@ -1,4 +1,4 @@
-package com.toolsapp.controller.extra.worker;
+package com.toolsapp.controller.extra;
 
 import com.toolsapp.service.extra.worker.WorkerService;
 import org.springframework.stereotype.Controller;

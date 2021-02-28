@@ -26,8 +26,8 @@ public class ProductService extends AbstractCommonService<Product, CommonReposit
 
     //There are only Tool methods below.
 
-    public List<AbstractTool> getAllTools() {
-        return toolService.findAll();
+    public List<? extends AbstractTool> getAllTools() {
+        return toolService.findAllTools();
     }
 
     public List<SupportTool> getAllSupportTools() {

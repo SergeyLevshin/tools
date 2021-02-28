@@ -3,6 +3,7 @@ package com.toolsapp.service;
 import com.toolsapp.repository.CommonRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 public abstract class AbstractCommonService
@@ -30,6 +31,14 @@ public abstract class AbstractCommonService
 
     public Optional<E> findById(long id) {
         return repository.findById(id);
+    }
+
+    public E findOne(long id) {
+        Optional<E> entity = findById(id);
+        if (entity.isEmpty()) {
+            throw new NoSuchElementException("не найдено");
+        }
+        return entity.get();
     }
 
     public void deleteById(long id) {

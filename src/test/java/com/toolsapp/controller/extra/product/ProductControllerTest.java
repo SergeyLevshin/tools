@@ -1,8 +1,13 @@
 package com.toolsapp.controller.extra.product;
 
+import com.toolsapp.controller.extra.ProductController;
+import com.toolsapp.domain.extra.Product;
+import com.toolsapp.domain.tools.CuttingTool;
 import com.toolsapp.repository.extra.ProductRepository;
+import com.toolsapp.service.extra.product.ProductService;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +22,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.validation.BindingResult;
 
+import java.util.Arrays;
+import java.util.List;
+
+import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -33,7 +42,7 @@ class ProductControllerTest {
     ProductController controller;
 
     @MockBean
-    ProductRepository repository;
+    ProductService service;
 
     @MockBean
     BindingResult bindingResult;
@@ -56,6 +65,7 @@ class ProductControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("/product/products"))
                 .andReturn();
+
     }
 
     @Test
