@@ -22,24 +22,21 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 class GeneralToolServiceTest {
 
-
     @Mock
     CommonRepository<AbstractTool> repository;
 
     @InjectMocks
     GeneralToolService service;
 
-
-
     @Test
     @DisplayName("findAll test")
-    void findAllTest() {
+    void findAllToolsTest() {
         AbstractTool tool1 = new SupportTool();
         AbstractTool tool2 = new CuttingTool();
         AbstractTool tool3 = new MeasuringTool();
 
-        doReturn(Arrays.asList(tool1, tool2, tool3)).when(repository).findAll();
-        List<AbstractTool> tools = service.findAll();
+        doReturn(Arrays.asList(tool1, tool2, tool3)).when(repository).findAllByOrderByNameAsc();
+        List<AbstractTool> tools = service.findAllSortByName();
 
         Assertions.assertEquals(3, tools.size(),
                 "should find 3 tools");
@@ -48,41 +45,16 @@ class GeneralToolServiceTest {
     @Test
     @DisplayName("getAllTools test with empty List")
     void findAllEmptyTest() {
-        doReturn(Collections.emptyList()).when(repository).findAll();
-        List<AbstractTool> tools =  service.findAll();
+        doReturn(Collections.emptyList()).when(repository).findAllByOrderByNameAsc();
+        List<AbstractTool> tools =  service.findAllSortByName();
 
         Assertions.assertEquals(0, tools.size(),
                 "should find nothing");
     }
 
     @Test
-    @DisplayName("findById success")
-    void findById() {
-        AbstractTool tool = new CuttingTool();
-        tool.setId(1L);
-
-        doReturn(Optional.of(tool)).when(repository).findById(1L);
-        Optional<AbstractTool> returnedTool = service.findById(1L);
-
-        Assertions.assertTrue(returnedTool.isPresent(),
-                "Tool was not found");
-        Assertions.assertSame(returnedTool.get(), tool,
-                "Returned tool is not the same as mock");
-    }
-
-    @Test
-    @DisplayName("findById not found")
-    void findByIdNotFoundTest() {
-        doReturn(Optional.empty()).when(repository).findById(1L);
-        Optional<AbstractTool> returnedTool = service.findById(1L);
-
-        Assertions.assertFalse(returnedTool.isPresent(),
-                "Product shouldn't be found");
-    }
-
-    @Test
     @DisplayName("deleteById success test")
-    void deleteByIdTest() {
+    void deleteToolTest() {
         AbstractTool tool = new CuttingTool();
         tool.setId(1L);
         when(repository.findById(1L)).thenReturn(Optional.of(tool));
@@ -98,7 +70,7 @@ class GeneralToolServiceTest {
         AbstractTool tool3 = new MeasuringTool();
         AbstractTool tool4 = new SupportTool();
 
-        doReturn(Arrays.asList(tool1, tool2, tool3, tool4)).when(repository).findAll();
+        doReturn(Arrays.asList(tool1, tool2, tool3, tool4)).when(repository).findAllByOrderByNameAsc();
         List<SupportTool> tools = service.findAllSupportTools();
 
         Assertions.assertEquals(2, tools.size(),
@@ -111,7 +83,7 @@ class GeneralToolServiceTest {
         AbstractTool tool1 = new CuttingTool();
         AbstractTool tool2 = new MeasuringTool();
 
-        doReturn(Arrays.asList(tool1, tool2)).when(repository).findAll();
+        doReturn(Arrays.asList(tool1, tool2)).when(repository).findAllByOrderByNameAsc();
         List<SupportTool> tools = service.findAllSupportTools();
 
         Assertions.assertEquals(0, tools.size(),
@@ -126,7 +98,7 @@ class GeneralToolServiceTest {
         AbstractTool tool3 = new MeasuringTool();
         AbstractTool tool4 = new CuttingTool();
 
-        doReturn(Arrays.asList(tool1, tool2, tool3, tool4)).when(repository).findAll();
+        doReturn(Arrays.asList(tool1, tool2, tool3, tool4)).when(repository).findAllByOrderByNameAsc();
         List<CuttingTool> tools = service.findAllCuttingTools();
 
         Assertions.assertEquals(2, tools.size(),
@@ -139,7 +111,7 @@ class GeneralToolServiceTest {
         AbstractTool tool1 = new SupportTool();
         AbstractTool tool2 = new MeasuringTool();
 
-        doReturn(Arrays.asList(tool1, tool2)).when(repository).findAll();
+        doReturn(Arrays.asList(tool1, tool2)).when(repository).findAllByOrderByNameAsc();
         List<CuttingTool> tools = service.findAllCuttingTools();
 
         Assertions.assertEquals(0, tools.size(),
@@ -154,7 +126,7 @@ class GeneralToolServiceTest {
         AbstractTool tool3 = new MeasuringTool();
         AbstractTool tool4 = new MeasuringTool();
 
-        doReturn(Arrays.asList(tool1, tool2, tool3, tool4)).when(repository).findAll();
+        doReturn(Arrays.asList(tool1, tool2, tool3, tool4)).when(repository).findAllByOrderByNameAsc();
         List<MeasuringTool> tools = service.findAllMeasuringTools();
 
         Assertions.assertEquals(2, tools.size(),
@@ -167,7 +139,7 @@ class GeneralToolServiceTest {
         AbstractTool tool1 = new CuttingTool();
         AbstractTool tool2 = new SupportTool();
 
-        doReturn(Arrays.asList(tool1, tool2)).when(repository).findAll();
+        doReturn(Arrays.asList(tool1, tool2)).when(repository).findAllByOrderByNameAsc();
         List<MeasuringTool> tools = service.findAllMeasuringTools();
 
         Assertions.assertEquals(0, tools.size(),

@@ -22,20 +22,20 @@ public class GeneralToolController {
     @GetMapping("/show")
     public String showListOfTools(Model model) {
         model.addAttribute("tools",
-                service.findAll());
+                service.findAllTools());
         return "/tool/show";
     }
 
     @GetMapping("/delete")
     public String delete(Model model) {
         model.addAttribute("tools",
-                service.findAll());
+                service.findAllTools());
         return "/tool/delete";
     }
 
     @PostMapping("/delete")
     public String deleteTool(@Valid long id) {
-        service.deleteById(id);
+        service.deleteTool(id);
         return "redirect:/tool/show";
     }
 }

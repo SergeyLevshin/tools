@@ -1,14 +1,20 @@
 package com.toolsapp.controller.tool.general;
 
+import com.toolsapp.domain.tools.AbstractTool;
+import com.toolsapp.domain.tools.CuttingTool;
+import com.toolsapp.repository.tools.AbstractToolRepository;
+import com.toolsapp.repository.tools.CuttingToolsRepository;
 import org.junit.Before;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -24,14 +30,6 @@ class GeneralToolControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @InjectMocks
-    GeneralToolController controller;
-
-    @Before
-    public void setup() {
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-    }
 
     @Test
     @DisplayName("showListOfTools test")
@@ -53,16 +51,6 @@ class GeneralToolControllerTest {
                 .andReturn();
     }
 
-    @Test
-    @DisplayName("delete POST success test")
-    void deleteToolTest() throws Exception {
-        this.mockMvc
-                .perform(post("/tool/delete").param("id", "1"))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/tool/show"))
-                .andReturn();
-    }
 
     @Test
     @DisplayName("delete POST failed test")

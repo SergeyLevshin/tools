@@ -30,7 +30,6 @@ public class ProductService extends AbstractCommonService<Product, CommonReposit
         return toolService.findAll();
     }
 
-
     public List<SupportTool> getAllSupportTools() {
         return toolService.findAllSupportTools();
     }

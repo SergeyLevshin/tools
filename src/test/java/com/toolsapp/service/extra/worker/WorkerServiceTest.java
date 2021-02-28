@@ -25,68 +25,7 @@ class WorkerServiceTest {
 
     @MockBean
     WorkerRepository repository;
-
-    @Test
-    @DisplayName("findAll test")
-    void findAllTest() {
-        Worker worker1 = new Worker();
-        Worker worker2 = new Worker();
-
-        doReturn(Arrays.asList(worker1, worker2)).when(repository).findAll();
-        List<Worker> workers = service.findAll();
-
-        Assertions.assertEquals(2, workers.size(),
-                "should find 2 workers");
-    }
-
-    @Test
-    @DisplayName("findAll test with empty List")
-    void findAllEmptyTest() {
-        doReturn(Collections.emptyList()).when(repository).findAll();
-        List<Worker> workers = service.findAll();
-
-        Assertions.assertEquals(0, workers.size(),
-                "should find nothing");
-    }
-
-    @Test
-    @DisplayName("findById success")
-    void findByIdSuccessTest() {
-        Worker worker = new Worker();
-        worker.setId(1L);
-
-        doReturn(Optional.of(worker)).when(repository).findById(1L);
-        Optional<Worker> returnedWorker = service.findById(1L);
-
-        Assertions.assertTrue(returnedWorker.isPresent(),
-                "Worker was not found");
-        Assertions.assertSame(returnedWorker.get(), worker,
-                "Returned worker is not the same as mock");
-    }
-
-    @Test
-    @DisplayName("findById not found")
-    void findByIdNotFoundTest() {
-        doReturn(Optional.empty()).when(repository).findById(1L);
-        Optional<Worker> returnedWorker = service.findById(1L);
-
-        Assertions.assertFalse(returnedWorker.isPresent(),
-                "Worker shouldn't be found");
-    }
-
-    @Test
-    @DisplayName("save worker test")
-    void saveTest() {
-        Worker worker = new Worker();
-
-        doReturn(worker).when(repository).save(any());
-        Worker returnedWorker = service.save(worker);
-
-        Assertions.assertNotNull(returnedWorker,
-                "Saved worker shouldn't be null");
-        Assertions.assertEquals(returnedWorker, worker,
-                "Both workers should be equals");
-    }
+    
 
     @Test
     @DisplayName("getWorkerTool test")
