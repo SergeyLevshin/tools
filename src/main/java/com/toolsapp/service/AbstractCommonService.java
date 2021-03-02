@@ -2,6 +2,7 @@ package com.toolsapp.service;
 
 import com.toolsapp.repository.CommonRepository;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -42,11 +43,10 @@ public abstract class AbstractCommonService
     }
 
     public boolean deleteById(long id) {
-        if (findById(id).isPresent()) {
+        try {
             repository.deleteById(id);
             return true;
-        }
-        else {
+        } catch (EntityNotFoundException ignored) {
             return false;
         }
     }

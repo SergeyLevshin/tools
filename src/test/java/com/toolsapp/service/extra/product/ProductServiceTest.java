@@ -27,7 +27,7 @@ import static org.mockito.Mockito.doReturn;
 class ProductServiceTest {
 
     @Autowired
-    ProductService service;
+    ProductService productService;
     @Autowired
     GeneralToolService toolService;
 
@@ -72,7 +72,7 @@ class ProductServiceTest {
         AbstractTool tool4 = new SupportTool();
 
         doReturn(Arrays.asList(tool1, tool2, tool3, tool4)).when(toolRepository).findAllByOrderByNameAsc();
-        List<SupportTool> tools = toolService.findAllSupportTools();
+        List<SupportTool> tools = productService.getAllSupportTools();
 
         Assertions.assertEquals(2, tools.size(),
                 "should find 2 tools");
@@ -85,7 +85,7 @@ class ProductServiceTest {
         AbstractTool tool2 = new MeasuringTool();
 
         doReturn(Arrays.asList(tool1, tool2)).when(toolRepository).findAllByOrderByNameAsc();
-        List<SupportTool> tools = toolService.findAllSupportTools();
+        List<SupportTool> tools = productService.getAllSupportTools();
 
         Assertions.assertEquals(0, tools.size(),
                 "should find 2 tools");
@@ -100,7 +100,7 @@ class ProductServiceTest {
         AbstractTool tool4 = new CuttingTool();
 
         doReturn(Arrays.asList(tool1, tool2, tool3, tool4)).when(toolRepository).findAllByOrderByNameAsc();
-        List<CuttingTool> tools = toolService.findAllCuttingTools();
+        List<CuttingTool> tools = productService.getAllCuttingTools();
 
         Assertions.assertEquals(2, tools.size(),
                 "should find 2 tools");
@@ -113,7 +113,7 @@ class ProductServiceTest {
         AbstractTool tool2 = new MeasuringTool();
 
         doReturn(Arrays.asList(tool1, tool2)).when(toolRepository).findAllByOrderByNameAsc();
-        List<CuttingTool> tools = toolService.findAllCuttingTools();
+        List<CuttingTool> tools = productService.getAllCuttingTools();
 
         Assertions.assertEquals(0, tools.size(),
                 "should find 2 tools");
@@ -128,7 +128,7 @@ class ProductServiceTest {
         AbstractTool tool4 = new MeasuringTool();
 
         doReturn(Arrays.asList(tool1, tool2, tool3, tool4)).when(toolRepository).findAllByOrderByNameAsc();
-        List<MeasuringTool> tools = toolService.findAllMeasuringTools();
+        List<MeasuringTool> tools = productService.getAllMeasuringTools();
 
         Assertions.assertEquals(2, tools.size(),
                 "should find 2 tools");
@@ -141,7 +141,7 @@ class ProductServiceTest {
         AbstractTool tool2 = new SupportTool();
 
         doReturn(Arrays.asList(tool1, tool2)).when(toolRepository).findAllByOrderByNameAsc();
-        List<MeasuringTool> tools = toolService.findAllMeasuringTools();
+        List<MeasuringTool> tools = productService.getAllMeasuringTools();
 
         Assertions.assertEquals(0, tools.size(),
                 "should find 2 tools");
@@ -159,13 +159,13 @@ class ProductServiceTest {
         doReturn(Optional.of(tool)).when(toolRepository).findById(10L);
         doReturn(product).when(repository).save(any());
 
-        service.save(product);
-        Optional<Product> returnedProduct = service.findById(1L);
+        productService.save(product);
+        Optional<Product> returnedProduct = productService.findById(1L);
         Assertions.assertFalse(returnedProduct.get().getToolSet().contains(tool),
                 "Shouldn't contain tool");
 
-        service.addTool(1L, 10L);
-        returnedProduct = service.findById(1L);
+        productService.addTool(1L, 10L);
+        returnedProduct = productService.findById(1L);
         Assertions.assertTrue(returnedProduct.get().getToolSet().contains(tool),
                 "Should contain tool");
 

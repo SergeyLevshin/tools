@@ -3,6 +3,7 @@ package com.toolsapp.rest.property;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toolsapp.domain.property.Producer;
 import com.toolsapp.domain.property.ToolFunction;
+import com.toolsapp.domain.property.ToolProperty;
 import com.toolsapp.service.property.extended.ExtendedPropertyService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,9 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import javax.tools.Tool;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Optional;
+import java.util.*;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.*;
@@ -43,10 +42,12 @@ class RestPropertyControllerTest {
     @Test
     @DisplayName("getAllToolProperties success test")
     void getAllToolPropertiesTest() throws Exception {
+        List<ToolProperty> properties = new ArrayList<>();
+        properties.add(new Producer());
+        properties.add(new ToolFunction());
 
         when(service.findAllToolProperties())
-                .thenReturn(Arrays.asList(Collections.singletonList(new Producer())
-                        , Collections.singletonList(new ToolFunction())));
+                .thenReturn(properties);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/rest/property/allToolProperties")
                 .contentType(MediaType.APPLICATION_JSON))

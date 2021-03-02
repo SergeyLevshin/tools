@@ -7,6 +7,7 @@ import com.toolsapp.service.property.ProducerService;
 import com.toolsapp.service.property.ToolFunctionService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -38,8 +39,11 @@ public class ExtendedPropertyService {
         return producerService.deleteById(id);
     }
 
-    public List<List<? extends ToolProperty>> findAllToolProperties() {
-        return Arrays.asList(findAllToolFunctions(), findAllProducers());
+    public List<ToolProperty> findAllToolProperties() {
+        List<ToolProperty> properties = new ArrayList<>();
+        properties.addAll(findAllProducers());
+        properties.addAll(findAllToolFunctions());
+        return properties;
     }
 
     public List<ToolFunction> findAllToolFunctions() {

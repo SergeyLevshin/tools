@@ -22,14 +22,14 @@ public class GeneralToolController {
     @GetMapping("/show")
     public String showListOfTools(Model model) {
         model.addAttribute("tools",
-                service.findAllTools());
+                service.findAllSortByName());
         return "/tool/show";
     }
 
     @GetMapping("/delete")
     public String delete(Model model) {
         model.addAttribute("tools",
-                service.findAllTools());
+                service.findAllSortByName());
         return "/tool/delete";
     }
 

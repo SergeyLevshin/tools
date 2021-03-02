@@ -24,10 +24,10 @@ public class RestPropertyController {
     }
 
     @GetMapping("/allToolProperties")
-    public ResponseEntity<List<List<? extends ToolProperty>>> getAllToolProperties() {
-        final List<List<? extends ToolProperty>> allToolProperties = service.findAllToolProperties();
-        return allToolProperties !=null && !allToolProperties.isEmpty()
-                ? new ResponseEntity<>(allToolProperties, HttpStatus.OK)
+    public ResponseEntity<List<ToolProperty>> getAllToolProperties() {
+        final List<ToolProperty> properties = service.findAllToolProperties();
+        return properties !=null && !properties.isEmpty()
+                ? new ResponseEntity<>(properties, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 

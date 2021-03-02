@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService extends AbstractCommonService<Product, CommonRepository<Product>> {
@@ -26,22 +27,31 @@ public class ProductService extends AbstractCommonService<Product, CommonReposit
 
     //There are only Tool methods below.
 
-    public List<? extends AbstractTool> getAllTools() {
-        return toolService.findAllTools();
+    public List<AbstractTool> getAllTools() {
+        return toolService.findAllSortByName();
     }
 
     public List<SupportTool> getAllSupportTools() {
-        return toolService.findAllSupportTools();
+        return toolService.findAllSortByName().stream()
+                .filter(tool -> tool.getClass().equals(SupportTool.class))
+                .map(tool -> (SupportTool) tool)
+                .collect(Collectors.toList());
     }
 
 
     public List<CuttingTool> getAllCuttingTools() {
-        return toolService.findAllCuttingTools();
+        return toolService.findAllSortByName().stream()
+                .filter(tool -> tool.getClass().equals(CuttingTool.class))
+                .map(tool -> (CuttingTool) tool)
+                .collect(Collectors.toList());
     }
 
 
     public List<MeasuringTool> getAllMeasuringTools() {
-        return toolService.findAllMeasuringTools();
+        return toolService.findAllSortByName().stream().
+                filter(tool -> tool.getClass().equals(MeasuringTool.class))
+                .map(tool -> (MeasuringTool) tool)
+                .collect(Collectors.toList());
     }
 
     @Transactional
