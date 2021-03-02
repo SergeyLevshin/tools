@@ -51,7 +51,7 @@ class ExtendedToolServiceTest {
                 "should be no tools taken");
 
         //quantity = 0, no tool should be given
-        service.giveToolToWorker(1l, 0, 2L);
+        service.giveToolToWorker(1L, 0, 2L);
         tool = service.findById(1L).get();
         worker = workerService.findById(2L).get();
         Assertions.assertEquals(10, tool.getQuantity(),
@@ -60,7 +60,7 @@ class ExtendedToolServiceTest {
                 "should be 0 tools taken");
 
         //normal quantity
-        service.giveToolToWorker(1l, 3, 2L);
+        service.giveToolToWorker(1L, 3, 2L);
         tool = service.findById(1L).get();
         worker = workerService.findById(2L).get();
         System.out.println(tool + " / " + worker);
@@ -70,7 +70,7 @@ class ExtendedToolServiceTest {
                 "should be 3 tools taken");
 
         //quantity is larger than toolQuantity
-        service.giveToolToWorker(1l, 100, 2L);
+        service.giveToolToWorker(1L, 100, 2L);
         tool = service.findById(1L).get();
         worker = workerService.findById(2L).get();
         System.out.println(tool + " / " + worker);
@@ -80,7 +80,7 @@ class ExtendedToolServiceTest {
                 "should be 3 tools taken, 0 tools taken");
 
         //quantity equals toolQuantity, all tools shoild be given
-        service.giveToolToWorker(1l, 7, 2L);
+        service.giveToolToWorker(1L, 7, 2L);
         tool = service.findById(1L).get();
         worker = workerService.findById(2L).get();
         System.out.println(tool + " / " + worker);

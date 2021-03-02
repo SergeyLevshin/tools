@@ -25,7 +25,6 @@ class WorkerServiceTest {
 
     @MockBean
     WorkerRepository repository;
-    
 
     @Test
     @DisplayName("getWorkerTool test")

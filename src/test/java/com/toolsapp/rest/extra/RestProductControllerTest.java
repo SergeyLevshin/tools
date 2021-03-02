@@ -1,29 +1,27 @@
 package com.toolsapp.rest.extra;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toolsapp.domain.extra.Product;
+import com.toolsapp.domain.tools.AbstractTool;
+import com.toolsapp.domain.tools.CuttingTool;
 import com.toolsapp.service.extra.product.ProductService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@WebMvcTest(RestProductController.class)
 public class RestProductControllerTest  {
 
     @Autowired
@@ -31,6 +29,14 @@ public class RestProductControllerTest  {
 
     @MockBean
     ProductService service;
+
+    public static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Test
     @DisplayName("getAllProducts not empty list  test")
@@ -41,9 +47,8 @@ public class RestProductControllerTest  {
         Product product2 = new Product();
         product2.setId(2L);
         product2.setName("name2");
-        List<Product> products = new ArrayList<>();
-        products.add(product1);
-        products.add(product2);
+        List<Product> products = Arrays.asList(product1, product2);
+
 
         when(service.findAllSortByName()).thenReturn(products);
 
@@ -104,17 +109,32 @@ public class RestProductControllerTest  {
         verifyNoMoreInteractions(service);
     }
 
-    @Test
-    void addTool() {
 
+    @Test
+    @DisplayName("addProduct GET test")
+    void addProductTest() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/rest/product/addProduct")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        verify(service, times(1)).getAllTools();
+        verifyNoMoreInteractions(service);
     }
 
     @Test
-    void addProduct() {
-    }
+    @DisplayName("createProduct success test")
+    void createProduct() throws Exception {
+        Product product = new Product();
+        product.setId(1L);
+        product.setName("name");
 
-    @Test
-    void createProduct() {
+        when(service.save(product)).thenReturn(product);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/rest/product/addProduct")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(product)))
+                .andExpect(status().isCreated());
+        verify(service, times(1)).save(product);
+        verifyNoMoreInteractions(service);
     }
 
     @Test
@@ -140,6 +160,47 @@ public class RestProductControllerTest  {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().is3xxRedirection());
         verify(service, times(1)).deleteById(1L);
+        verifyNoMoreInteractions(service);
+    }
+
+    @Test
+    @DisplayName("addTool success test")
+    void addToolTest() throws Exception {
+        Product product = new Product();
+        product.setId(1L);
+        product.setName("name");
+        AbstractTool tool = new CuttingTool();
+        tool.setId(10L);
+        tool.setName("tool");
+
+
+        when(service.addTool(1, 10)).thenReturn(true);
+
+        mockMvc.perform(MockMvcRequestBuilders.patch("/rest/product/products/{id}", 1)
+                .contentType(MediaType.APPLICATION_JSON)
+                .param("toolId", "10"))
+                .andExpect(status().isOk());
+        verify(service, times(1)).addTool(1L, 10L);
+        verifyNoMoreInteractions(service);
+    }
+
+    @Test
+    @DisplayName("addTool failed test")
+    void addToolFailedTest() throws Exception {
+        Product product = new Product();
+        product.setId(1L);
+        product.setName("name");
+        AbstractTool tool = new CuttingTool();
+        tool.setId(10L);
+        tool.setName("tool");
+
+        when(service.addTool(1, 10)).thenReturn(false);
+
+        mockMvc.perform(MockMvcRequestBuilders.patch("/rest/product/products/{id}", 1)
+                .contentType(MediaType.APPLICATION_JSON)
+                .param("toolId", "10"))
+                .andExpect(status().is3xxRedirection());
+        verify(service, times(1)).addTool(1L, 10L);
         verifyNoMoreInteractions(service);
     }
 }

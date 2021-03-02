@@ -45,9 +45,15 @@ public class ProductService extends AbstractCommonService<Product, CommonReposit
     }
 
     @Transactional
-    public void addTool(long productId, long toolId) {
+    public boolean addTool(long productId, long toolId) {
         Optional<AbstractTool> tool = toolService.findById(toolId);
-        tool.ifPresent(t -> saveTool(productId, t));
+        if (tool.isPresent()) {
+            saveTool(productId, tool.get());
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     @Transactional

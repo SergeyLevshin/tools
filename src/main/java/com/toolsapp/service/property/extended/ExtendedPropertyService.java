@@ -2,10 +2,12 @@ package com.toolsapp.service.property.extended;
 
 import com.toolsapp.domain.property.Producer;
 import com.toolsapp.domain.property.ToolFunction;
+import com.toolsapp.domain.property.ToolProperty;
 import com.toolsapp.service.property.ProducerService;
 import com.toolsapp.service.property.ToolFunctionService;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -19,14 +21,17 @@ public class ExtendedPropertyService {
         this.toolFunctionService = toolFunctionService;
     }
 
-    public void deleteToolFunctionById(long id) {
-       toolFunctionService.deleteById(id);
+    public boolean deleteToolFunctionById(long id) {
+       return toolFunctionService.deleteById(id);
     }
 
-    public void deleteProducerById(long id) {
-        producerService.deleteById(id);
+    public boolean deleteProducerById(long id) {
+        return producerService.deleteById(id);
     }
 
+    public List<List<? extends ToolProperty>> findAllToolProperties() {
+        return Arrays.asList(findAllToolFunctions(), findAllProducers());
+    }
 
     public List<ToolFunction> findAllToolFunctions() {
         return toolFunctionService.findAllSortByName();
@@ -37,12 +42,14 @@ public class ExtendedPropertyService {
     }
 
 
-    public void saveToolFunction(ToolFunction toolFunction) {
+    public ToolFunction saveToolFunction(ToolFunction toolFunction) {
         toolFunctionService.save(toolFunction);
+        return toolFunction;
     }
 
-    public void saveProducer(Producer producer) {
+    public Producer saveProducer(Producer producer) {
         producerService.save(producer);
+        return producer;
     }
 
 }

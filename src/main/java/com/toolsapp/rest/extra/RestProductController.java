@@ -3,14 +3,12 @@ package com.toolsapp.rest.extra;
 import com.toolsapp.domain.extra.Product;
 import com.toolsapp.domain.tools.AbstractTool;
 import com.toolsapp.service.extra.product.ProductService;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -38,14 +36,6 @@ public class RestProductController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PutMapping("/products/{id}")
-    public ResponseEntity<Product> addTool(@PathVariable("id") long productId,
-                                           @Valid @RequestBody Map<String, Long> data) {
-        service.addTool(productId, data.get("toolId"));
-        Optional<Product> product = service.findById(productId);
-        return product.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_MODIFIED));
-    }
 
     @GetMapping("/addProduct")
     public ResponseEntity<List<? extends AbstractTool>> addProduct() {
@@ -55,12 +45,20 @@ public class RestProductController {
     @PostMapping("/addProduct")
     public ResponseEntity<?> createProduct(@Valid @RequestBody Product product) {
         service.save(product);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/products/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable("id") long id) {
         return service.deleteById(id)
+                ? new ResponseEntity<>(HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+    }
+
+    @PatchMapping("/products/{id}")
+    public ResponseEntity<Product> addTool(@PathVariable("id") long productId,
+                                           @RequestParam long toolId) {
+        return service.addTool(productId, toolId)
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }

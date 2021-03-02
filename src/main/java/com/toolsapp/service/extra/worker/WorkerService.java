@@ -45,7 +45,7 @@ public class WorkerService extends AbstractCommonService<Worker, CommonRepositor
         return worker.getTools();
     }
 
-    public void removeToolFromWorker(long workerId, long toolId, int quantity) {
+    public boolean removeToolFromWorker(long workerId, long toolId, int quantity) {
         Optional<Worker> worker = repository.findById(workerId);
         if (worker.isPresent()) {
             Worker returnedWorker = worker.get();
@@ -56,6 +56,10 @@ public class WorkerService extends AbstractCommonService<Worker, CommonRepositor
                     .findFirst();
             tool.ifPresent(t -> returnedWorker.decreaseToolQuantity(t, quantity));
             repository.save(returnedWorker);
+            return true;
+        }
+        else {
+            return false;
         }
     }
 }
