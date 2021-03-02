@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(RestProductController.class)
-public class RestProductControllerTest  {
+public class RestProductControllerTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -40,7 +40,7 @@ public class RestProductControllerTest  {
 
     @Test
     @DisplayName("getAllProducts not empty list  test")
-    void getAllProductsTest() throws Exception{
+    void getAllProductsTest() throws Exception {
         Product product1 = new Product();
         product1.setId(1L);
         product1.setName("name1");
@@ -66,7 +66,7 @@ public class RestProductControllerTest  {
 
     @Test
     @DisplayName("getAllProducts empty list test")
-    void getAllProductsEmptyTest() throws Exception{
+    void getAllProductsEmptyTest() throws Exception {
         when(service.findAllSortByName()).thenReturn(null);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/rest/product/products")
@@ -99,7 +99,6 @@ public class RestProductControllerTest  {
     @Test
     @DisplayName("getSingleProduct not found test")
     void getSingleProductNotFoundTest() throws Exception {
-
         when(service.findById(1L)).thenReturn(Optional.empty());
 
         mockMvc.perform(MockMvcRequestBuilders.get("/rest/product/products/1")

@@ -1,5 +1,6 @@
 package com.toolsapp.rest.property;
 
+import com.toolsapp.domain.extra.Product;
 import com.toolsapp.domain.property.Producer;
 import com.toolsapp.domain.property.ToolFunction;
 import com.toolsapp.domain.property.ToolProperty;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/rest/property")
@@ -23,10 +25,24 @@ public class RestPropertyController {
 
     @GetMapping("/allToolProperties")
     public ResponseEntity<List<List<? extends ToolProperty>>> getAllToolProperties() {
-        List<List<? extends ToolProperty>> allToolProperties = service.findAllToolProperties();
+        final List<List<? extends ToolProperty>> allToolProperties = service.findAllToolProperties();
         return allToolProperties !=null && !allToolProperties.isEmpty()
                 ? new ResponseEntity<>(allToolProperties, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/producer/{id}")
+    public ResponseEntity<Producer> getSingleProducer(@PathVariable("id") long id) {
+        final Optional<Producer> producer = service.findProducerById(id);
+        return producer.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/toolFunction/{id}")
+    public ResponseEntity<ToolFunction> getSingleToolFunction(@PathVariable("id") long id) {
+        final Optional<ToolFunction> toolFunction = service.findToolFunctionById(id);
+        return toolFunction.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("addProducer")

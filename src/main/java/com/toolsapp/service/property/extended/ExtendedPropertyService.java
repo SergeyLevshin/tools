@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ExtendedPropertyService {
@@ -19,6 +20,14 @@ public class ExtendedPropertyService {
     public ExtendedPropertyService(ProducerService producerService, ToolFunctionService toolFunctionService) {
         this.producerService = producerService;
         this.toolFunctionService = toolFunctionService;
+    }
+
+    public Optional<Producer> findProducerById(long id){
+        return producerService.findById(id);
+    }
+
+    public Optional<ToolFunction> findToolFunctionById(long id) {
+        return toolFunctionService.findById(id);
     }
 
     public boolean deleteToolFunctionById(long id) {

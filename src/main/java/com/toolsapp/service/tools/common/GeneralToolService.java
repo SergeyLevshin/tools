@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,18 +54,26 @@ public class GeneralToolService extends AbstractCommonService<AbstractTool, Comm
     }
 
     @Transactional
-    public void deleteTool(long toolId) {
-        AbstractTool tool = findById(toolId).get();
+    public boolean deleteTool(long toolId) {
+        Optional<AbstractTool> tool = findById(toolId);
+        if (tool.isPresent()) {
+            if (isToolFound(tool.get())) {
+                return false;
+            }
+        }
+        return deleteById(toolId);
+    }
+
+    @Transactional
+    private boolean isToolFound(AbstractTool tool) {
         List<Worker> workers = (List<Worker>) workerRepository.findAll();
-        boolean isContains = true;
+        boolean isContains = false;
         for (Worker worker : workers) {
             if (worker.getTools().containsKey(tool)) {
-                isContains = false;
+                isContains = true;
                 break;
             }
         }
-        if (!isContains) {
-            deleteById(toolId);
-        }
+        return isContains;
     }
 }

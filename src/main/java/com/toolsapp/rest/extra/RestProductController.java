@@ -31,7 +31,7 @@ public class RestProductController {
 
     @GetMapping("/products/{id}")
     public ResponseEntity<Product> getSingleProduct(@PathVariable("id") long id) {
-        Optional<Product> product = service.findById(id);
+        final Optional<Product> product = service.findById(id);
         return product.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

@@ -29,7 +29,7 @@ public class RestWorkerController {
 
     @GetMapping("/workers/{id}")
     public ResponseEntity<Worker> getSingleWorker(@PathVariable("id") long id) {
-        Optional<Worker> worker = service.findById(id);
+        final Optional<Worker> worker = service.findById(id);
         return worker.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

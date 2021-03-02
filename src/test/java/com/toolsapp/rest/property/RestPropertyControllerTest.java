@@ -13,8 +13,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import javax.tools.Tool;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Optional;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.*;
@@ -65,6 +67,67 @@ class RestPropertyControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is4xxClientError());
         verify(service, times(1)).findAllToolProperties();
+        verifyNoMoreInteractions(service);
+    }
+
+    @Test
+    @DisplayName("getSingleProducer success test")
+    void getSingleProducerTest() throws Exception {
+        Producer producer = new Producer();
+        producer.setId(1L);
+        producer.setName("name");
+
+        when(service.findProducerById(1L)).thenReturn(Optional.of(producer));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/rest/property/producer/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("id").value(1))
+                .andExpect(jsonPath("name").value("name"));
+        verify(service, times(1)).findProducerById(1L);
+        verifyNoMoreInteractions(service);
+    }
+
+    @Test
+    @DisplayName("getSingleProducer not found test")
+    void getSingleProducerNotFoundTest() throws Exception {
+        when(service.findProducerById(1L)).thenReturn(Optional.empty());
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/rest/property/producer/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is4xxClientError());
+        verify(service, times(1)).findProducerById(1L);
+        verifyNoMoreInteractions(service);
+    }
+
+
+    @Test
+    @DisplayName("getSingleToolFunction success test")
+    void getSingleToolFunctionTest() throws Exception {
+        ToolFunction toolFunction = new ToolFunction();
+        toolFunction.setId(1L);
+        toolFunction.setName("name");
+
+        when(service.findToolFunctionById(1L)).thenReturn(Optional.of(toolFunction));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/rest/property/toolFunction/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("id").value(1))
+                .andExpect(jsonPath("name").value("name"));
+        verify(service, times(1)).findToolFunctionById(1L);
+        verifyNoMoreInteractions(service);
+    }
+
+    @Test
+    @DisplayName("getSingleToolFunction not found test")
+    void getSingleToolFunctionNotFoundTest() throws Exception {
+        when(service.findToolFunctionById(1L)).thenReturn(Optional.empty());
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/rest/property/toolFunction/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is4xxClientError());
+        verify(service, times(1)).findToolFunctionById(1L);
         verifyNoMoreInteractions(service);
     }
 
@@ -153,4 +216,5 @@ class RestPropertyControllerTest {
         verify(service, times(1)).deleteToolFunctionById(1L);
         verifyNoMoreInteractions(service);
     }
+
 }
