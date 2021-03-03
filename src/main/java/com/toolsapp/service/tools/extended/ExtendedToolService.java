@@ -3,6 +3,7 @@ package com.toolsapp.service.tools.extended;
 import com.toolsapp.domain.extra.Worker;
 import com.toolsapp.domain.property.Producer;
 import com.toolsapp.domain.property.ToolFunction;
+import com.toolsapp.domain.property.ToolProperty;
 import com.toolsapp.domain.tools.AbstractTool;
 import com.toolsapp.repository.CommonRepository;
 import com.toolsapp.service.AbstractCommonService;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 public abstract class ExtendedToolService<E extends AbstractTool>
         extends AbstractCommonService<E, CommonRepository<E>> {
@@ -27,37 +29,46 @@ public abstract class ExtendedToolService<E extends AbstractTool>
         this.propertyService = propertyService;
     }
 
-    public void saveTool(E tool) {
-        save(tool);
-    }
-
-    public List<E> findAllTools() {
-        return findAllSortByName();
-    }
-
+    // Give tool to worker if tool have enough quantity.
     @Transactional
-    public void giveToolToWorker(long toolId, int quantity, long workerId) {
-        if (workerService.findById(workerId).isPresent()) {
+    public boolean giveToolToWorker(long toolId, int quantity, long workerId) {
+        if (workerService.findById(workerId).isPresent()
+                && findById(toolId).isPresent()) {
             Worker worker = workerService.findById(workerId).get();
-            E tool = findById(toolId)
-                    .orElseThrow(NoSuchElementException::new);
-            changeToolQuantity(tool, quantity, worker);
-            saveTool(tool);
-            workerService.save(worker);
+            E tool = findById(toolId).get();
+            if (changeToolQuantity(tool, quantity, worker)) {
+                save(tool);
+                workerService.save(worker);
+                return true;
+            }
         }
+        return false;
     }
 
     @Transactional
-    private void changeToolQuantity(E tool, int quantity, Worker worker) {
+    private boolean changeToolQuantity(E tool, int quantity, Worker worker) {
         if (quantity > 0
                 && tool.getQuantity() >= quantity) {
             tool.setQuantity(tool.getQuantity() - quantity);
             worker.increaseToolQuantity(tool, quantity);
+            return true;
         }
+        return false;
+    }
+
+    @Transactional
+    public E addToolProperty(E tool, ToolProperty property) {
+        if (property instanceof Producer) {
+            tool.setProducer((Producer) property);
+        }
+        if (property instanceof ToolFunction) {
+            tool.setToolFunction((ToolFunction) property);
+        }
+        return tool;
     }
 
     public List<Worker> findAllWorkers() {
-        return workerService.findAll();
+        return workerService.findAllSortByName();
     }
 
     public List<ToolFunction> findAllToolFunctions() {

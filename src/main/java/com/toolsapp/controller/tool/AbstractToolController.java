@@ -29,7 +29,7 @@ public abstract class AbstractToolController<E extends AbstractTool,
         model.addAttribute("workers",
                 service.findAllWorkers());
         model.addAttribute("tools",
-                service.findAllTools());
+                service.findAll());
         return "/tool/" + toolType + "/give";
     }
 
@@ -41,6 +41,7 @@ public abstract class AbstractToolController<E extends AbstractTool,
         return "redirect:/tool/show";
     }
 
+    @Override
     @GetMapping("/add")
     public String addTool(@ModelAttribute("tool") E tool,
                           Model model) {
@@ -51,6 +52,7 @@ public abstract class AbstractToolController<E extends AbstractTool,
         return "/tool/" + toolType + "/add";
     }
 
+    @Override
     @PostMapping("/add")
     public String addingTool(@ModelAttribute("tool") @Valid E tool,
                              BindingResult bindingResult, Model model) {
@@ -61,7 +63,7 @@ public abstract class AbstractToolController<E extends AbstractTool,
                     service.findAllToolFunctions());
             return "/tool/" + toolType + "/add";
         }
-        service.saveTool(tool);
+        service.save(tool);
         System.out.println(tool.getId() + " " + tool.getName());
         return "redirect:/tool/show";
     }

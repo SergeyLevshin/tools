@@ -14,8 +14,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import javax.tools.Tool;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.*;
@@ -31,7 +32,7 @@ class RestPropertyControllerTest {
     @MockBean
     ExtendedPropertyService service;
 
-    public static String asJsonString(final Object obj) {
+    private static String asJsonString(final Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);
         } catch (Exception e) {

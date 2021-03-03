@@ -21,6 +21,8 @@ public class GeneralToolService extends AbstractCommonService<AbstractTool, Comm
         this.workerRepository = workerRepository;
     }
 
+    // Check that the tool is not used.
+
     @Transactional
     public boolean deleteTool(long toolId) {
         Optional<AbstractTool> tool = findById(toolId);

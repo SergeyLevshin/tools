@@ -34,14 +34,6 @@ public abstract class AbstractCommonService
         return repository.findById(id);
     }
 
-    public E findOne(long id) {
-        Optional<E> entity = findById(id);
-        if (entity.isEmpty()) {
-            throw new NoSuchElementException("не найдено");
-        }
-        return entity.get();
-    }
-
     public boolean deleteById(long id) {
         try {
             repository.deleteById(id);

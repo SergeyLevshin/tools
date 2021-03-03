@@ -38,7 +38,7 @@ public class RestProductController {
 
 
     @GetMapping("/addProduct")
-    public ResponseEntity<List<? extends AbstractTool>> addProduct() {
+    public ResponseEntity<List<AbstractTool>> addProduct() {
         return new ResponseEntity<>(service.getAllTools(), HttpStatus.OK);
     }
 
