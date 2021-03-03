@@ -17,7 +17,6 @@ import java.util.*;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -30,7 +29,7 @@ class RestCuttingToolControllerTest {
     @MockBean
     CuttingToolService service;
 
-    private final String uri = "/rest/tool/cutting";
+    private final String uri = "/rest/tool/cutting/";
 
     private static String asJsonString(final Object obj) {
         try {
@@ -86,12 +85,12 @@ class RestCuttingToolControllerTest {
 
         when(service.findById(1L)).thenReturn(Optional.of(tool));
 
-        mockMvc.perform(MockMvcRequestBuilders.get(uri + "/1")
+        mockMvc.perform(MockMvcRequestBuilders.get(uri + "1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("id").value(1))
                 .andExpect(jsonPath("name").value("name"));
-        verify(service, times(1)).findById(1L);
+        verify(service, times(1)).findById(1);
         verifyNoMoreInteractions(service);
     }
 
@@ -101,10 +100,10 @@ class RestCuttingToolControllerTest {
 
         when(service.findById(1L)).thenReturn(Optional.empty());
 
-        mockMvc.perform(MockMvcRequestBuilders.get(uri + "/1")
+        mockMvc.perform(MockMvcRequestBuilders.get(uri + "1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is4xxClientError());
-        verify(service, times(1)).findById(1L);
+        verify(service, times(1)).findById(1);
         verifyNoMoreInteractions(service);
     }
 
@@ -121,7 +120,7 @@ class RestCuttingToolControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(tool)))
                 .andExpect(status().isCreated());
-        verify(service, times(1)).save(tool);
+        verify(service, times(1)).save(any());
         verifyNoMoreInteractions(service);
     }
 }

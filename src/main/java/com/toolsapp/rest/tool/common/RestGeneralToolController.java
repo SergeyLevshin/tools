@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rest/tool/general")
+@RequestMapping("/rest/tool/general/")
 public class RestGeneralToolController {
 
     private final GeneralToolService service;
@@ -20,9 +20,9 @@ public class RestGeneralToolController {
 
     @GetMapping
     public ResponseEntity<List<AbstractTool>> findAll() {
-        List<AbstractTool> entities = service.findAllSortByName();
-        return entities != null && !entities.isEmpty()
-                ? new ResponseEntity<>(entities, HttpStatus.OK)
+        List<AbstractTool> tools = service.findAllSortByName();
+        return tools != null && !tools.isEmpty()
+                ? new ResponseEntity<>(tools, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 

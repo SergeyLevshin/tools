@@ -12,8 +12,6 @@ import com.toolsapp.service.property.extended.ExtendedPropertyService;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 public abstract class ExtendedToolService<E extends AbstractTool>
         extends AbstractCommonService<E, CommonRepository<E>> {

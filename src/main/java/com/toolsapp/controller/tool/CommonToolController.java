@@ -3,9 +3,6 @@ package com.toolsapp.controller.tool;
 import com.toolsapp.domain.tools.AbstractTool;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-
-import javax.validation.Valid;
 
 public interface CommonToolController<E extends AbstractTool> {
 

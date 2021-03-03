@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
-import java.util.List;
 
 public interface CommonExtendedRestToolController<E extends AbstractTool> {
 

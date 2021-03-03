@@ -90,14 +90,14 @@ public abstract class AbstractTool {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof AbstractTool)) return false;
-        AbstractTool that = (AbstractTool) o;
-        return id == that.id;
+        AbstractTool tool = (AbstractTool) o;
+        return id == tool.id &&
+                Objects.equals(name, tool.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, name);
     }
-
 }
 

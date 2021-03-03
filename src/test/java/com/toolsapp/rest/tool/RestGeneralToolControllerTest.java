@@ -30,7 +30,7 @@ public class RestGeneralToolControllerTest {
     @MockBean
     GeneralToolService service;
 
-    private final String uri = "/rest/tool/general";
+    private final String uri = "/rest/tool/general/";
 
     @Test
     @DisplayName("findAll success test")
@@ -73,7 +73,7 @@ public class RestGeneralToolControllerTest {
     void deleteByIdTest() throws Exception {
         when(service.deleteTool(1L)).thenReturn(true);
 
-        mockMvc.perform(MockMvcRequestBuilders.delete(uri +"/1")
+        mockMvc.perform(MockMvcRequestBuilders.delete(uri +"1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
@@ -86,7 +86,7 @@ public class RestGeneralToolControllerTest {
     void deleteProductFailedTest() throws Exception {
         when(service.deleteTool(1L)).thenReturn(false);
 
-        mockMvc.perform(MockMvcRequestBuilders.delete(uri +"/1")
+        mockMvc.perform(MockMvcRequestBuilders.delete(uri +"1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().is3xxRedirection());

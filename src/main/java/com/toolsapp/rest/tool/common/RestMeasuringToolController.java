@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/rest/tool/measuring")
+@RequestMapping("/rest/tool/measuring/")
 public class RestMeasuringToolController
         extends AbstractRestToolController<MeasuringTool, MeasuringToolService> {
 

@@ -1,6 +1,5 @@
 package com.toolsapp.rest.property;
 
-import com.toolsapp.domain.extra.Product;
 import com.toolsapp.domain.property.Producer;
 import com.toolsapp.domain.property.ToolFunction;
 import com.toolsapp.domain.property.ToolProperty;

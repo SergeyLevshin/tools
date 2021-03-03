@@ -4,7 +4,6 @@ import com.toolsapp.repository.CommonRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 public abstract class AbstractCommonService

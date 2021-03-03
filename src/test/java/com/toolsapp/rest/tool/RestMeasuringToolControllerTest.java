@@ -19,7 +19,6 @@ import java.util.Optional;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -32,7 +31,7 @@ public class RestMeasuringToolControllerTest {
     @MockBean
     MeasuringToolService service;
 
-    private final String uri = "/rest/tool/measuring";
+    private final String uri = "/rest/tool/measuring/";
 
     private static String asJsonString(final Object obj) {
         try {
@@ -88,7 +87,7 @@ public class RestMeasuringToolControllerTest {
 
         when(service.findById(1L)).thenReturn(Optional.of(tool));
 
-        mockMvc.perform(MockMvcRequestBuilders.get(uri + "/1")
+        mockMvc.perform(MockMvcRequestBuilders.get(uri + "1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("id").value(1))
@@ -103,7 +102,7 @@ public class RestMeasuringToolControllerTest {
 
         when(service.findById(1L)).thenReturn(Optional.empty());
 
-        mockMvc.perform(MockMvcRequestBuilders.get(uri + "/1")
+        mockMvc.perform(MockMvcRequestBuilders.get(uri + "1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is4xxClientError());
         verify(service, times(1)).findById(1L);
@@ -123,7 +122,7 @@ public class RestMeasuringToolControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(tool)))
                 .andExpect(status().isCreated());
-        verify(service, times(1)).save(tool);
+        verify(service, times(1)).save(any());
         verifyNoMoreInteractions(service);
     }
 }

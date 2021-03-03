@@ -68,11 +68,12 @@ public class Worker {
         if (this == o) return true;
         if (!(o instanceof Worker)) return false;
         Worker worker = (Worker) o;
-        return id == worker.id;
+        return id == worker.id &&
+                name.equals(worker.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, name);
     }
 }

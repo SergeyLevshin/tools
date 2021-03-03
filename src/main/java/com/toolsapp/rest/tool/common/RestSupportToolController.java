@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/rest/tool/support")
+@RequestMapping("/rest/tool/support/")
 public class RestSupportToolController
         extends AbstractRestToolController<SupportTool, SupportToolService> {
 

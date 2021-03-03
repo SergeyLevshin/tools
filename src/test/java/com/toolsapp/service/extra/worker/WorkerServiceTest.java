@@ -12,12 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 
-@SpringBootTest
+@SpringBootTest(classes = WorkerService.class)
 class WorkerServiceTest {
 
     @Autowired
@@ -49,6 +51,7 @@ class WorkerServiceTest {
         Worker worker = new Worker();
         worker.setId(1L);
         Map<AbstractTool, Integer> toolMap = new HashMap<>();
+
 
         doReturn(worker).when(repository).save(any());
         doReturn(Optional.of(worker)).when(repository).findById(1L);
