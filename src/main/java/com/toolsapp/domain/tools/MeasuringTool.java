@@ -2,14 +2,13 @@ package com.toolsapp.domain.tools;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 public class MeasuringTool extends AbstractTool{
 
     // Every 6 months tool should be checked.
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "check_date")
     private LocalDate checkDate = LocalDate.now().plusMonths(6);
 
     public LocalDate getCheckDate() {

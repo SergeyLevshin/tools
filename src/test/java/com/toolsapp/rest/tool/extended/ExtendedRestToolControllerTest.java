@@ -1,7 +1,5 @@
 package com.toolsapp.rest.tool.extended;
 
-import com.toolsapp.domain.tools.CuttingTool;
-import com.toolsapp.service.tools.extended.ExtendedCuttingToolService;
 import com.toolsapp.service.tools.extended.ExtendedGeneralToolService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,7 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
