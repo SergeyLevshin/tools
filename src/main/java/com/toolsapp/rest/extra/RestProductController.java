@@ -57,7 +57,7 @@ public class RestProductController {
 
     @PatchMapping("/products/{id}")
     public ResponseEntity<Product> addTool(@PathVariable("id") long productId,
-                                           @RequestParam long toolId) {
+                                           @RequestParam @Valid long toolId) {
         return service.addTool(productId, toolId)
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);

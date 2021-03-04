@@ -1,9 +1,10 @@
 package com.toolsapp.service.tools.extended;
 
 import com.toolsapp.domain.extra.Worker;
+import com.toolsapp.domain.tools.AbstractTool;
 import com.toolsapp.domain.tools.CuttingTool;
 import com.toolsapp.repository.extra.WorkerRepository;
-import com.toolsapp.repository.tools.CuttingToolsRepository;
+import com.toolsapp.repository.tools.AbstractToolRepository;
 import com.toolsapp.service.extra.worker.WorkerService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -17,22 +18,22 @@ import java.util.Optional;
 import static org.mockito.Mockito.doReturn;
 
 @SpringBootTest
-class ExtendedToolServiceTest {
+class ExtendedGeneralToolServiceTest {
 
     @MockBean
     WorkerRepository workerRepository;
     @MockBean
-    CuttingToolsRepository toolRepository;
+    AbstractToolRepository toolRepository;
 
     @Autowired
     WorkerService workerService;
     @Autowired
-    ExtendedCuttingToolService service;
+    ExtendedGeneralToolService service;
 
     @Test
     @DisplayName("giveToolToWorker all cases test")
     void giveToolToWorkerTest() {
-        CuttingTool tool = new CuttingTool();
+        AbstractTool tool = new CuttingTool();
         tool.setId(1L);
         tool.setQuantity(10);
         Worker worker = new Worker();
@@ -52,7 +53,7 @@ class ExtendedToolServiceTest {
 
         //quantity = 0, no tool should be given
         service.giveToolToWorker(1L, 0, 2L);
-        tool = service.findById(1L).get();
+        tool = (CuttingTool) service.findById(1L).get();
         worker = workerService.findById(2L).get();
         Assertions.assertEquals(10, tool.getQuantity(),
                 "should be 10 tool, 0 tools given");
@@ -61,7 +62,7 @@ class ExtendedToolServiceTest {
 
         //normal quantity
         service.giveToolToWorker(1L, 3, 2L);
-        tool = service.findById(1L).get();
+        tool = (CuttingTool) service.findById(1L).get();
         worker = workerService.findById(2L).get();
         System.out.println(tool + " / " + worker);
         Assertions.assertEquals(7, tool.getQuantity(),
@@ -71,7 +72,7 @@ class ExtendedToolServiceTest {
 
         //quantity is larger than toolQuantity
         service.giveToolToWorker(1L, 100, 2L);
-        tool = service.findById(1L).get();
+        tool = (CuttingTool) service.findById(1L).get();
         worker = workerService.findById(2L).get();
         System.out.println(tool + " / " + worker);
         Assertions.assertEquals(7, tool.getQuantity(),
@@ -81,7 +82,7 @@ class ExtendedToolServiceTest {
 
         //quantity equals toolQuantity, all tools shoild be given
         service.giveToolToWorker(1L, 7, 2L);
-        tool = service.findById(1L).get();
+        tool = (CuttingTool) service.findById(1L).get();
         worker = workerService.findById(2L).get();
         System.out.println(tool + " / " + worker);
         Assertions.assertEquals(0, tool.getQuantity(),
