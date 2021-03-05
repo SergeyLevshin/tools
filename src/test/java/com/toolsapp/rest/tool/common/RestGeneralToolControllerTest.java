@@ -1,8 +1,7 @@
-package com.toolsapp.rest.tool;
+package com.toolsapp.rest.tool.common;
 
 import com.toolsapp.domain.tools.CuttingTool;
 import com.toolsapp.domain.tools.SupportTool;
-import com.toolsapp.rest.tool.common.RestGeneralToolController;
 import com.toolsapp.service.tools.common.GeneralToolService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

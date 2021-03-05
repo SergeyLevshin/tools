@@ -1,13 +1,12 @@
-package com.toolsapp.rest.tool;
+package com.toolsapp.rest.tool.common;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.toolsapp.domain.tools.SupportTool;
-import com.toolsapp.rest.tool.common.RestSupportToolController;
-import com.toolsapp.service.tools.common.SupportToolService;
+import com.toolsapp.domain.tools.AbstractTool;
+import com.toolsapp.service.CommonService;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -22,17 +21,24 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+abstract class AbstractRestToolControllerTest<E extends AbstractTool,
+        S extends CommonService<E>> {
 
-@WebMvcTest(RestSupportToolController.class)
-public class RestSupportToolControllerTest {
+    public AbstractRestToolControllerTest(String uri) {
+        this.uri = uri;
+    }
 
     @Autowired
     MockMvc mockMvc;
 
     @MockBean
-    SupportToolService service;
+    S service;
 
-    private final String uri = "/rest/tool/support/";
+    private final String uri;
+
+    static long counterId = 1;
+
+    protected abstract E getInstance();
 
     private static String asJsonString(final Object obj) {
         try {
@@ -42,15 +48,16 @@ public class RestSupportToolControllerTest {
         }
     }
 
+    @AfterEach
+    void resetCounter() {
+        counterId = 1;
+    }
+
     @Test
     @DisplayName("findAll success test")
     void findAllTest() throws Exception {
-        SupportTool tool1 = new SupportTool();
-        tool1.setId(1L);
-        tool1.setName("name1");
-        SupportTool tool2 = new SupportTool();
-        tool2.setId(2L);
-        tool2.setName("name2");
+        E tool1 = this.getInstance();
+        E tool2 = this.getInstance();
 
         when(service.findAllSortByName()).thenReturn(Arrays.asList(tool1, tool2));
 
@@ -69,7 +76,6 @@ public class RestSupportToolControllerTest {
     @Test
     @DisplayName("findAll not found test")
     void findAllNotFoundTest() throws Exception {
-
         when(service.findAllSortByName()).thenReturn(Collections.emptyList());
 
         mockMvc.perform(MockMvcRequestBuilders.get(uri)
@@ -82,9 +88,7 @@ public class RestSupportToolControllerTest {
     @Test
     @DisplayName("findById success test")
     void findByIdTest() throws Exception {
-        SupportTool tool = new SupportTool();
-        tool.setId(1L);
-        tool.setName("name");
+        E tool = this.getInstance();
 
         when(service.findById(1L)).thenReturn(Optional.of(tool));
 
@@ -92,30 +96,27 @@ public class RestSupportToolControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("id").value(1))
-                .andExpect(jsonPath("name").value("name"));
-        verify(service, times(1)).findById(1L);
+                .andExpect(jsonPath("name").value("name1"));
+        verify(service, times(1)).findById(1);
         verifyNoMoreInteractions(service);
     }
 
     @Test
     @DisplayName("findById not found test")
     void findByIdNotFoundTest() throws Exception {
-
         when(service.findById(1L)).thenReturn(Optional.empty());
 
         mockMvc.perform(MockMvcRequestBuilders.get(uri + "1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is4xxClientError());
-        verify(service, times(1)).findById(1L);
+        verify(service, times(1)).findById(1);
         verifyNoMoreInteractions(service);
     }
 
     @Test
     @DisplayName("save success test")
     void save() throws Exception {
-        SupportTool tool = new SupportTool();
-        tool.setId(1L);
-        tool.setName("name");
+        E tool = this.getInstance();
 
         when(service.save(tool)).thenReturn(tool);
 
