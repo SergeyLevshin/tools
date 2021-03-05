@@ -13,7 +13,7 @@ public class RestCuttingToolControllerTest
     }
 
     @Override
-    protected CuttingTool getInstance() {
+    protected CuttingTool createTool() {
         CuttingTool tool = new CuttingTool();
         tool.setId(counterId);
         tool.setName("name" + counterId);

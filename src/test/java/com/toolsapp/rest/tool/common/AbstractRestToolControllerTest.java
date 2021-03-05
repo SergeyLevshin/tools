@@ -38,7 +38,7 @@ abstract class AbstractRestToolControllerTest<E extends AbstractTool,
 
     static long counterId = 1;
 
-    protected abstract E getInstance();
+    protected abstract E createTool();
 
     private static String asJsonString(final Object obj) {
         try {
@@ -56,8 +56,8 @@ abstract class AbstractRestToolControllerTest<E extends AbstractTool,
     @Test
     @DisplayName("findAll success test")
     void findAllTest() throws Exception {
-        E tool1 = this.getInstance();
-        E tool2 = this.getInstance();
+        E tool1 = this.createTool();
+        E tool2 = this.createTool();
 
         when(service.findAllSortByName()).thenReturn(Arrays.asList(tool1, tool2));
 
@@ -65,10 +65,10 @@ abstract class AbstractRestToolControllerTest<E extends AbstractTool,
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].id").value(1L))
-                .andExpect(jsonPath("$[0].name").value("name1"))
-                .andExpect(jsonPath("$[1].id").value(2L))
-                .andExpect(jsonPath("$[1].name").value("name2"));
+                .andExpect(jsonPath("$[0].id").value(counterId))
+                .andExpect(jsonPath("$[0].name").value("name" + counterId))
+                .andExpect(jsonPath("$[1].id").value(counterId))
+                .andExpect(jsonPath("$[1].name").value("name" + counterId));
         verify(service, times(1)).findAllSortByName();
         verifyNoMoreInteractions(service);
     }
@@ -88,16 +88,16 @@ abstract class AbstractRestToolControllerTest<E extends AbstractTool,
     @Test
     @DisplayName("findById success test")
     void findByIdTest() throws Exception {
-        E tool = this.getInstance();
+        E tool = this.createTool();
 
         when(service.findById(1L)).thenReturn(Optional.of(tool));
 
-        mockMvc.perform(MockMvcRequestBuilders.get(uri + "1")
+        mockMvc.perform(MockMvcRequestBuilders.get(uri + counterId)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("id").value(1))
-                .andExpect(jsonPath("name").value("name1"));
-        verify(service, times(1)).findById(1);
+                .andExpect(jsonPath("id").value(counterId))
+                .andExpect(jsonPath("name").value("name" + counterId));
+        verify(service, times(1)).findById(counterId);
         verifyNoMoreInteractions(service);
     }
 
@@ -106,17 +106,17 @@ abstract class AbstractRestToolControllerTest<E extends AbstractTool,
     void findByIdNotFoundTest() throws Exception {
         when(service.findById(1L)).thenReturn(Optional.empty());
 
-        mockMvc.perform(MockMvcRequestBuilders.get(uri + "1")
+        mockMvc.perform(MockMvcRequestBuilders.get(uri + counterId)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is4xxClientError());
-        verify(service, times(1)).findById(1);
+        verify(service, times(1)).findById(counterId);
         verifyNoMoreInteractions(service);
     }
 
     @Test
     @DisplayName("save success test")
     void save() throws Exception {
-        E tool = this.getInstance();
+        E tool = this.createTool();
 
         when(service.save(tool)).thenReturn(tool);
 
