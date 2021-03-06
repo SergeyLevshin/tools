@@ -14,11 +14,6 @@ public class RestCuttingToolControllerTest
 
     @Override
     protected CuttingTool createTool() {
-        CuttingTool tool = new CuttingTool();
-        tool.setId(counterId);
-        tool.setName("name" + counterId);
-        counterId++;
-        return tool;
+        return new CuttingTool();
     }
-
 }

@@ -13,10 +13,6 @@ public class RestSupportToolControllerTest
 
     @Override
     protected SupportTool createTool() {
-        SupportTool tool = new SupportTool();
-        tool.setId(counterId);
-        tool.setName("name" + counterId);
-        counterId++;
-        return tool;
+        return new SupportTool();
     }
 }

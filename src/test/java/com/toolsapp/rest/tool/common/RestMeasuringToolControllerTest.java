@@ -14,10 +14,6 @@ public class RestMeasuringToolControllerTest
 
     @Override
     protected MeasuringTool createTool() {
-        MeasuringTool tool = new MeasuringTool();
-        tool.setId(counterId);
-        tool.setName("name" + counterId);
-        counterId++;
-        return tool;
+        return new MeasuringTool();
     }
 }
