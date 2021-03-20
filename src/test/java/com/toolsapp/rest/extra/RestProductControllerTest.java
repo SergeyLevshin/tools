@@ -1,6 +1,5 @@
 package com.toolsapp.rest.extra;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toolsapp.domain.extra.Product;
 import com.toolsapp.domain.tools.AbstractTool;
 import com.toolsapp.domain.tools.CuttingTool;
@@ -19,6 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import static com.toolsapp.testutils.TestUtil.asJsonString;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -32,14 +32,6 @@ public class RestProductControllerTest {
 
     @MockBean
     ProductService service;
-
-    private static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Test
     @DisplayName("getAllProducts not empty list  test")

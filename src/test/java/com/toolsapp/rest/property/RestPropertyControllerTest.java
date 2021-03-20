@@ -1,6 +1,5 @@
 package com.toolsapp.rest.property;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toolsapp.domain.property.Producer;
 import com.toolsapp.domain.property.ToolFunction;
 import com.toolsapp.domain.property.ToolProperty;
@@ -18,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.toolsapp.testutils.TestUtil.asJsonString;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -31,14 +31,6 @@ class RestPropertyControllerTest {
 
     @MockBean
     ExtendedPropertyService service;
-
-    private static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Test
     @DisplayName("getAllToolProperties success test")

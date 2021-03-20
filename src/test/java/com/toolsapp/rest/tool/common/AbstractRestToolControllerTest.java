@@ -1,6 +1,5 @@
 package com.toolsapp.rest.tool.common;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toolsapp.domain.tools.AbstractTool;
 import com.toolsapp.service.CommonService;
 import org.junit.jupiter.api.AfterEach;
@@ -16,6 +15,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
 
+import static com.toolsapp.testutils.TestUtil.asJsonString;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -40,7 +40,7 @@ abstract class AbstractRestToolControllerTest<E extends AbstractTool,
 
     protected abstract E createTool();
 
-     E getNewTool() {
+     protected E getNewTool() {
         E tool = createTool();
         tool.setId(counterId);
         tool.setName("name" + counterId);
@@ -51,14 +51,6 @@ abstract class AbstractRestToolControllerTest<E extends AbstractTool,
     @AfterEach
     void resetCounter() {
         counterId = 1;
-    }
-
-    private static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Test
